@@ -57,6 +57,7 @@ Camera Detector
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `detector_type` | [DetectorType](../aind_data_schema_models/devices.md#detectortype) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Data interface  |
 | `cooling` | [Cooling](../aind_data_schema_models/devices.md#cooling) | Cooling  |
 | `frame_rate` | `Optional[decimal.Decimal]` | Frame rate (Hz) (Frame rate being used) |
@@ -84,7 +85,6 @@ Camera Detector
 | `driver_version` | `Optional[str]` | Driver version  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -192,12 +192,12 @@ Data acquisition device containing multiple I/O channels
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Type of connection to PC  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
 | `firmware_version` | `Optional[str]` | Firmware version  |
 | `hardware_version` | `Optional[str]` | Hardware version  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -210,6 +210,7 @@ Description of a generic detector
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `detector_type` | [DetectorType](../aind_data_schema_models/devices.md#detectortype) | Detector Type  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Data interface  |
 | `cooling` | [Cooling](../aind_data_schema_models/devices.md#cooling) | Cooling  |
 | `frame_rate` | `Optional[decimal.Decimal]` | Frame rate (Hz) (Frame rate being used) |
@@ -237,7 +238,6 @@ Description of a generic detector
 | `driver_version` | `Optional[str]` | Driver version  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -417,13 +417,13 @@ Filter used in a light path
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `filter_type` | [FilterType](../aind_data_schema_models/devices.md#filtertype) | Type of filter  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `cut_off_wavelength` | `Optional[int]` | Cut-off wavelength (nm)  |
 | `cut_on_wavelength` | `Optional[int]` | Cut-on wavelength (nm)  |
 | `center_wavelength` | `int or List[int] or NoneType` | Center wavelength (nm) (Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters) |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -435,6 +435,7 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) | Type of Harp device  |
 | `core_version` | `Optional[str]` | Core version  |
 | `tag_version` | `Optional[str]` | Tag version  |
@@ -445,7 +446,6 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 | `hardware_version` | `Optional[str]` | Hardware version  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -476,6 +476,7 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `wavelength` | `int` | Wavelength (nm)  |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
 | `coupling` | Optional[[Coupling](../aind_data_schema_models/devices.md#coupling)] | Coupling  |
@@ -483,7 +484,6 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 | `coupling_efficiency_unit` | `"percent"` | Coupling efficiency unit  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -508,9 +508,9 @@ Lens
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -582,9 +582,9 @@ Manipulator used on a dome module
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -732,6 +732,7 @@ Description of an olfactometer for odor stimuli
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) | Type of Harp device  |
 | `channels` | List[[OlfactometerChannel](#olfactometerchannel)] |   |
 | `core_version` | `Optional[str]` | Core version  |
@@ -742,7 +743,6 @@ Description of an olfactometer for odor stimuli
 | `hardware_version` | `Optional[str]` | Hardware version  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -888,9 +888,9 @@ Description of a speaker for auditory stimuli
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
