@@ -433,6 +433,7 @@ class Manipulator(Device):
 
     manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
 
+
 class FiberPatchCord(Device):
     """Description of a patch cord"""
 
