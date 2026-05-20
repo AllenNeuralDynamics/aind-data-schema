@@ -564,13 +564,13 @@ Description of a Light Emitting Diode (LED) device
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `wavelength` | `int` | Wavelength (nm)  |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
 | `bandwidth` | `Optional[int]` | Bandwidth (FWHM)  |
 | `bandwidth_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] | Bandwidth unit  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
@@ -610,6 +610,7 @@ Description of visual display for visual stimuli
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `refresh_rate` | `int` | Refresh rate (Hz)  |
 | `width` | `int` | Width (pixels)  |
 | `height` | `int` | Height (pixels)  |
@@ -622,7 +623,6 @@ Description of visual display for visual stimuli
 | `brightness_unit` | Optional[[UnitlessUnit](../aind_data_schema_models/units.md#unitlessunit)] | Brightness unit  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
 | `model` | `Optional[str]` | Model  |
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
