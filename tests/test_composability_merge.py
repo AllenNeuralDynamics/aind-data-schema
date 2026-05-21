@@ -252,9 +252,9 @@ class TestComposability(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
-                    process_type=ProcessName.ANALYSIS,
+                    process_type=ProcessName.DENOISING,
                     stage=ProcessStage.PROCESSING,
-                    output_path="/path/to/outputs1",
+                    output_path="path/to/outputs1",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -272,7 +272,7 @@ class TestComposability(unittest.TestCase):
                     experimenters=["Dr. Jane"],
                     process_type=ProcessName.COMPRESSION,
                     stage=ProcessStage.PROCESSING,
-                    output_path="/path/to/outputs2",
+                    output_path="path/to/outputs2",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -289,7 +289,7 @@ class TestComposability(unittest.TestCase):
 
         # Check that the combined object has the correct data_processes and notes
         self.assertEqual(len(combined.data_processes), 2)
-        self.assertEqual(combined.data_processes[0].name, ProcessName.ANALYSIS)
+        self.assertEqual(combined.data_processes[0].name, ProcessName.DENOISING)
         self.assertEqual(combined.data_processes[1].name, ProcessName.COMPRESSION)
         self.assertIn("First processing object", combined.notes)
         self.assertIn("Second processing object", combined.notes)
@@ -313,13 +313,13 @@ class TestComposability(unittest.TestCase):
         with self.assertWarns(Warning) as w:
             combined = p1 + p1
         self.assertIn("Processing objects have repeated processes", str(w.warning))
-        self.assertEqual(combined.data_processes[1].name, "Analysis_1")
+        self.assertEqual(combined.data_processes[1].name, "Denoising_1")
 
         with self.assertWarns(Warning) as w:
             combined = combined + combined
         self.assertIn("Processing objects have repeated processes", str(w.warning))
-        self.assertEqual(combined.data_processes[2].name, "Analysis_2")
-        self.assertEqual(combined.data_processes[3].name, "Analysis_3")
+        self.assertEqual(combined.data_processes[2].name, "Denoising_2")
+        self.assertEqual(combined.data_processes[3].name, "Denoising_3")
 
     def test_merge_dependency_graph(self):
         """Test merging dependency graphs"""
@@ -331,7 +331,7 @@ class TestComposability(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
-                    process_type=ProcessName.ANALYSIS,
+                    process_type=ProcessName.DENOISING,
                     stage=ProcessStage.PROCESSING,
                     start_date_time=t,
                     code=Code(url="https://example.com", version="1.0"),
@@ -357,20 +357,19 @@ class TestComposability(unittest.TestCase):
         self.assertIsNone(combined.dependency_graph)
 
         # Test both set case
-        p3 = Processing(
+        p3 = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
-                    process_type=ProcessName.ANALYSIS,
+                    process_type=ProcessName.DENOISING,
                     stage=ProcessStage.PROCESSING,
                     start_date_time=t,
                     code=Code(url="https://example.com", version="1.0"),
                 )
             ],
-            dependency_graph={"Analysis": []},
         )
 
-        p4 = Processing(
+        p4 = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Jane"],
@@ -380,20 +379,19 @@ class TestComposability(unittest.TestCase):
                     code=Code(url="https://example.com", version="1.0"),
                 )
             ],
-            dependency_graph={"Compression": []},
         )
 
         combined = p3 + p4
         self.assertIsNotNone(combined.dependency_graph)
         self.assertEqual(len(combined.dependency_graph), 2)
-        self.assertIn("Analysis", combined.dependency_graph)
+        self.assertIn("Denoising", combined.dependency_graph)
         self.assertIn("Compression", combined.dependency_graph)
-        self.assertEqual(combined.dependency_graph["Compression"], ["Analysis"])
+        self.assertEqual(combined.dependency_graph["Compression"], ["Denoising"])
 
         # Test self has graph, other doesn't
         combined = p3 + p2
         self.assertIsNotNone(combined.dependency_graph)
-        self.assertIn("Analysis", combined.dependency_graph)
+        self.assertIn("Denoising", combined.dependency_graph)
 
         # Test other has graph, self doesn't
         combined = p2 + p4

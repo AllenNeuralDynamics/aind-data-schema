@@ -42,8 +42,8 @@ class ProcessingTest(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
-                    process_type=ProcessName.ANALYSIS,
-                    stage=ProcessStage.ANALYSIS,
+                    process_type=ProcessName.DENOISING,
+                    stage=ProcessStage.PROCESSING,
                     code=code,
                     output_path="./path/to/outputs",
                     start_date_time=t,
@@ -53,7 +53,7 @@ class ProcessingTest(unittest.TestCase):
         )
 
         self.assertIsNotNone(p)
-        self.assertEqual(p.data_processes[0].name, ProcessName.ANALYSIS)
+        self.assertEqual(p.data_processes[0].name, ProcessName.DENOISING)
 
     def test_resource_usage(self):
         """Test the ResourceUsage class"""
@@ -120,16 +120,16 @@ class ProcessingTest(unittest.TestCase):
                 data_processes=[
                     DataProcess(
                         experimenters=["Dr. Dan"],
-                        process_type=ProcessName.ANALYSIS,
-                        stage=ProcessStage.ANALYSIS,
+                        process_type=ProcessName.DENOISING,
+                        stage=ProcessStage.PROCESSING,
                         start_date_time=t,
                         end_date_time=t,
                         code=code,
                     ),
                     DataProcess(
                         experimenters=["Dr. Dan"],
-                        process_type=ProcessName.ANALYSIS,
-                        stage=ProcessStage.ANALYSIS,
+                        process_type=ProcessName.DENOISING,
+                        stage=ProcessStage.PROCESSING,
                         start_date_time=t,
                         end_date_time=t,
                         code=code,
@@ -146,6 +146,7 @@ class ProcessingTest(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
+                    name="My Analysis",
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="./path/to/outputs",
@@ -164,6 +165,7 @@ class ProcessingTest(unittest.TestCase):
                     [
                         DataProcess(
                             experimenters=["Dr. Dan"],
+                            name="My Analysis",
                             process_type=ProcessName.ANALYSIS,
                             stage=ProcessStage.ANALYSIS,
                             output_path="./path/to/outputs",
@@ -172,8 +174,7 @@ class ProcessingTest(unittest.TestCase):
                             code=code,
                         ),
                     ]
-                ],
-                dependency_graph={ProcessName.ANALYSIS: []},
+                ]
             )
 
     def test_rename_process(self):
