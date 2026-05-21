@@ -10,7 +10,7 @@ from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
-from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.identifiers import Code, DataAsset  # noqa: F401
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_process_graph
 from aind_data_schema.utils.validators import TimeValidation
