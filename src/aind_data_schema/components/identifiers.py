@@ -1,5 +1,6 @@
 """Schema for identifiers"""
 
+import re
 from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -26,7 +27,21 @@ DatabaseIdentifiers = Dict[Database, List[str]]
 class DataAsset(DataModel):
     """Description of a single data asset"""
 
-    url: str = Field(..., title="Asset location", description="URL pointing to the data asset")
+    name: Optional[str] = Field(default=None, title="Asset name", description="Name of the data asset")
+    url: Optional[str] = Field(default=None, title="Asset location", description="URL pointing to the data asset")
+
+    @model_validator(mode="after")
+    def validate_name(self):
+        """Validator to be sure name or url is provided
+        If name isn't provided, attempt to parse name from url. If url is also not provided, raise error.
+        """
+        if not self.name:
+            if not self.url:
+                raise ValueError("Either 'name' or 'url' must be provided for a DataAsset.")
+            match = re.match("^s3://aind-open-data/([^/]+)(/.*)?$", self.url)
+            if match is not None:
+                self.name = match.group(1)
+        return self
 
 
 class CombinedData(DataModel):
