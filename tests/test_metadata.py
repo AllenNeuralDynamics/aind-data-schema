@@ -97,9 +97,10 @@ class TestMetadata(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
+                    name="My Analysis",
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    output_path="/path/to/outputs",
+                    output_path="path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -826,9 +827,10 @@ class TestMetadata(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
+                    name="My Analysis",
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    output_path="/path/to/outputs",
+                    output_path="path/to/outputs",
                     start_date_time=datetime(2023, 4, 3, 20, 0, 0, tzinfo=timezone.utc),  # After acquisition
                     end_date_time=datetime(2023, 4, 3, 21, 0, 0, tzinfo=timezone.utc),
                     code=Code(
@@ -853,9 +855,10 @@ class TestMetadata(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
+                    name="My Analysis",
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    output_path="/path/to/outputs",
+                    output_path="path/to/outputs",
                     start_date_time=datetime(2023, 4, 3, 17, 0, 0, tzinfo=timezone.utc),  # Before acquisition start
                     end_date_time=datetime(2023, 4, 3, 21, 0, 0, tzinfo=timezone.utc),
                     code=Code(
