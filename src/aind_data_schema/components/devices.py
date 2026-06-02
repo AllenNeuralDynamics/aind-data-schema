@@ -144,7 +144,7 @@ class Detector(Device):
     """Description of a generic detector"""
 
     detector_type: DetectorType = Field(..., title="Detector Type")
-    manufacturer: Organization.DETECTOR_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(default=Cooling.NO_COOLING, title="Cooling")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)", description="Frame rate being used")
@@ -206,7 +206,7 @@ class Filter(Device):
 
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
-    manufacturer: Organization.FILTER_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
 
     # optional fields
     cut_off_wavelength: Optional[int] = Field(default=None, title="Cut-off wavelength (nm)")
@@ -239,8 +239,7 @@ class Filter(Device):
 class Lens(Device):
     """Lens"""
 
-    # required fields
-    manufacturer: Organization.LENS_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
 
 
 class MotorizedStage(Device):
@@ -316,7 +315,7 @@ class DAQDevice(Device):
 
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
-    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
 
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
@@ -328,7 +327,7 @@ class HarpDevice(DAQDevice):
     """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
     # required fields
-    manufacturer: Organization.ONE_OF = Field(default=Organization.OEPS)
+    manufacturer: Organization.ONE_OF = Field(default=Organization.OEPS, title="Manufacturer")
     harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
     core_version: Optional[str] = Field(default=None, title="Core version")
     tag_version: Optional[str] = Field(default=None, title="Tag version")
@@ -351,7 +350,7 @@ class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 
     # required fields
-    manufacturer: Organization.LASER_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
 
@@ -369,7 +368,7 @@ class Laser(Device):
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
-    manufacturer: Organization.LED_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     bandwidth: Optional[int] = Field(default=None, title="Bandwidth (FWHM)")
@@ -416,7 +415,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: DataInterface = DataInterface.PXI
-    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Organization.IMEC
+    manufacturer: Organization.ONE_OF = Organization.IMEC
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -427,13 +426,13 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.USB] = DataInterface.USB
-    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.OEPS)
+    manufacturer: Organization.ONE_OF = Field(default=Organization.OEPS)
 
 
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
-    manufacturer: Organization.MANIPULATOR_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
 
 
 class FiberPatchCord(Device):
@@ -600,7 +599,7 @@ class Arena(Device):
 class Monitor(Device, DevicePosition):
     """Description of visual display for visual stimuli"""
 
-    manufacturer: Organization.MONITOR_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", ge=60)
     width: int = Field(..., title="Width (pixels)")
     height: int = Field(..., title="Height (pixels)")
@@ -673,7 +672,7 @@ class AirPuffDevice(Device):
 class Speaker(Device, DevicePosition):
     """Description of a speaker for auditory stimuli"""
 
-    manufacturer: Organization.SPEAKER_MANUFACTURERS
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
 
 
 class OlfactometerChannelType(Enum):
@@ -695,8 +694,7 @@ class OlfactometerChannel(DataModel):
 class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
-    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
-
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
     harp_device_type: HarpDeviceType.ONE_OF = Field(
         HarpDeviceType.OLFACTOMETER, frozen=True, title="Type of Harp device"
     )

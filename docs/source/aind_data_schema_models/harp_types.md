@@ -18,6 +18,7 @@ Harp device types
 | `CURRENTDRIVER` | `CurrentDriver` | `1282` |
 | `CUTTLEFISH` | `cuTTLefish` | `1403` |
 | `CUTTLEFISHFIP` | `cuTTLefishFip` | `1407` |
+| `DELUXDRIVER` | `deLuxDriver` | `1410` |
 | `DRIVER12VOLTS` | `Driver12Volts` | `1072` |
 | `ENVIRONMENTSENSOR` | `EnvironmentSensor` | `1405` |
 | `FLYPAD` | `FlyPad` | `1200` |

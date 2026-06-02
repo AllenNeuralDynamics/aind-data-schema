@@ -22,6 +22,7 @@ Organization
 | `ASUS` | `None` | `ASUS` | `Research Organization Registry (ROR)` | `00bxkz165` |
 | `BASLER` | `None` | `Basler` | `None` | `None` |
 | `BCM` | `BCM` | `Baylor College of Medicine` | `Research Organization Registry (ROR)` | `02pttbw34` |
+| `BROADCOM` | `None` | `Broadcom` | `Research Organization Registry (ROR)` | `035gt5s03` |
 | `BRUKER` | `None` | `Bruker` | `Research Organization Registry (ROR)` | `04r739x86` |
 | `BU` | `BU` | `Boston University` | `Research Organization Registry (ROR)` | `05qwgg493` |
 | `CAJAL` | `Cajal` | `Cajal Neuroscience` | `Research Organization Registry (ROR)` | `05pdc0q70` |
@@ -47,6 +48,7 @@ Organization
 | `EDMUND_OPTICS` | `None` | `Edmund Optics` | `Research Organization Registry (ROR)` | `01j1gwp17` |
 | `EMORY` | `Emory` | `Emory University` | `Research Organization Registry (ROR)` | `03czfpz43` |
 | `EURESYS` | `None` | `Euresys` | `None` | `None` |
+| `EXCELITAS_TECHNOLOGIES` | `None` | `Excelitas Technologies` | `Research Organization Registry (ROR)` | `01tpbbf75` |
 | `FILTER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `FLIR` | `FLIR` | `Teledyne FLIR` | `Research Organization Registry (ROR)` | `01j1gwp17` |
 | `FUJINON` | `None` | `Fujinon` | `None` | `None` |
@@ -66,6 +68,7 @@ Organization
 | `JENOPTIK` | `None` | `Jenoptik` | `Research Organization Registry (ROR)` | `05g7t5c49` |
 | `JHU` | `JHU` | `Johns Hopkins University` | `Research Organization Registry (ROR)` | `00za53h95` |
 | `JULABO` | `None` | `Julabo` | `None` | `None` |
+| `KENT_SCIENTIFIC_CORPORATION` | `None` | `Kent Scientific Corporation` | `Research Organization Registry (ROR)` | `03xkj6a08` |
 | `KOWA` | `None` | `Kowa` | `Research Organization Registry (ROR)` | `03zbwg482` |
 | `LASER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `LASOS` | `LASOS` | `LASOS Lasertechnik` | `None` | `None` |
@@ -104,6 +107,7 @@ Organization
 | `OLYMPUS` | `None` | `Olympus` | `Research Organization Registry (ROR)` | `02vcdte90` |
 | `OPTOTUNE` | `None` | `Optotune` | `None` | `None` |
 | `OTHER` | `None` | `Other` | `None` | `None` |
+| `OXFORD_INSTRUMENTS` | `None` | `Oxford Instruments` | `Research Organization Registry (ROR)` | `01age2z78` |
 | `OXXIUS` | `None` | `Oxxius` | `None` | `None` |
 | `PLACID_INDUSTRIES` | `None` | `Placid Industries` | `None` | `None` |
 | `PRIZMATIX` | `None` | `Prizmatix` | `None` | `None` |
@@ -112,6 +116,7 @@ Organization
 | `RESEARCH_INSTITUTIONS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `SAME_SKY` | `None` | `Same Sky` | `None` | `None` |
 | `SCHNEIDER_KREUZNACH` | `None` | `Schneider-Kreuznach` | `None` | `None` |
+| `SCIENTIFICA` | `None` | `Scientifica` | `Research Organization Registry (ROR)` | `00z72df47` |
 | `SECOND_ORDER_EFFECTS` | `None` | `Second Order Effects` | `None` | `None` |
 | `SEMROCK` | `None` | `Semrock` | `None` | `None` |
 | `SICGEN` | `None` | `SICGEN` | `None` | `None` |
@@ -137,5 +142,6 @@ Organization
 | `UPENN` | `UPENN` | `University of Pennsylvania` | `Research Organization Registry (ROR)` | `00b30xv10` |
 | `VIEWORKS` | `None` | `Vieworks` | `None` | `None` |
 | `VORTRAN` | `None` | `Vortran` | `None` | `None` |
+| `WPI` | `WPI` | `World Precision Intstruments` | `Research Organization Registry (ROR)` | `03st5df34` |
 
 

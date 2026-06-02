@@ -115,3 +115,13 @@ Description of a small molecule probe
 | `mass_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) | Mass unit  |
 
 
+### Solution
+
+Description of a solution made in house. Should match a solution named in protocol.
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `name` | `str` | Name  |
+| `lot_number` | `Optional[str]` | Lot number  |
+
+
