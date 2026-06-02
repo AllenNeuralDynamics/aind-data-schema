@@ -138,6 +138,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Broadcom": "#/$defs/_Broadcom",
                            "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
@@ -159,6 +160,7 @@
                            "Edmund Optics": "#/$defs/_Edmund_Optics",
                            "Emory University": "#/$defs/_Emory_University",
                            "Euresys": "#/$defs/_Euresys",
+                           "Excelitas Technologies": "#/$defs/_Excelitas_Technologies",
                            "Fujinon": "#/$defs/_Fujinon",
                            "Hamamatsu": "#/$defs/_Hamamatsu",
                            "Hamilton": "#/$defs/_Hamilton",
@@ -175,6 +177,7 @@
                            "Jenoptik": "#/$defs/_Jenoptik",
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
+                           "Kent Scientific Corporation": "#/$defs/_Kent_Scientific_Corporation",
                            "Kowa": "#/$defs/_Kowa",
                            "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
@@ -208,6 +211,7 @@
                            "Open Ephys Production Site": "#/$defs/_Open_Ephys_Production_Site",
                            "Optotune": "#/$defs/_Optotune",
                            "Other": "#/$defs/_Other",
+                           "Oxford Instruments": "#/$defs/_Oxford_Instruments",
                            "Oxxius": "#/$defs/_Oxxius",
                            "Placid Industries": "#/$defs/_Placid_Industries",
                            "Prizmatix": "#/$defs/_Prizmatix",
@@ -216,6 +220,7 @@
                            "SICGEN": "#/$defs/_Sicgen",
                            "Same Sky": "#/$defs/_Same_Sky",
                            "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
+                           "Scientifica": "#/$defs/_Scientifica",
                            "Second Order Effects": "#/$defs/_Second_Order_Effects",
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
@@ -239,6 +244,7 @@
                            "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
+                           "World Precision Intstruments": "#/$defs/_World_Precision_Intstruments",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
                         },
                         "propertyName": "name"
@@ -288,6 +294,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Broadcom"
                         },
                         {
                            "$ref": "#/$defs/_Bruker"
@@ -353,6 +362,9 @@
                            "$ref": "#/$defs/_Euresys"
                         },
                         {
+                           "$ref": "#/$defs/_Excelitas_Technologies"
+                        },
+                        {
                            "$ref": "#/$defs/_Fujinon"
                         },
                         {
@@ -399,6 +411,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Julabo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Kent_Scientific_Corporation"
                         },
                         {
                            "$ref": "#/$defs/_Kowa"
@@ -500,6 +515,9 @@
                            "$ref": "#/$defs/_Other"
                         },
                         {
+                           "$ref": "#/$defs/_Oxford_Instruments"
+                        },
+                        {
                            "$ref": "#/$defs/_Oxxius"
                         },
                         {
@@ -522,6 +540,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
+                        },
+                        {
+                           "$ref": "#/$defs/_Scientifica"
                         },
                         {
                            "$ref": "#/$defs/_Second_Order_Effects"
@@ -591,6 +612,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Vortran"
+                        },
+                        {
+                           "$ref": "#/$defs/_World_Precision_Intstruments"
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
@@ -757,49 +781,501 @@
                "description": "Where the subject was acquired from.",
                "discriminator": {
                   "mapping": {
+                     "AA Opto Electronic": "#/$defs/_Aa_Opto_Electronic",
+                     "ASUS": "#/$defs/_Asus",
+                     "Abcam": "#/$defs/_Abcam",
+                     "Addgene": "#/$defs/_Addgene",
+                     "Ailipu Technology Co": "#/$defs/_Ailipu_Technology_Co",
                      "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Allen Institute for Brain Science": "#/$defs/_Allen_Institute_For_Brain_Science",
+                     "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
+                     "Allied": "#/$defs/_Allied",
+                     "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
+                     "Arduino": "#/$defs/_Arduino",
+                     "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
+                     "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Boston University": "#/$defs/_Boston_University",
+                     "Broadcom": "#/$defs/_Broadcom",
+                     "Bruker": "#/$defs/_Bruker",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
+                     "Cambridge Technology": "#/$defs/_Cambridge_Technology",
+                     "Carl Zeiss": "#/$defs/_Carl_Zeiss",
+                     "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
+                     "Chroma": "#/$defs/_Chroma",
+                     "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
+                     "Computar": "#/$defs/_Computar",
+                     "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
+                     "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
+                     "Dodotronic": "#/$defs/_Dodotronic",
+                     "Doric": "#/$defs/_Doric",
+                     "Ealing": "#/$defs/_Ealing",
+                     "Edmund Optics": "#/$defs/_Edmund_Optics",
+                     "Emory University": "#/$defs/_Emory_University",
+                     "Euresys": "#/$defs/_Euresys",
+                     "Excelitas Technologies": "#/$defs/_Excelitas_Technologies",
+                     "Fujinon": "#/$defs/_Fujinon",
+                     "Hamamatsu": "#/$defs/_Hamamatsu",
+                     "Hamilton": "#/$defs/_Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "IR Robot Co": "#/$defs/_Ir_Robot_Co",
+                     "ISL Products International": "#/$defs/_Isl_Products_International",
+                     "Infinity Photo-Optical": "#/$defs/_Infinity_Photo_Optical",
+                     "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
+                     "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
+                     "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Jenoptik": "#/$defs/_Jenoptik",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
+                     "Julabo": "#/$defs/_Julabo",
+                     "Kent Scientific Corporation": "#/$defs/_Kent_Scientific_Corporation",
+                     "Kowa": "#/$defs/_Kowa",
+                     "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
+                     "LG": "#/$defs/_Lg",
+                     "Leica": "#/$defs/_Leica",
+                     "LifeCanvas": "#/$defs/_Lifecanvas",
+                     "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
+                     "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
+                     "MKS Newport": "#/$defs/_Mks_Newport",
+                     "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
+                     "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
+                     "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
+                     "Mitutuyo": "#/$defs/_Mitutuyo",
+                     "Molecular Instruments": "#/$defs/_Molecular_Instruments",
+                     "NResearch Inc": "#/$defs/_Nresearch_Inc",
+                     "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
+                     "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
+                     "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
+                     "National Instruments": "#/$defs/_National_Instruments",
+                     "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
+                     "Neurophotometrics": "#/$defs/_Neurophotometrics",
+                     "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
+                     "Nikon": "#/$defs/_Nikon",
+                     "Olympus": "#/$defs/_Olympus",
+                     "Open Ephys Production Site": "#/$defs/_Open_Ephys_Production_Site",
+                     "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
+                     "Oxford Instruments": "#/$defs/_Oxford_Instruments",
+                     "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
+                     "Prizmatix": "#/$defs/_Prizmatix",
+                     "Quantifi": "#/$defs/_Quantifi",
+                     "Raspberry Pi": "#/$defs/_Raspberry_Pi",
+                     "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
+                     "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
+                     "Scientifica": "#/$defs/_Scientifica",
+                     "Second Order Effects": "#/$defs/_Second_Order_Effects",
+                     "Semrock": "#/$defs/_Semrock",
+                     "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
+                     "Simons Foundation": "#/$defs/_Simons_Foundation",
+                     "Spectra-Physics": "#/$defs/_Spectra_Physics",
+                     "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
+                     "Tamron": "#/$defs/_Tamron",
+                     "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
+                     "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
+                     "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
+                     "The Imaging Source": "#/$defs/_The_Imaging_Source",
+                     "The Lee Company": "#/$defs/_The_Lee_Company",
+                     "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
+                     "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
+                     "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
-                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
+                     "Vieworks": "#/$defs/_Vieworks",
+                     "Vortran": "#/$defs/_Vortran",
+                     "World Precision Intstruments": "#/$defs/_World_Precision_Intstruments",
+                     "ams OSRAM": "#/$defs/_Ams_Osram"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
+                     "$ref": "#/$defs/_Aa_Opto_Electronic"
+                  },
+                  {
+                     "$ref": "#/$defs/_Asus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ailipu_Technology_Co"
+                  },
+                  {
                      "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute_For_Brain_Science"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allied"
+                  },
+                  {
+                     "$ref": "#/$defs/_Applied_Scientific_Instrumentation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Arduino"
+                  },
+                  {
+                     "$ref": "#/$defs/_Arecont_Vision_Costar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Basler"
                   },
                   {
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Broadcom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cambridge_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Carl_Zeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/_Champalimaud_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
+                  },
+                  {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
+                     "$ref": "#/$defs/_Chroma"
+                  },
+                  {
+                     "$ref": "#/$defs/_Coherent_Scientific"
+                  },
+                  {
                      "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Computar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
+                  },
+                  {
+                     "$ref": "#/$defs/_Dodotronic"
+                  },
+                  {
+                     "$ref": "#/$defs/_Doric"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ealing"
+                  },
+                  {
+                     "$ref": "#/$defs/_Edmund_Optics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emory_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Euresys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Excelitas_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_Fujinon"
+                  },
+                  {
+                     "$ref": "#/$defs/_Hamamatsu"
+                  },
+                  {
+                     "$ref": "#/$defs/_Hamilton"
                   },
                   {
                      "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
                   },
                   {
-                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                     "$ref": "#/$defs/_Ir_Robot_Co"
+                  },
+                  {
+                     "$ref": "#/$defs/_Isl_Products_International"
+                  },
+                  {
+                     "$ref": "#/$defs/_Infinity_Photo_Optical"
+                  },
+                  {
+                     "$ref": "#/$defs/_Integrated_Dna_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_Interuniversity_Microelectronics_Center"
+                  },
+                  {
+                     "$ref": "#/$defs/_Invitrogen"
+                  },
+                  {
+                     "$ref": "#/$defs/_Item"
                   },
                   {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jenoptik"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kent_Scientific_Corporation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lasos_Lasertechnik"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lg"
+                  },
+                  {
+                     "$ref": "#/$defs/_Leica"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lifecanvas"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mks_Newport"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Meadowlark_Optics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Midwest_Optical_Systems_Inc_"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mitutuyo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Molecular_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Nresearch_Inc"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Institute_Of_Mental_Health"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neurophotometrics"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_Scale_Technologies"
+                  },
+                  {
                      "$ref": "#/$defs/_New_York_University"
                   },
                   {
-                     "$ref": "#/$defs/_University_Of_Pennsylvania"
+                     "$ref": "#/$defs/_Nikon"
+                  },
+                  {
+                     "$ref": "#/$defs/_Olympus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Open_Ephys_Production_Site"
+                  },
+                  {
+                     "$ref": "#/$defs/_Optotune"
                   },
                   {
                      "$ref": "#/$defs/_Other"
                   },
                   {
+                     "$ref": "#/$defs/_Oxford_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Oxxius"
+                  },
+                  {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
+                     "$ref": "#/$defs/_Prizmatix"
+                  },
+                  {
+                     "$ref": "#/$defs/_Quantifi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sicgen"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
+                  },
+                  {
+                     "$ref": "#/$defs/_Schneider_Kreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scientifica"
+                  },
+                  {
+                     "$ref": "#/$defs/_Second_Order_Effects"
+                  },
+                  {
+                     "$ref": "#/$defs/_Semrock"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sigma_Aldrich"
+                  },
+                  {
+                     "$ref": "#/$defs/_Simons_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spectra_Physics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
+                     "$ref": "#/$defs/_Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/_Technical_Manufacturing_Corporation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
+                  },
+                  {
+                     "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_The_Imaging_Source"
+                  },
+                  {
+                     "$ref": "#/$defs/_The_Lee_Company"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thermo_Fisher_Scientific"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
+                  },
+                  {
+                     "$ref": "#/$defs/_Tymphany"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
                      "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vieworks"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vortran"
+                  },
+                  {
+                     "$ref": "#/$defs/_World_Precision_Intstruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ams_Osram"
                   }
                ],
                "title": "Source"
@@ -1001,49 +1477,501 @@
                "description": "Where the subject was acquired from. If bred in-house, use Allen Institute.",
                "discriminator": {
                   "mapping": {
+                     "AA Opto Electronic": "#/$defs/_Aa_Opto_Electronic",
+                     "ASUS": "#/$defs/_Asus",
+                     "Abcam": "#/$defs/_Abcam",
+                     "Addgene": "#/$defs/_Addgene",
+                     "Ailipu Technology Co": "#/$defs/_Ailipu_Technology_Co",
                      "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Allen Institute for Brain Science": "#/$defs/_Allen_Institute_For_Brain_Science",
+                     "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
+                     "Allied": "#/$defs/_Allied",
+                     "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
+                     "Arduino": "#/$defs/_Arduino",
+                     "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
+                     "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Boston University": "#/$defs/_Boston_University",
+                     "Broadcom": "#/$defs/_Broadcom",
+                     "Bruker": "#/$defs/_Bruker",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
+                     "Cambridge Technology": "#/$defs/_Cambridge_Technology",
+                     "Carl Zeiss": "#/$defs/_Carl_Zeiss",
+                     "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
+                     "Chroma": "#/$defs/_Chroma",
+                     "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
+                     "Computar": "#/$defs/_Computar",
+                     "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
+                     "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
+                     "Dodotronic": "#/$defs/_Dodotronic",
+                     "Doric": "#/$defs/_Doric",
+                     "Ealing": "#/$defs/_Ealing",
+                     "Edmund Optics": "#/$defs/_Edmund_Optics",
+                     "Emory University": "#/$defs/_Emory_University",
+                     "Euresys": "#/$defs/_Euresys",
+                     "Excelitas Technologies": "#/$defs/_Excelitas_Technologies",
+                     "Fujinon": "#/$defs/_Fujinon",
+                     "Hamamatsu": "#/$defs/_Hamamatsu",
+                     "Hamilton": "#/$defs/_Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "IR Robot Co": "#/$defs/_Ir_Robot_Co",
+                     "ISL Products International": "#/$defs/_Isl_Products_International",
+                     "Infinity Photo-Optical": "#/$defs/_Infinity_Photo_Optical",
+                     "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
+                     "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
+                     "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Jenoptik": "#/$defs/_Jenoptik",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
+                     "Julabo": "#/$defs/_Julabo",
+                     "Kent Scientific Corporation": "#/$defs/_Kent_Scientific_Corporation",
+                     "Kowa": "#/$defs/_Kowa",
+                     "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
+                     "LG": "#/$defs/_Lg",
+                     "Leica": "#/$defs/_Leica",
+                     "LifeCanvas": "#/$defs/_Lifecanvas",
+                     "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
+                     "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
+                     "MKS Newport": "#/$defs/_Mks_Newport",
+                     "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
+                     "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
+                     "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
+                     "Mitutuyo": "#/$defs/_Mitutuyo",
+                     "Molecular Instruments": "#/$defs/_Molecular_Instruments",
+                     "NResearch Inc": "#/$defs/_Nresearch_Inc",
+                     "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
+                     "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
+                     "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
+                     "National Instruments": "#/$defs/_National_Instruments",
+                     "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
+                     "Neurophotometrics": "#/$defs/_Neurophotometrics",
+                     "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
+                     "Nikon": "#/$defs/_Nikon",
+                     "Olympus": "#/$defs/_Olympus",
+                     "Open Ephys Production Site": "#/$defs/_Open_Ephys_Production_Site",
+                     "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
+                     "Oxford Instruments": "#/$defs/_Oxford_Instruments",
+                     "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
+                     "Prizmatix": "#/$defs/_Prizmatix",
+                     "Quantifi": "#/$defs/_Quantifi",
+                     "Raspberry Pi": "#/$defs/_Raspberry_Pi",
+                     "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
+                     "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
+                     "Scientifica": "#/$defs/_Scientifica",
+                     "Second Order Effects": "#/$defs/_Second_Order_Effects",
+                     "Semrock": "#/$defs/_Semrock",
+                     "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
+                     "Simons Foundation": "#/$defs/_Simons_Foundation",
+                     "Spectra-Physics": "#/$defs/_Spectra_Physics",
+                     "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
+                     "Tamron": "#/$defs/_Tamron",
+                     "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
+                     "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
+                     "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
+                     "The Imaging Source": "#/$defs/_The_Imaging_Source",
+                     "The Lee Company": "#/$defs/_The_Lee_Company",
+                     "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
+                     "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
+                     "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
-                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
+                     "Vieworks": "#/$defs/_Vieworks",
+                     "Vortran": "#/$defs/_Vortran",
+                     "World Precision Intstruments": "#/$defs/_World_Precision_Intstruments",
+                     "ams OSRAM": "#/$defs/_Ams_Osram"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
+                     "$ref": "#/$defs/_Aa_Opto_Electronic"
+                  },
+                  {
+                     "$ref": "#/$defs/_Asus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ailipu_Technology_Co"
+                  },
+                  {
                      "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute_For_Brain_Science"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allied"
+                  },
+                  {
+                     "$ref": "#/$defs/_Applied_Scientific_Instrumentation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Arduino"
+                  },
+                  {
+                     "$ref": "#/$defs/_Arecont_Vision_Costar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Basler"
                   },
                   {
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Broadcom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cambridge_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Carl_Zeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/_Champalimaud_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
+                  },
+                  {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
+                     "$ref": "#/$defs/_Chroma"
+                  },
+                  {
+                     "$ref": "#/$defs/_Coherent_Scientific"
+                  },
+                  {
                      "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Computar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
+                  },
+                  {
+                     "$ref": "#/$defs/_Dodotronic"
+                  },
+                  {
+                     "$ref": "#/$defs/_Doric"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ealing"
+                  },
+                  {
+                     "$ref": "#/$defs/_Edmund_Optics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emory_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Euresys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Excelitas_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_Fujinon"
+                  },
+                  {
+                     "$ref": "#/$defs/_Hamamatsu"
+                  },
+                  {
+                     "$ref": "#/$defs/_Hamilton"
                   },
                   {
                      "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
                   },
                   {
-                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                     "$ref": "#/$defs/_Ir_Robot_Co"
+                  },
+                  {
+                     "$ref": "#/$defs/_Isl_Products_International"
+                  },
+                  {
+                     "$ref": "#/$defs/_Infinity_Photo_Optical"
+                  },
+                  {
+                     "$ref": "#/$defs/_Integrated_Dna_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_Interuniversity_Microelectronics_Center"
+                  },
+                  {
+                     "$ref": "#/$defs/_Invitrogen"
+                  },
+                  {
+                     "$ref": "#/$defs/_Item"
                   },
                   {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jenoptik"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kent_Scientific_Corporation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lasos_Lasertechnik"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lg"
+                  },
+                  {
+                     "$ref": "#/$defs/_Leica"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lifecanvas"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mks_Newport"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Meadowlark_Optics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Midwest_Optical_Systems_Inc_"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mitutuyo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Molecular_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Nresearch_Inc"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Institute_Of_Mental_Health"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neurophotometrics"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_Scale_Technologies"
+                  },
+                  {
                      "$ref": "#/$defs/_New_York_University"
                   },
                   {
-                     "$ref": "#/$defs/_University_Of_Pennsylvania"
+                     "$ref": "#/$defs/_Nikon"
+                  },
+                  {
+                     "$ref": "#/$defs/_Olympus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Open_Ephys_Production_Site"
+                  },
+                  {
+                     "$ref": "#/$defs/_Optotune"
                   },
                   {
                      "$ref": "#/$defs/_Other"
                   },
                   {
+                     "$ref": "#/$defs/_Oxford_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Oxxius"
+                  },
+                  {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
+                     "$ref": "#/$defs/_Prizmatix"
+                  },
+                  {
+                     "$ref": "#/$defs/_Quantifi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sicgen"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
+                  },
+                  {
+                     "$ref": "#/$defs/_Schneider_Kreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scientifica"
+                  },
+                  {
+                     "$ref": "#/$defs/_Second_Order_Effects"
+                  },
+                  {
+                     "$ref": "#/$defs/_Semrock"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sigma_Aldrich"
+                  },
+                  {
+                     "$ref": "#/$defs/_Simons_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spectra_Physics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
+                     "$ref": "#/$defs/_Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/_Technical_Manufacturing_Corporation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
+                  },
+                  {
+                     "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_The_Imaging_Source"
+                  },
+                  {
+                     "$ref": "#/$defs/_The_Lee_Company"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thermo_Fisher_Scientific"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
+                  },
+                  {
+                     "$ref": "#/$defs/_Tymphany"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
                      "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vieworks"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vortran"
+                  },
+                  {
+                     "$ref": "#/$defs/_World_Precision_Intstruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ams_Osram"
                   }
                ],
                "title": "Source"
@@ -1182,49 +2110,501 @@
                "description": "Where the subject was acquired from.",
                "discriminator": {
                   "mapping": {
+                     "AA Opto Electronic": "#/$defs/_Aa_Opto_Electronic",
+                     "ASUS": "#/$defs/_Asus",
+                     "Abcam": "#/$defs/_Abcam",
+                     "Addgene": "#/$defs/_Addgene",
+                     "Ailipu Technology Co": "#/$defs/_Ailipu_Technology_Co",
                      "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Allen Institute for Brain Science": "#/$defs/_Allen_Institute_For_Brain_Science",
+                     "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
+                     "Allied": "#/$defs/_Allied",
+                     "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
+                     "Arduino": "#/$defs/_Arduino",
+                     "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
+                     "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Boston University": "#/$defs/_Boston_University",
+                     "Broadcom": "#/$defs/_Broadcom",
+                     "Bruker": "#/$defs/_Bruker",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
+                     "Cambridge Technology": "#/$defs/_Cambridge_Technology",
+                     "Carl Zeiss": "#/$defs/_Carl_Zeiss",
+                     "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
+                     "Chroma": "#/$defs/_Chroma",
+                     "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Columbia University": "#/$defs/_Columbia_University",
+                     "Computar": "#/$defs/_Computar",
+                     "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
+                     "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
+                     "Dodotronic": "#/$defs/_Dodotronic",
+                     "Doric": "#/$defs/_Doric",
+                     "Ealing": "#/$defs/_Ealing",
+                     "Edmund Optics": "#/$defs/_Edmund_Optics",
+                     "Emory University": "#/$defs/_Emory_University",
+                     "Euresys": "#/$defs/_Euresys",
+                     "Excelitas Technologies": "#/$defs/_Excelitas_Technologies",
+                     "Fujinon": "#/$defs/_Fujinon",
+                     "Hamamatsu": "#/$defs/_Hamamatsu",
+                     "Hamilton": "#/$defs/_Hamilton",
                      "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "IR Robot Co": "#/$defs/_Ir_Robot_Co",
+                     "ISL Products International": "#/$defs/_Isl_Products_International",
+                     "Infinity Photo-Optical": "#/$defs/_Infinity_Photo_Optical",
+                     "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
+                     "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
+                     "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Jenoptik": "#/$defs/_Jenoptik",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
+                     "Julabo": "#/$defs/_Julabo",
+                     "Kent Scientific Corporation": "#/$defs/_Kent_Scientific_Corporation",
+                     "Kowa": "#/$defs/_Kowa",
+                     "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
+                     "LG": "#/$defs/_Lg",
+                     "Leica": "#/$defs/_Leica",
+                     "LifeCanvas": "#/$defs/_Lifecanvas",
+                     "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
+                     "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
+                     "MKS Newport": "#/$defs/_Mks_Newport",
+                     "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
+                     "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
+                     "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
+                     "Mitutuyo": "#/$defs/_Mitutuyo",
+                     "Molecular Instruments": "#/$defs/_Molecular_Instruments",
+                     "NResearch Inc": "#/$defs/_Nresearch_Inc",
+                     "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
+                     "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
+                     "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
+                     "National Instruments": "#/$defs/_National_Instruments",
+                     "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
+                     "Neurophotometrics": "#/$defs/_Neurophotometrics",
+                     "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
+                     "Nikon": "#/$defs/_Nikon",
+                     "Olympus": "#/$defs/_Olympus",
+                     "Open Ephys Production Site": "#/$defs/_Open_Ephys_Production_Site",
+                     "Optotune": "#/$defs/_Optotune",
                      "Other": "#/$defs/_Other",
+                     "Oxford Instruments": "#/$defs/_Oxford_Instruments",
+                     "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
+                     "Prizmatix": "#/$defs/_Prizmatix",
+                     "Quantifi": "#/$defs/_Quantifi",
+                     "Raspberry Pi": "#/$defs/_Raspberry_Pi",
+                     "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
+                     "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
+                     "Scientifica": "#/$defs/_Scientifica",
+                     "Second Order Effects": "#/$defs/_Second_Order_Effects",
+                     "Semrock": "#/$defs/_Semrock",
+                     "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
+                     "Simons Foundation": "#/$defs/_Simons_Foundation",
+                     "Spectra-Physics": "#/$defs/_Spectra_Physics",
+                     "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
+                     "Tamron": "#/$defs/_Tamron",
+                     "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
+                     "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
+                     "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
+                     "The Imaging Source": "#/$defs/_The_Imaging_Source",
+                     "The Lee Company": "#/$defs/_The_Lee_Company",
+                     "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
+                     "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
+                     "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
-                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
+                     "Vieworks": "#/$defs/_Vieworks",
+                     "Vortran": "#/$defs/_Vortran",
+                     "World Precision Intstruments": "#/$defs/_World_Precision_Intstruments",
+                     "ams OSRAM": "#/$defs/_Ams_Osram"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
+                     "$ref": "#/$defs/_Aa_Opto_Electronic"
+                  },
+                  {
+                     "$ref": "#/$defs/_Asus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ailipu_Technology_Co"
+                  },
+                  {
                      "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute_For_Brain_Science"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allied"
+                  },
+                  {
+                     "$ref": "#/$defs/_Applied_Scientific_Instrumentation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Arduino"
+                  },
+                  {
+                     "$ref": "#/$defs/_Arecont_Vision_Costar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Basler"
                   },
                   {
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Broadcom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cambridge_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Carl_Zeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/_Champalimaud_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
+                  },
+                  {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
+                     "$ref": "#/$defs/_Chroma"
+                  },
+                  {
+                     "$ref": "#/$defs/_Coherent_Scientific"
+                  },
+                  {
                      "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Computar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
+                  },
+                  {
+                     "$ref": "#/$defs/_Dodotronic"
+                  },
+                  {
+                     "$ref": "#/$defs/_Doric"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ealing"
+                  },
+                  {
+                     "$ref": "#/$defs/_Edmund_Optics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emory_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Euresys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Excelitas_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_Fujinon"
+                  },
+                  {
+                     "$ref": "#/$defs/_Hamamatsu"
+                  },
+                  {
+                     "$ref": "#/$defs/_Hamilton"
                   },
                   {
                      "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
                   },
                   {
-                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                     "$ref": "#/$defs/_Ir_Robot_Co"
+                  },
+                  {
+                     "$ref": "#/$defs/_Isl_Products_International"
+                  },
+                  {
+                     "$ref": "#/$defs/_Infinity_Photo_Optical"
+                  },
+                  {
+                     "$ref": "#/$defs/_Integrated_Dna_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_Interuniversity_Microelectronics_Center"
+                  },
+                  {
+                     "$ref": "#/$defs/_Invitrogen"
+                  },
+                  {
+                     "$ref": "#/$defs/_Item"
                   },
                   {
                      "$ref": "#/$defs/_Jackson_Laboratory"
                   },
                   {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jenoptik"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kent_Scientific_Corporation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lasos_Lasertechnik"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lg"
+                  },
+                  {
+                     "$ref": "#/$defs/_Leica"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lifecanvas"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mks_Newport"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Meadowlark_Optics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Midwest_Optical_Systems_Inc_"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mitutuyo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Molecular_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Nresearch_Inc"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Institute_Of_Mental_Health"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neurophotometrics"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_Scale_Technologies"
+                  },
+                  {
                      "$ref": "#/$defs/_New_York_University"
                   },
                   {
-                     "$ref": "#/$defs/_University_Of_Pennsylvania"
+                     "$ref": "#/$defs/_Nikon"
+                  },
+                  {
+                     "$ref": "#/$defs/_Olympus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Open_Ephys_Production_Site"
+                  },
+                  {
+                     "$ref": "#/$defs/_Optotune"
                   },
                   {
                      "$ref": "#/$defs/_Other"
                   },
                   {
+                     "$ref": "#/$defs/_Oxford_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Oxxius"
+                  },
+                  {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
+                     "$ref": "#/$defs/_Prizmatix"
+                  },
+                  {
+                     "$ref": "#/$defs/_Quantifi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sicgen"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
+                  },
+                  {
+                     "$ref": "#/$defs/_Schneider_Kreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scientifica"
+                  },
+                  {
+                     "$ref": "#/$defs/_Second_Order_Effects"
+                  },
+                  {
+                     "$ref": "#/$defs/_Semrock"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sigma_Aldrich"
+                  },
+                  {
+                     "$ref": "#/$defs/_Simons_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spectra_Physics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
+                     "$ref": "#/$defs/_Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/_Technical_Manufacturing_Corporation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
+                  },
+                  {
+                     "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_The_Imaging_Source"
+                  },
+                  {
+                     "$ref": "#/$defs/_The_Lee_Company"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thermo_Fisher_Scientific"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
+                  },
+                  {
+                     "$ref": "#/$defs/_Tymphany"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
                      "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vieworks"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vortran"
+                  },
+                  {
+                     "$ref": "#/$defs/_World_Precision_Intstruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ams_Osram"
                   }
                ],
                "title": "Source"
@@ -2087,6 +3467,48 @@
             }
          },
          "title": "_Boston_University",
+         "type": "object"
+      },
+      "_Broadcom": {
+         "description": "Model Broadcom",
+         "properties": {
+            "name": {
+               "const": "Broadcom",
+               "default": "Broadcom",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "035gt5s03",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Broadcom",
          "type": "object"
       },
       "_Bruker": {
@@ -3129,6 +4551,48 @@
          "title": "_Euresys",
          "type": "object"
       },
+      "_Excelitas_Technologies": {
+         "description": "Model Excelitas Technologies",
+         "properties": {
+            "name": {
+               "const": "Excelitas Technologies",
+               "default": "Excelitas Technologies",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "01tpbbf75",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Excelitas_Technologies",
+         "type": "object"
+      },
       "_Fujinon": {
          "description": "Model Fujinon",
          "properties": {
@@ -3864,6 +5328,48 @@
             }
          },
          "title": "_Julabo",
+         "type": "object"
+      },
+      "_Kent_Scientific_Corporation": {
+         "description": "Model Kent Scientific Corporation",
+         "properties": {
+            "name": {
+               "const": "Kent Scientific Corporation",
+               "default": "Kent Scientific Corporation",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "03xkj6a08",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Kent_Scientific_Corporation",
          "type": "object"
       },
       "_Kowa": {
@@ -5368,6 +6874,48 @@
          "title": "_Other",
          "type": "object"
       },
+      "_Oxford_Instruments": {
+         "description": "Model Oxford Instruments",
+         "properties": {
+            "name": {
+               "const": "Oxford Instruments",
+               "default": "Oxford Instruments",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "01age2z78",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Oxford_Instruments",
+         "type": "object"
+      },
       "_Oxxius": {
          "description": "Model Oxxius",
          "properties": {
@@ -5689,6 +7237,48 @@
             }
          },
          "title": "_Schneider_Kreuznach",
+         "type": "object"
+      },
+      "_Scientifica": {
+         "description": "Model Scientifica",
+         "properties": {
+            "name": {
+               "const": "Scientifica",
+               "default": "Scientifica",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "00z72df47",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Scientifica",
          "type": "object"
       },
       "_Second_Order_Effects": {
@@ -6686,6 +8276,48 @@
          "title": "_Vortran",
          "type": "object"
       },
+      "_World_Precision_Intstruments": {
+         "description": "Model World Precision Intstruments",
+         "properties": {
+            "name": {
+               "const": "World Precision Intstruments",
+               "default": "World Precision Intstruments",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "WPI",
+               "default": "WPI",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "03st5df34",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_World_Precision_Intstruments",
+         "type": "object"
+      },
       "aind_data_schema_models__organizations___Unknown": {
          "description": "Model Unknown",
          "properties": {
@@ -6787,8 +8419,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.3.0",
-         "default": "2.3.0",
+         "const": "2.3.1",
+         "default": "2.3.1",
          "title": "Schema Version",
          "type": "string"
       },
