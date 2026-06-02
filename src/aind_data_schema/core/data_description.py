@@ -155,13 +155,13 @@ class DataDescription(DataCoreModel):
 
     @model_validator(mode="after")
     def build_name(self):
-        """sets the name of the file"""
+        """Set the name of data_description when data_level is RAW and the name is empty"""
         if self.name is None and self.data_level == DataLevel.RAW:
             self.name = build_data_name(self.subject_id, creation_datetime=self.creation_time)
 
-        # check that the name matches the name regex
-        if not re.match(DataRegex.DATA.value, self.name):
-            raise ValueError(f"Name({self.name}) does not match allowed Regex pattern")
+            # check that the name matches the name regex
+            if not re.match(DataRegex.DATA.value, self.name):
+                raise ValueError(f"Name({self.name}) does not match allowed Regex pattern")
 
         return self
 
