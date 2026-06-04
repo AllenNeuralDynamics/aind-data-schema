@@ -4,7 +4,7 @@ import inspect
 import json
 import logging
 import warnings
-from typing import Dict, Literal, Optional, get_args
+from typing import Dict, List, Literal, Optional, Union, get_args
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import (
@@ -398,6 +398,97 @@ class Metadata(DataCoreModel):
                         )
 
         return self
+
+    @classmethod
+    def from_metadata(
+        cls,
+        metadata: "Union[Metadata, List[Metadata]]",
+        process_name: str,
+        location: str,
+        new_processing: Optional[Processing] = None,
+        new_quality_control: Optional[QualityControl] = None,
+        **data_description_kwargs,
+    ) -> "Metadata":
+        """Create a derived Metadata object from one or more source Metadata objects.
+
+        Applies four inheritance rules:
+        1. All derived assets get an updated DataDescription (DERIVED level).
+        2. If all sources share a single subject, inherit Subject and Procedures.
+           Otherwise, drop them.
+        3. If all sources share a single acquisition, inherit Instrument and Acquisition.
+           Otherwise, drop them.
+        4. If all sources share a single acquisition, accumulate Processing and
+           QualityControl from the sources with the new ones. Otherwise, only use the
+           new Processing/QualityControl.
+
+        Parameters
+        ----------
+        metadata : Metadata or List[Metadata]
+            Source metadata object(s) to derive from.
+        process_name : str
+            Name of the process that created this derived asset.
+        location : str
+            Location of the new derived data asset.
+        new_processing : Optional[Processing]
+            New processing performed to create this derived asset.
+        new_quality_control : Optional[QualityControl]
+            New quality control performed on this derived asset.
+        **data_description_kwargs
+            Additional keyword arguments passed to DataDescription.from_data_description.
+
+        Returns
+        -------
+        Metadata
+            A new Metadata object for the derived asset.
+        """
+        from aind_data_schema.utils.inheritance import (
+            _accumulate_processing,
+            _accumulate_quality_control,
+            _inherit_instrument_and_acquisition,
+            _inherit_subject_and_procedures,
+        )
+
+        if isinstance(metadata, Metadata):
+            metadata_list = [metadata]
+        else:
+            metadata_list = list(metadata)
+
+        if not metadata_list:
+            raise ValueError("At least one source Metadata object is required.")
+
+        first_dd = None
+        for m in metadata_list:
+            if m.data_description:
+                first_dd = m.data_description
+                break
+        if first_dd is None:
+            raise ValueError("At least one source Metadata must have a data_description.")
+
+        source_names = [m.data_description.name for m in metadata_list if m.data_description and m.data_description.name]
+
+        derived_dd = DataDescription.from_data_description(
+            first_dd,
+            process_name=process_name,
+            source_data=source_names if len(source_names) > 1 else None,
+            **data_description_kwargs,
+        )
+
+        subject, procedures = _inherit_subject_and_procedures(metadata_list)
+        instrument, acquisition = _inherit_instrument_and_acquisition(metadata_list)
+        processing = _accumulate_processing(metadata_list, new_processing)
+        quality_control = _accumulate_quality_control(metadata_list, new_quality_control)
+
+        return cls(
+            name=derived_dd.name,
+            location=location,
+            data_description=derived_dd,
+            subject=subject,
+            procedures=procedures,
+            instrument=instrument,
+            acquisition=acquisition,
+            processing=processing,
+            quality_control=quality_control,
+        )
 
 
 def create_metadata_json(
