@@ -154,6 +154,7 @@ class Rotation(DataModel):
     @field_validator("axis_order")
     @classmethod
     def validate_axis_order(cls, v: str) -> str:
+        """Validate that axis_order only contains valid axis characters and is lowercase"""
         valid_chars = set("xyzXYZ")
         if not v or not all(c in valid_chars for c in v):
             raise ValueError(f"axis_order must only contain axis characters (x, y, z), got '{v}'")
@@ -311,6 +312,7 @@ class CoordinateSystem(DataModel):
 
     @model_validator(mode="after")
     def warn_depth_axis(self) -> "CoordinateSystem":
+        """Warn if using a DEPTH axis, which is deprecated in favor of standard 3-axis coordinate systems with a Z axis for depth"""
         if any(axis.name == AxisName.DEPTH for axis in self.axes):
             warnings.warn(
                 f"CoordinateSystem '{self.name}' uses a DEPTH axis, which is deprecated. "
