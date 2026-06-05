@@ -3,11 +3,12 @@
 import math
 from enum import Enum
 from typing import List, Optional, Union
+import warnings
 
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 
 from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.wrappers import AssetPath
@@ -25,13 +26,6 @@ class RotationDirection(str, Enum):
 
     RIGHT_HAND = "right_hand"
     LEFT_HAND = "left_hand"
-
-
-class RotationPivot(str, Enum):
-    """Rotation pivot point"""
-
-    GLOBAL_ORIGIN = "global_origin"
-    LOCAL_ORIGIN = "local_origin"
 
 
 class Handedness(str, Enum):
@@ -56,6 +50,11 @@ class Scale(DataModel):
     """Scale"""
 
     scale: List[float] = Field(..., title="Scale parameters")
+    pivot: TransformFrame = Field(
+        default=TransformFrame.GLOBAL,
+        title="Scale pivot",
+        description="Whether to scale around the global origin or the local origin of the device",
+    )
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine scale matrix for arbitrary sized lists
@@ -65,6 +64,12 @@ class Scale(DataModel):
         List[List[float]]
             Affine scale matrix
         """
+        warnings.warn(
+            "to_matrix() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
         size = len(self.scale)
         scale_matrix = [[1.0 if i == j else 0.0 for j in range(size + 1)] for i in range(size + 1)]
@@ -92,6 +97,12 @@ class Translation(DataModel):
         List[List[float]]
             Affine transform matrix.
         """
+        warnings.warn(
+            "to_matrix() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
         size = len(self.translation)
 
@@ -111,7 +122,7 @@ class Rotation(DataModel):
     Rotations are applied as Euler angles in the specified axis order.
 
     The default convention is fixed global axes, right-hand rule (positive angles rotate
-    counter-clockwise when looking along the positive axis), xyz axis order, pivoting around the global origin.
+    counter-clockwise when looking toward the origin from the positive axis), xyz axis order, pivoting around the global origin.
     """
 
     angles: List[float] = Field(
@@ -126,14 +137,15 @@ class Rotation(DataModel):
     frame: TransformFrame = Field(
         default=TransformFrame.GLOBAL,
         title="Reference frame",
+        description="Whether to rotate around global axes or local axes (which rotate with the device)",
     )
     rotation_direction: RotationDirection = Field(
         default=RotationDirection.RIGHT_HAND,
         title="Rotation direction",
-        description="Right-hand rule: positive angles rotate CCW when looking along the positive axis",
+        description="Right-hand rule: positive angles rotate CCW when looking toward the origin from the positive axis",
     )
-    pivot: RotationPivot = Field(
-        default=RotationPivot.GLOBAL_ORIGIN,
+    pivot: TransformFrame = Field(
+        default=TransformFrame.GLOBAL,
         title="Rotation pivot",
         description="Whether to rotate around the global origin or the local origin of the device",
     )
@@ -154,6 +166,12 @@ class Rotation(DataModel):
         List[List[float]]
             Affine rotation matrix.
         """
+        warnings.warn(
+            "to_matrix() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         try:
             from scipy.spatial.transform import Rotation as R
         except ImportError:  # pragma: no cover
@@ -202,6 +220,12 @@ class Affine(DataModel):
         List[List[float]]
             Affine transform matrix
         """
+        warnings.warn(
+            "to_matrix() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return self.affine_transform
 
     @classmethod
@@ -218,6 +242,12 @@ class Affine(DataModel):
         Affine
             Composed transform
         """
+        warnings.warn(
+            "compose() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         try:
             import numpy as np
         except ImportError:  # pragma: no cover
@@ -277,6 +307,17 @@ class CoordinateSystem(DataModel):
         title="Handedness",
         description="Whether the coordinate system is right-handed or left-handed",
     )
+
+    @model_validator(mode="after")
+    def warn_depth_axis(self) -> "CoordinateSystem":
+        if any(axis.name == AxisName.DEPTH for axis in self.axes):
+            warnings.warn(
+                f"CoordinateSystem '{self.name}' uses a DEPTH axis, which is deprecated. "
+                "Use a standard 3-axis coordinate system instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        return self
 
 
 class Atlas(CoordinateSystem):
