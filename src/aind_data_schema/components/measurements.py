@@ -8,6 +8,7 @@ from pydantic import model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, Discriminated, Field, GenericModel
 from aind_data_schema.components.configs import DeviceConfig
+from aind_data_schema.components.identifiers import ProtocolMixin
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.validators import TimeValidation
 
@@ -48,14 +49,13 @@ class CalibrationFit(DataModel):
         return values
 
 
-class Calibration(DeviceConfig):
+class Calibration(ProtocolMixin, DeviceConfig):
     """Generic calibration class"""
 
     calibration_date: Annotated[AwareDatetimeWithDefault, TimeValidation.BEFORE] = Field(
         ..., title="Date and time of calibration"
     )
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     measured_at: Optional[str] = Field(default=None, title="Measurement location")
     input: List[float | str] = Field(..., description="Calibration input", title="Inputs")
     input_unit: UNITS = Field(..., title="Input unit")
@@ -113,14 +113,13 @@ class PowerCalibration(Calibration):
 CALIBRATIONS = Discriminated[Calibration | VolumeCalibration | PowerCalibration]
 
 
-class Maintenance(DeviceConfig):
+class Maintenance(ProtocolMixin, DeviceConfig):
     """Generic maintenance class"""
 
     maintenance_date: Annotated[AwareDatetimeWithDefault, TimeValidation.BEFORE] = Field(
         ..., title="Date and time of maintenance"
     )
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID")
 
     reagents: Optional[List[Reagent]] = Field(default=None, title="Reagents")
     notes: Optional[str] = Field(default=None, title="Notes")

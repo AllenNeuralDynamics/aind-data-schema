@@ -31,6 +31,13 @@ class Reagent(DataModel):
     expiration_date: Optional[date] = Field(default=None, title="Lot expiration date")
 
 
+class Solution(DataModel):
+    """Description of a solution made in house. Should match a solution named in protocol."""
+
+    name: str = Field(..., title="Name")
+    lot_number: Optional[str] = Field(default=None, title="Lot number")
+
+
 class OligoProbe(DataModel):
     """Description of an oligonucleotide probe"""
 

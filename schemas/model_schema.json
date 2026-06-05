@@ -283,15 +283,33 @@
                "title": "Object Type",
                "type": "string"
             },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Name of the data asset",
+               "title": "Asset name"
+            },
             "url": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "URL pointing to the data asset",
-               "title": "Asset location",
-               "type": "string"
+               "title": "Asset location"
             }
          },
-         "required": [
-            "url"
-         ],
          "title": "DataAsset",
          "type": "object"
       },
@@ -702,6 +720,7 @@
             "Ephys visualization",
             "Fiducial segmentation",
             "File format conversion",
+            "Fix color range",
             "Fluorescence event detection",
             "Image atlas alignment",
             "Image background subtraction",
@@ -713,6 +732,7 @@
             "Image flat-field correction",
             "Image importing",
             "Image mip visualization",
+            "Image multiscaling",
             "Image radial correction",
             "Image spot detection",
             "Image spot spectral unmixing",
@@ -720,6 +740,7 @@
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
+            "Manual curation",
             "Model evaluation",
             "Model training",
             "Neuron skeleton processing",

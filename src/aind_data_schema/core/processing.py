@@ -7,10 +7,10 @@ from typing import Annotated, Dict, List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
-from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
-from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.identifiers import Code, DataAsset  # noqa: F401
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_process_graph
 from aind_data_schema.utils.validators import TimeValidation
@@ -75,15 +75,15 @@ class DataProcess(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
-        """Validator for other/notes"""
+    @model_validator(mode="after")
+    def validate_generic_processtype(self) -> "DataProcess":
+        """Validate to be sure OTHER types are pinned down in name or notes"""
 
-        if info.data.get("process_type") == ProcessName.OTHER and not value:
+        if self.process_type in [ProcessName.OTHER, ProcessName.ANALYSIS] and not (self.notes or self.name):
             raise ValueError(
-                "Notes cannot be empty if 'process_type' is Other. Describe the type of processing in the notes field."
+                "If 'process_type' is Other or Analysis, either 'name' or 'notes' must specify process details."
             )
-        return value
+        return self
 
     @model_validator(mode="after")
     def fill_default_name(self) -> "DataProcess":
@@ -99,7 +99,7 @@ class Processing(DataCoreModel):
 
     _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.7"]] = Field(default="2.2.7")
+    schema_version: SkipValidation[Literal["2.3.0"]] = Field(default="2.3.0")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     pipelines: Optional[List[Code]] = Field(

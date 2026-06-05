@@ -37,6 +37,7 @@ Process names
 | `IMAGE_TILE_ALIGNMENT` | `Image tile alignment` |
 | `IMAGE_TILE_FUSING` | `Image tile fusing` |
 | `IMAGE_TILE_PROJECTION` | `Image tile projection` |
+| `MANUAL_CURATION` | `Manual curation` |
 | `MODEL_EVALUATION` | `Model evaluation` |
 | `MODEL_TRAINING` | `Model training` |
 | `NEURON_SKELETON_PROCESSING` | `Neuron skeleton processing` |
