@@ -1,6 +1,5 @@
 """Classes to define geometry"""
 
-
 from aind_data_schema_models.units import SizeUnit
 from pydantic import Field
 
