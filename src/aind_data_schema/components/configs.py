@@ -23,7 +23,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList, GenericModel
+from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, Discriminated, DiscriminatedList, GenericModel
 from aind_data_schema.components.coordinates import (
     TRANSFORM_TYPES,
     AtlasCoordinate,
@@ -32,6 +32,7 @@ from aind_data_schema.components.coordinates import (
     Translation,
 )
 from aind_data_schema.components.devices import DevicePosition
+from aind_data_schema.components.geometry import Rectangle
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
 
@@ -265,7 +266,7 @@ class Image(DataModel):
         description="Position, rotation, and scale of the image. Note that depth should be in the planes.",
     )
 
-    dimensions: Optional[Scale] = Field(default=None, title="Dimensions")
+    dimensions: Optional[Discriminated[Scale | Rectangle]] = Field(default=None, title="Dimensions")
 
 
 class ImageSPIM(Image):
