@@ -280,8 +280,8 @@
           <div class="field-row">
             <span class="field-label">Frame</span>
             <select id="xf-t-frame">
-              <option value="extrinsic">Extrinsic (global)</option>
-              <option value="intrinsic">Intrinsic (local)</option>
+              <option value="global">Global (extrinsic)</option>
+              <option value="local">Local (intrinsic)</option>
             </select>
           </div>
         </div>
@@ -302,8 +302,8 @@
           <div class="field-row">
             <span class="field-label">Pivot</span>
             <select id="xf-pivot">
-              <option value="global_origin">Global origin</option>
-              <option value="local_origin">Local origin</option>
+              <option value="global">Global origin</option>
+              <option value="local">Local origin</option>
             </select>
           </div>
         </div>
@@ -501,7 +501,7 @@ function updateTranslationLabel() {
   if (!tLabel) return;
   const editPos = editIdx !== null ? editIdx : state.transforms.length;
   const hasPriorRotation = state.transforms.slice(0, editPos).some(xf => xf.type === 'R');
-  if (frame === 'intrinsic' && hasPriorRotation) {
+  if (frame === 'local' && hasPriorRotation) {
     tLabel.textContent = 'X / Y / Z';
   } else {
     tLabel.textContent = axNames.length >= 3
@@ -661,7 +661,7 @@ function applyBasisTranslation(pos, translation, basisColumns) {
 function applyTransformToState(pos, dir, wid, xf, basis) {
   if (xf.type === 'T') {
     const t = xf.translation;
-    if (xf.frame === 'intrinsic') {
+    if (xf.frame === 'local') {
       const localUp = [
         wid[1]*dir[2] - wid[2]*dir[1],
         wid[2]*dir[0] - wid[0]*dir[2],
@@ -674,7 +674,7 @@ function applyTransformToState(pos, dir, wid, xf, basis) {
   } else if (xf.type === 'R') {
     dir = applyExtrinsicRotation(dir, xf.angles, basis, xf.direction);
     wid = applyExtrinsicRotation(wid, xf.angles, basis, xf.direction);
-    if (xf.pivot !== 'local_origin') {
+    if (xf.pivot !== 'local') {
       pos = applyExtrinsicRotation(pos, xf.angles, basis, xf.direction);
     }
   }
@@ -847,13 +847,13 @@ function buildExport() {
   const xfLines = state.transforms.map(xf => {
     if (xf.type === 'T') {
       const vals = xf.translation.map(v => v.toFixed(4)).join(', ');
-      const frame = xf.frame !== 'extrinsic' ? `\n        frame=TransformFrame.INTRINSIC,` : '';
+      const frame = xf.frame !== 'global' ? `\n        frame=TransformFrame.LOCAL,` : '';
       return `    Translation(\n        translation=[${vals}],${frame}\n    ),`;
     } else {
       const vals = xf.angles.map(v => v.toFixed(4)).join(', ');
       const extras = [];
       if (xf.direction && xf.direction !== 'right_hand') extras.push(`        rotation_direction=RotationDirection.LEFT_HAND,`);
-      if (xf.pivot && xf.pivot !== 'global_origin') extras.push(`        pivot=RotationPivot.LOCAL_ORIGIN,`);
+      if (xf.pivot && xf.pivot !== 'global') extras.push(`        pivot=TransformFrame.LOCAL,`);
       const ex = extras.length ? '\n' + extras.join('\n') : '';
       return `    Rotation(\n        angles=[${vals}],\n        angles_unit=AngleUnit.DEG,${ex}\n    ),`;
     }
@@ -862,7 +862,7 @@ function buildExport() {
   const code = `from aind_data_schema.components.coordinates import (
     Axis, AxisName, CoordinateSystem, Direction,
     Handedness, Origin, Rotation, RotationDirection,
-    RotationPivot, Scale, SizeUnit, Translation, TransformFrame,
+    Scale, SizeUnit, Translation, TransformFrame,
 )
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 
@@ -975,7 +975,7 @@ function openEditPanel(xf) {
     document.getElementById('xf-ry').value = xf.angles[1] ?? 0;
     document.getElementById('xf-rz').value = xf.angles[2] ?? 0;
     document.getElementById('xf-r-dir').value = xf.direction || 'right_hand';
-    document.getElementById('xf-pivot').value = xf.pivot || 'global_origin';
+    document.getElementById('xf-pivot').value = xf.pivot || 'global';
   }
   updateTranslationLabel();
 }
@@ -989,7 +989,7 @@ document.getElementById('add-translation-btn').addEventListener('click', () => {
   document.getElementById('xf-tx').value = 0;
   document.getElementById('xf-ty').value = 0;
   document.getElementById('xf-tz').value = 0;
-  document.getElementById('xf-t-frame').value = 'extrinsic';
+  document.getElementById('xf-t-frame').value = 'global';
   document.getElementById('xform-edit').classList.remove('hidden');
   updateTranslationLabel();
   clearSelection();
@@ -1003,7 +1003,7 @@ document.getElementById('add-rotation-btn').addEventListener('click', () => {
   document.getElementById('xf-ry').value = 0;
   document.getElementById('xf-rz').value = 0;
   document.getElementById('xf-r-dir').value = 'right_hand';
-  document.getElementById('xf-pivot').value = 'global_origin';
+  document.getElementById('xf-pivot').value = 'global';
   document.getElementById('xform-edit').classList.remove('hidden');
   clearSelection();
 });
