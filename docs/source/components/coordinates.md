@@ -119,7 +119,7 @@ Scale
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `scale` | `List[float]` | Scale parameters  |
-| `pivot` | [TransformFrame](#transformframe) | Scale pivot (Whether to scale around the global origin or the local origin of the device) |
+| `pivot` | Optional[[TransformFrame](#transformframe)] | Scale pivot (Whether to scale around the global origin or the local origin of the device) |
 
 
 ### TransformFrame
