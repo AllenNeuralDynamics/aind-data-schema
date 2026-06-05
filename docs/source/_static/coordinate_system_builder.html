@@ -345,7 +345,7 @@ function createOrbitControls(camera, target, initCamUp, domEl, options = {}) {
   const ROTATE_SPEED = options.rotateSpeed ?? 0.007;
   const ZOOM_SPEED   = options.zoomSpeed   ?? 0.03;
   const MIN_RADIUS   = options.minRadius   ?? 3;
-  const MAX_RADIUS   = options.maxRadius   ?? 80;
+  const MAX_RADIUS   = options.maxRadius   ?? 500;
 
   const axisX = new THREE.Vector3(1, 0, 0);
   const axisZ = new THREE.Vector3(0, 0, 1);
@@ -523,7 +523,7 @@ const legendEl = document.getElementById('legend');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
 
-const camera = new THREE.PerspectiveCamera(38, wrap.clientWidth / wrap.clientHeight, 0.1, 300);
+const camera = new THREE.PerspectiveCamera(38, wrap.clientWidth / wrap.clientHeight, 0.1, 2000);
 camera.position.set(0, 18, -10);
 camera.up.set(0, 1, 0); // +Y = superior = up
 const TARGET = new THREE.Vector3(0, -3.668, -1.2); // roughly brain center
@@ -554,8 +554,16 @@ scene.add(axisArrowGroup);
 
 function mkArrow(dir3, color, label, group) {
   const normDir = new THREE.Vector3(...dir3).normalize();
-  const arr = new THREE.ArrowHelper(normDir, new THREE.Vector3(0,0,0), 6, color, 0.8, 0.4);
-  group.add(arr);
+  const SHAFT_L = 5.2, SHAFT_R = 0.09, HEAD_L = 0.8, HEAD_R = 0.28;
+  const mat = new THREE.MeshBasicMaterial({ color });
+  const shaft = new THREE.Mesh(new THREE.CylinderGeometry(SHAFT_R, SHAFT_R, SHAFT_L, 8), mat);
+  shaft.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), normDir);
+  shaft.position.copy(normDir.clone().multiplyScalar(SHAFT_L / 2));
+  group.add(shaft);
+  const head = new THREE.Mesh(new THREE.ConeGeometry(HEAD_R, HEAD_L, 8), mat);
+  head.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), normDir);
+  head.position.copy(normDir.clone().multiplyScalar(SHAFT_L + HEAD_L / 2));
+  group.add(head);
   const c = document.createElement('canvas');
   c.width = 64; c.height = 32;
   const ctx = c.getContext('2d');
@@ -762,7 +770,7 @@ function rebuildScene() {
     mkArrowAt(tipPos, [probeDir.x, probeDir.y, probeDir.z],   0x000000, '+Y', 2.5, devGroup);
     mkArrowAt(tipPos, [probeUp.x,  probeUp.y,  probeUp.z],    0x000000, '+Z', 2.5, devGroup);
   } else {
-    const W = 8, H = 6, T = 0.15;
+    const W = 200, H = 113, T = 2;
     const box = new THREE.Mesh(new THREE.BoxGeometry(W, H, T), mat);
     box.matrixAutoUpdate = false;
     box.matrix.makeBasis(probeWid, probeUp, probeDir);
