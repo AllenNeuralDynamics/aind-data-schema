@@ -122,7 +122,7 @@ Description of an N-D image
 | `channel_name` | `str` | Channel name  |
 | `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dimensions unit  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Image to acquisition transform (Position, rotation, and scale of the image. Note that depth should be in the planes.) |
-| `dimensions` | Optional[[Scale](coordinates.md#scale)] | Dimensions  |
+| `dimensions` | Optional[[Scale](coordinates.md#scale) or [Rectangle](geometry.md#rectangle)] | Dimensions  |
 
 
 ### ImageSPIM
@@ -139,7 +139,7 @@ Description of an N-D image acquired with SPIM
 | `channel_name` | `str` | Channel name  |
 | `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dimensions unit  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Image to acquisition transform (Position, rotation, and scale of the image. Note that depth should be in the planes.) |
-| `dimensions` | Optional[[Scale](coordinates.md#scale)] | Dimensions  |
+| `dimensions` | Optional[[Scale](coordinates.md#scale) or [Rectangle](geometry.md#rectangle)] | Dimensions  |
 
 
 ### ImagingConfig
@@ -371,7 +371,7 @@ Description of an N-D image acquired in a specific imaging plane
 | `channel_name` | `str` | Channel name  |
 | `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dimensions unit  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Image to acquisition transform (Position, rotation, and scale of the image. Note that depth should be in the planes.) |
-| `dimensions` | Optional[[Scale](coordinates.md#scale)] | Dimensions  |
+| `dimensions` | Optional[[Scale](coordinates.md#scale) or [Rectangle](geometry.md#rectangle)] | Dimensions  |
 
 
 ### PlanarImageStack
@@ -389,7 +389,7 @@ Description of a stack of images acquired in a specific imaging plane
 | `channel_name` | `str` | Channel name  |
 | `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dimensions unit  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Image to acquisition transform (Position, rotation, and scale of the image. Note that depth should be in the planes.) |
-| `dimensions` | Optional[[Scale](coordinates.md#scale)] | Dimensions  |
+| `dimensions` | Optional[[Scale](coordinates.md#scale) or [Rectangle](geometry.md#rectangle)] | Dimensions  |
 
 
 ### Plane

@@ -37,7 +37,7 @@ A point in an Atlas
 |-------|------|-------------|
 | `coordinate_system` | [Atlas](#atlas) | Atlas  |
 | `translation` | `List[float]` | Translation parameters  |
-| `frame` | [TransformFrame](#transformframe) | Reference frame (Extrinsic applies in the global frame; intrinsic applies in the local device frame) |
+| `frame` | [TransformFrame](#transformframe) | Reference frame  |
 
 
 ### Axis
@@ -88,17 +88,17 @@ Rotation
 
 Rotations are applied as Euler angles in the specified axis order.
 
-The default convention is extrinsic (fixed global axes), right-hand rule (positive angles rotate
-counter-clockwise when looking along the positive axis), xyz axis order, pivoting around the global origin.
+The default convention is fixed global axes, right-hand rule (positive angles rotate
+counter-clockwise when looking toward the origin from the positive axis), xyz axis order, pivoting around the global origin.
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `angles` | `List[float]` | Angles and axes in 3D space (Right-hand rule, positive angles rotate CCW) |
 | `angles_unit` | [AngleUnit](../aind_data_schema_models/units.md#angleunit) | Angle unit  |
 | `axis_order` | `str` | Axis order (Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.) |
-| `frame` | [TransformFrame](#transformframe) | Reference frame (Extrinsic applies around fixed global axes; intrinsic applies around the rotating local axes) |
-| `rotation_direction` | [RotationDirection](#rotationdirection) | Rotation direction (Right-hand rule: positive angles rotate CCW when looking along the positive axis) |
-| `pivot` | [RotationPivot](#rotationpivot) | Rotation pivot (Whether to rotate around the global origin or the local origin of the device) |
+| `frame` | [TransformFrame](#transformframe) | Reference frame (Whether to rotate around global axes or local axes (which rotate with the device)) |
+| `rotation_direction` | [RotationDirection](#rotationdirection) | Rotation direction (Right-hand rule: positive angles rotate CCW when looking toward the origin from the positive axis) |
+| `pivot` | [TransformFrame](#transformframe) | Rotation pivot (Whether to rotate around the global origin or the local origin of the device) |
 
 
 ### RotationDirection
@@ -111,16 +111,6 @@ Rotation direction convention
 | `LEFT_HAND` | `left_hand` |
 
 
-### RotationPivot
-
-Rotation pivot point
-
-| Name | Value |
-|------|-------|
-| `GLOBAL_ORIGIN` | `global_origin` |
-| `LOCAL_ORIGIN` | `local_origin` |
-
-
 ### Scale
 
 Scale
@@ -128,6 +118,7 @@ Scale
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `scale` | `List[float]` | Scale parameters  |
+| `pivot` | [TransformFrame](#transformframe) | Scale pivot (Whether to scale around the global origin or the local origin of the device) |
 
 
 ### TransformFrame
@@ -136,8 +127,8 @@ Reference frame for applying transforms
 
 | Name | Value |
 |------|-------|
-| `EXTRINSIC` | `extrinsic` |
-| `INTRINSIC` | `intrinsic` |
+| `GLOBAL` | `global` |
+| `LOCAL` | `local` |
 
 
 ### Translation
@@ -147,6 +138,6 @@ Translation
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `translation` | `List[float]` | Translation parameters  |
-| `frame` | [TransformFrame](#transformframe) | Reference frame (Extrinsic applies in the global frame; intrinsic applies in the local device frame) |
+| `frame` | [TransformFrame](#transformframe) | Reference frame  |
 
 

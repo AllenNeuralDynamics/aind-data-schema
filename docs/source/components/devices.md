@@ -35,12 +35,13 @@ Description of an air puff device
 
 ### Arena
 
-Description of a rectangular arena
+Description of an arena
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `size` | [Scale](coordinates.md#scale) | 3D Size  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| <del>`size`</del> | [Scale](coordinates.md#scale) | **[DEPRECATED]** Use shape. 3D Size  |
+| <del>`size_unit`</del> | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | **[DEPRECATED]** Use shape. Size unit  |
+| `shape` | Optional[[Rectangle](geometry.md#rectangle) or [Circle](geometry.md#circle)] | Shape of the arena  |
 | `objects_in_arena` | List[[Device](#device)] | Objects in arena  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
@@ -319,8 +320,9 @@ Description of an enclosure
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `size` | [Scale](coordinates.md#scale) | Size  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| <del>`size`</del> | [Scale](coordinates.md#scale) | **[DEPRECATED]** Use shape. Size  |
+| <del>`size_unit`</del> | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | **[DEPRECATED]** Use shape. Size unit  |
+| `shape` | Optional[[Rectangle](geometry.md#rectangle) or [Circle](geometry.md#circle)] | Shape of the enclosure  |
 | `internal_material` | `Optional[str]` | Internal material  |
 | `external_material` | `str` | External material  |
 | `grounded` | `bool` | Grounded  |
