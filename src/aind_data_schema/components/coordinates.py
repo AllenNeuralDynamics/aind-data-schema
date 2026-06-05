@@ -16,8 +16,8 @@ from aind_data_schema.components.wrappers import AssetPath
 class TransformFrame(str, Enum):
     """Reference frame for applying transforms"""
 
-    EXTRINSIC = "extrinsic"
-    INTRINSIC = "intrinsic"
+    GLOBAL = "global"
+    LOCAL = "local"
 
 
 class RotationDirection(str, Enum):
@@ -80,9 +80,8 @@ class Translation(DataModel):
 
     translation: List[float] = Field(..., title="Translation parameters")
     frame: TransformFrame = Field(
-        default=TransformFrame.EXTRINSIC,
+        default=TransformFrame.GLOBAL,
         title="Reference frame",
-        description="Extrinsic applies in the global frame; intrinsic applies in the local device frame",
     )
 
     def to_matrix(self) -> List[List[float]]:
@@ -111,7 +110,7 @@ class Rotation(DataModel):
 
     Rotations are applied as Euler angles in the specified axis order.
 
-    The default convention is extrinsic (fixed global axes), right-hand rule (positive angles rotate
+    The default convention is fixed global axes, right-hand rule (positive angles rotate
     counter-clockwise when looking along the positive axis), xyz axis order, pivoting around the global origin.
     """
 
@@ -125,9 +124,8 @@ class Rotation(DataModel):
         description="Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.",
     )
     frame: TransformFrame = Field(
-        default=TransformFrame.EXTRINSIC,
+        default=TransformFrame.GLOBAL,
         title="Reference frame",
-        description="Extrinsic applies around fixed global axes; intrinsic applies around the rotating local axes",
     )
     rotation_direction: RotationDirection = Field(
         default=RotationDirection.RIGHT_HAND,
