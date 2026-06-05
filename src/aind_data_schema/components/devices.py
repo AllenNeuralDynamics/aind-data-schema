@@ -44,7 +44,7 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import DataModel, Discriminated, GenericModel
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, AxisName, CoordinateSystem, Scale
-from aind_data_schema.components.geometry import Circle, Square
+from aind_data_schema.components.geometry import Circle, Rectangle
 from aind_data_schema.components.identifiers import Software
 
 logger = logging.getLogger(__name__)
@@ -538,7 +538,7 @@ class Enclosure(Device):
 
     size: Scale = Field(..., title="Size", deprecated="Use shape")
     size_unit: SizeUnit = Field(..., title="Size unit", deprecated="Use shape")
-    shape: Optional[Discriminated[Square | Circle]] = Field(default=None, title="Shape of the enclosure")
+    shape: Optional[Discriminated[Rectangle | Circle]] = Field(default=None, title="Shape of the enclosure")
     internal_material: Optional[str] = Field(default=None, title="Internal material")
     external_material: str = Field(..., title="External material")
     grounded: bool = Field(..., title="Grounded")
@@ -595,7 +595,7 @@ class Arena(Device):
 
     size: Scale = Field(..., title="3D Size", deprecated="Use shape")
     size_unit: SizeUnit = Field(..., title="Size unit", deprecated="Use shape")
-    shape: Optional[Discriminated[Circle | Square]] = Field(default=None, title="Shape of the arena")
+    shape: Optional[Discriminated[Circle | Rectangle]] = Field(default=None, title="Shape of the arena")
     objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 

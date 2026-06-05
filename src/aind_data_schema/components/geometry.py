@@ -8,7 +8,7 @@ from aind_data_schema.base import DataModel
 
 
 class Rectangle(DataModel):
-    """Rectangular geometry"""
+    """Rectangle geometry"""
 
     width: float = Field(..., title="Width")
     height: float = Field(..., title="Height")

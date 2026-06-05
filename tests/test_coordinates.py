@@ -1,6 +1,7 @@
 """Tests for the coordinates module"""
 
 import unittest
+import warnings
 
 import numpy as np
 from aind_data_schema_models.atlas import AtlasName
@@ -18,7 +19,6 @@ from aind_data_schema.components.coordinates import (
     Origin,
     Rotation,
     RotationDirection,
-    RotationPivot,
     Scale,
     TransformFrame,
     Translation,
@@ -27,6 +27,12 @@ from aind_data_schema.components.coordinates import (
 
 class TestScale(unittest.TestCase):
     """Tests for the Scale class"""
+
+    def setUp(self):
+        warnings.simplefilter("ignore", DeprecationWarning)
+
+    def tearDown(self):
+        warnings.resetwarnings()
 
     def test_to_matrix_default_order(self):
         """Test to_matrix method with default axis order"""
@@ -48,6 +54,12 @@ class TestScale(unittest.TestCase):
 class TestTranslation(unittest.TestCase):
     """Tests for the Translation class"""
 
+    def setUp(self):
+        warnings.simplefilter("ignore", DeprecationWarning)
+
+    def tearDown(self):
+        warnings.resetwarnings()
+
     def test_to_matrix_default_order(self):
         """Test to_matrix method with default axis order"""
         translation = Translation(translation=[2, 3, 4])
@@ -63,6 +75,12 @@ class TestTranslation(unittest.TestCase):
 
 class TestRotation(unittest.TestCase):
     """Tests for the Rotation class"""
+
+    def setUp(self):
+        warnings.simplefilter("ignore", DeprecationWarning)
+
+    def tearDown(self):
+        warnings.resetwarnings()
 
     def test_to_matrix_default_order(self):
         """Test to_matrix method with default axis order"""
@@ -111,6 +129,12 @@ class TestRotation(unittest.TestCase):
 
 class TestAffineWithAffineTransforms(unittest.TestCase):
     """Additional tests for the Affine class with Affine transforms"""
+
+    def setUp(self):
+        warnings.simplefilter("ignore", DeprecationWarning)
+
+    def tearDown(self):
+        warnings.resetwarnings()
 
     def test_compose_with_single_affine(self):
         """Test compose method with a single Affine transform"""
@@ -187,28 +211,40 @@ class TestAffineWithAffineTransforms(unittest.TestCase):
 class TestTranslationFrame(unittest.TestCase):
     """Tests for Translation frame field"""
 
-    def test_default_frame_is_extrinsic(self):
-        t = Translation(translation=[1, 2, 3])
-        self.assertEqual(t.frame, TransformFrame.EXTRINSIC)
+    def setUp(self):
+        warnings.simplefilter("ignore", DeprecationWarning)
 
-    def test_intrinsic_frame(self):
-        t = Translation(translation=[1, 2, 3], frame=TransformFrame.INTRINSIC)
-        self.assertEqual(t.frame, TransformFrame.INTRINSIC)
+    def tearDown(self):
+        warnings.resetwarnings()
+
+    def test_default_frame_is_global(self):
+        t = Translation(translation=[1, 2, 3])
+        self.assertEqual(t.frame, TransformFrame.GLOBAL)
+
+    def test_local_frame(self):
+        t = Translation(translation=[1, 2, 3], frame=TransformFrame.LOCAL)
+        self.assertEqual(t.frame, TransformFrame.LOCAL)
 
     def test_matrix_unaffected_by_frame(self):
-        t_ext = Translation(translation=[1, 2, 3], frame=TransformFrame.EXTRINSIC)
-        t_int = Translation(translation=[1, 2, 3], frame=TransformFrame.INTRINSIC)
-        self.assertEqual(t_ext.to_matrix(), t_int.to_matrix())
+        t_global = Translation(translation=[1, 2, 3], frame=TransformFrame.GLOBAL)
+        t_local = Translation(translation=[1, 2, 3], frame=TransformFrame.LOCAL)
+        self.assertEqual(t_global.to_matrix(), t_local.to_matrix())
 
 
 class TestRotationNewFields(unittest.TestCase):
     """Tests for new Rotation fields"""
 
+    def setUp(self):
+        warnings.simplefilter("ignore", DeprecationWarning)
+
+    def tearDown(self):
+        warnings.resetwarnings()
+
     def test_default_fields(self):
         r = Rotation(angles=[45, 0, 0])
-        self.assertEqual(r.frame, TransformFrame.EXTRINSIC)
+        self.assertEqual(r.frame, TransformFrame.GLOBAL)
         self.assertEqual(r.rotation_direction, RotationDirection.RIGHT_HAND)
-        self.assertEqual(r.pivot, RotationPivot.GLOBAL_ORIGIN)
+        self.assertEqual(r.pivot, TransformFrame.GLOBAL)
         self.assertEqual(r.axis_order, "xyz")
 
     def test_custom_axis_order(self):
@@ -237,25 +273,32 @@ class TestRotationNewFields(unittest.TestCase):
         self.assertNotEqual(r_right.to_matrix(), r_left.to_matrix())
         self.assertEqual(r_left.to_matrix(), expected_left)
 
-    def test_intrinsic_frame(self):
+    def test_local_frame_differs_from_global(self):
         angles = [30, 45, 60]
-        r_ext = Rotation(angles=angles, frame=TransformFrame.EXTRINSIC)
-        r_int = Rotation(angles=angles, frame=TransformFrame.INTRINSIC)
-        expected_ext = R.from_euler("xyz", angles, degrees=True).as_matrix().tolist()
-        expected_int = R.from_euler("XYZ", angles, degrees=True).as_matrix().tolist()
-        expected_ext = [row + [0.0] for row in expected_ext] + [[0.0, 0.0, 0.0, 1.0]]
-        expected_int = [row + [0.0] for row in expected_int] + [[0.0, 0.0, 0.0, 1.0]]
+        r_global = Rotation(angles=angles, frame=TransformFrame.GLOBAL)
+        r_local = Rotation(angles=angles, frame=TransformFrame.LOCAL)
+        expected_global = R.from_euler("xyz", angles, degrees=True).as_matrix().tolist()
+        expected_local = R.from_euler("XYZ", angles, degrees=True).as_matrix().tolist()
+        expected_global = [row + [0.0] for row in expected_global] + [[0.0, 0.0, 0.0, 1.0]]
+        expected_local = [row + [0.0] for row in expected_local] + [[0.0, 0.0, 0.0, 1.0]]
         self.maxDiff = None
-        self.assertEqual(r_ext.to_matrix(), expected_ext)
-        self.assertEqual(r_int.to_matrix(), expected_int)
+        self.assertEqual(r_global.to_matrix(), expected_global)
+        self.assertEqual(r_local.to_matrix(), expected_local)
+        self.assertNotEqual(r_global.to_matrix(), r_local.to_matrix())
 
     def test_pivot_field_stored(self):
-        r = Rotation(angles=[0, 0, 90], pivot=RotationPivot.LOCAL_ORIGIN)
-        self.assertEqual(r.pivot, RotationPivot.LOCAL_ORIGIN)
+        r = Rotation(angles=[0, 0, 90], pivot=TransformFrame.LOCAL)
+        self.assertEqual(r.pivot, TransformFrame.LOCAL)
 
 
 class TestCoordinateSystemHandedness(unittest.TestCase):
     """Tests for CoordinateSystem handedness field"""
+
+    def setUp(self):
+        warnings.simplefilter("ignore", DeprecationWarning)
+
+    def tearDown(self):
+        warnings.resetwarnings()
 
     def test_default_handedness_is_none(self):
         cs = CoordinateSystem(
@@ -390,6 +433,67 @@ class TestAtlas(unittest.TestCase):
             origin=Origin.BREGMA,
         )
         self.assertIsNotNone(atlas)
+
+
+class TestDeprecationWarnings(unittest.TestCase):
+    """Tests that deprecation warnings are raised"""
+
+    def test_scale_to_matrix_warns(self):
+        scale = Scale(scale=[2, 3, 4])
+        with self.assertWarns(DeprecationWarning):
+            scale.to_matrix()
+
+    def test_translation_to_matrix_warns(self):
+        translation = Translation(translation=[1, 2, 3])
+        with self.assertWarns(DeprecationWarning):
+            translation.to_matrix()
+
+    def test_rotation_to_matrix_warns(self):
+        rotation = Rotation(angles=[90, 0, 0])
+        with self.assertWarns(DeprecationWarning):
+            rotation.to_matrix()
+
+    def test_affine_to_matrix_warns(self):
+        affine = Affine(
+            affine_transform=[[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
+        )
+        with self.assertWarns(DeprecationWarning):
+            affine.to_matrix()
+
+    def test_affine_compose_warns(self):
+        translation = Translation(translation=[1, 2, 3])
+        with self.assertWarns(DeprecationWarning):
+            Affine.compose([translation])
+
+    def test_depth_axis_warns(self):
+        with self.assertWarns(DeprecationWarning):
+            CoordinateSystem(
+                name="TEST_DEPTH",
+                origin=Origin.BREGMA,
+                axis_unit=SizeUnit.MM,
+                axes=[
+                    Axis(name=AxisName.AP, direction=Direction.PA),
+                    Axis(name=AxisName.ML, direction=Direction.LR),
+                    Axis(name=AxisName.SI, direction=Direction.SI),
+                    Axis(name=AxisName.DEPTH, direction=Direction.UD),
+                ],
+            )
+
+    def test_no_warning_without_depth_axis(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always", DeprecationWarning)
+            CoordinateSystem(
+                name="TEST_NO_DEPTH",
+                origin=Origin.BREGMA,
+                axis_unit=SizeUnit.MM,
+                axes=[
+                    Axis(name=AxisName.AP, direction=Direction.PA),
+                    Axis(name=AxisName.ML, direction=Direction.LR),
+                    Axis(name=AxisName.SI, direction=Direction.SI),
+                ],
+            )
+        depth_warnings = [x for x in w if "DEPTH" in str(x.message)]
+        self.assertEqual(len(depth_warnings), 0)
 
 
 if __name__ == "__main__":
