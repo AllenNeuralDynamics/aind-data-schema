@@ -89,7 +89,8 @@ Rotation
 Rotations are applied as Euler angles in the specified axis order.
 
 The default convention is fixed global axes, right-hand rule (positive angles rotate
-counter-clockwise when looking toward the origin from the positive axis), xyz axis order, pivoting around the global origin.
+counter-clockwise when looking toward the origin from the positive axis),
+xyz axis order, pivoting around the global origin.
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
