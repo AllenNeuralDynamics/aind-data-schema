@@ -50,7 +50,7 @@ class Scale(DataModel):
     """Scale"""
 
     scale: List[float] = Field(..., title="Scale parameters")
-    pivot: TransformFrame = Field(
+    pivot: Optional[TransformFrame] = Field(
         default=TransformFrame.GLOBAL,
         title="Scale pivot",
         description="Whether to scale around the global origin or the local origin of the device",
