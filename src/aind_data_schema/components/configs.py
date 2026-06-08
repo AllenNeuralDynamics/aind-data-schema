@@ -7,7 +7,7 @@ from typing import List, Optional
 from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import ImmersionMedium
-from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel, MouseAnatomy
 from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from aind_data_schema_models.units import (
     AngleUnit,
@@ -608,4 +608,14 @@ class CatheterConfig(DeviceConfig):
 
     targeted_structure: MouseAnatomyModel = Field(
         ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
+    )
+
+
+class ThermistorConfig(DeviceConfig, DevicePosition):
+    """Configuration of a thermistor for temperature measurement in a surgery"""
+
+    origin: MouseAnatomyModel = Field(
+        default=MouseAnatomy.FRONTONASAL_SUTURE,
+        title="Targeted structure",
+        description="Use options from MouseAnatomyModel, e.g. BrainSurface or BodySurface",
     )

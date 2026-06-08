@@ -13,7 +13,7 @@ from pydantic import Field, field_validator, model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.configs import CatheterConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, Translation
-from aind_data_schema.components.devices import Catheter, EphysProbe, FiberProbe, MyomatrixArray
+from aind_data_schema.components.devices import Catheter, EphysProbe, FiberProbe, MyomatrixArray, ThermistorAssembly
 from aind_data_schema.components.identifiers import ProtocolMixin
 from aind_data_schema.components.injection_procedures import Injection
 
@@ -144,6 +144,15 @@ class ProbeImplant(ProtocolMixin, DataModel):
     device_config: ProbeConfig = Field(
         ...,
         title="Device configuration",
+    )  # note: exact field name is used by a validator
+
+
+class ThermistorImplant(ProtocolMixin, DataModel):
+    """Description of a thermistor implant procedure"""
+
+    implanted_device: ThermistorAssembly = Field(
+        ...,
+        title="Implanted device",
     )  # note: exact field name is used by a validator
 
 
