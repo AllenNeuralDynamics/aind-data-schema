@@ -530,5 +530,28 @@ class TestDeprecationWarnings(unittest.TestCase):
         self.assertEqual(len(depth_warnings), 0)
 
 
+class TestCoordinateSystemMouseAnatomyOrigin(unittest.TestCase):
+    """Tests for CoordinateSystem with MouseAnatomyModel as origin"""
+
+    def test_mouse_anatomy_origin(self):
+        """Test that CoordinateSystem accepts a MouseAnatomyModel as origin"""
+        from aind_data_schema_models.mouse_anatomy import MouseAnatomy
+
+        cs = CoordinateSystem(
+            name="TEST_MOUSE_ANATOMY",
+            origin=MouseAnatomy.FRONTONASAL_SUTURE,
+            axis_unit=SizeUnit.MM,
+            axes=[
+                Axis(name=AxisName.AP, direction=Direction.PA),
+                Axis(name=AxisName.ML, direction=Direction.LR),
+                Axis(name=AxisName.SI, direction=Direction.SI),
+            ],
+        )
+        self.assertEqual(cs.origin, MouseAnatomy.FRONTONASAL_SUTURE)
+
+        cs_roundtrip = CoordinateSystem.model_validate(cs.model_dump())
+        self.assertEqual(cs_roundtrip.origin, MouseAnatomy.FRONTONASAL_SUTURE)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -8,6 +8,7 @@ import warnings
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, field_validator, model_validator
 
 from aind_data_schema.base import DataModel, DiscriminatedList
@@ -301,7 +302,7 @@ class CoordinateSystem(DataModel):
 
     name: str = Field(..., title="Name")
 
-    origin: Origin = Field(..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system")
+    origin: Origin | MouseAnatomyModel = Field(..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system")
     axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
     axis_unit: SizeUnit = Field(..., title="Size unit")
     handedness: Optional[Handedness] = Field(
