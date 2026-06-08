@@ -302,7 +302,9 @@ class CoordinateSystem(DataModel):
 
     name: str = Field(..., title="Name")
 
-    origin: Origin | MouseAnatomyModel = Field(..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system")
+    origin: Origin | MouseAnatomyModel = Field(
+        ..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system"
+    )
     axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
     axis_unit: SizeUnit = Field(..., title="Size unit")
     handedness: Optional[Handedness] = Field(
