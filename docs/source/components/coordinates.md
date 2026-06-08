@@ -23,7 +23,7 @@ Definition an atlas
 | `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
 | `resolution` | `List[float]` | Resolution  |
 | `resolution_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Resolution unit  |
-| `origin` | [Origin](../aind_data_schema_models/coordinates.md#origin) | Origin (Defines the position of (0,0,0) in the coordinate system) |
+| `origin` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Origin (Defines the position of (0,0,0) in the coordinate system) |
 | `axes` | List[[Axis](#axis)] | Axis names (Axis names and directions) |
 | `axis_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
 | `handedness` | Optional[[Handedness](#handedness)] | Handedness (Whether the coordinate system is right-handed or left-handed) |
@@ -57,7 +57,7 @@ Definition of a coordinate system
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `name` | `str` | Name  |
-| `origin` | [Origin](../aind_data_schema_models/coordinates.md#origin) | Origin (Defines the position of (0,0,0) in the coordinate system) |
+| `origin` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Origin (Defines the position of (0,0,0) in the coordinate system) |
 | `axes` | List[[Axis](#axis)] | Axis names (Axis names and directions) |
 | `axis_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
 | `handedness` | Optional[[Handedness](#handedness)] | Handedness (Whether the coordinate system is right-handed or left-handed) |
