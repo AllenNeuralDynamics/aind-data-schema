@@ -4545,6 +4545,26 @@
          "title": "_Olympus",
          "type": "object"
       },
+      "_One_Photon": {
+         "additionalProperties": false,
+         "description": "Model one-photon",
+         "properties": {
+            "name": {
+               "const": "One-photon imaging",
+               "default": "One-photon imaging",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "one-photon",
+               "default": "one-photon",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_One_Photon",
+         "type": "object"
+      },
       "_Open_Ephys_Production_Site": {
          "description": "Model Open Ephys Production Site",
          "properties": {
@@ -6216,8 +6236,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.3.4",
-         "default": "2.3.4",
+         "const": "2.4.0",
+         "default": "2.4.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -6854,6 +6874,7 @@
                   "fib": "#/$defs/_Fib",
                   "icephys": "#/$defs/_Icephys",
                   "merfish": "#/$defs/_Merfish",
+                  "one-photon": "#/$defs/_One_Photon",
                   "pophys": "#/$defs/_Pophys",
                   "scRNAseq": "#/$defs/_Scrnaseq",
                   "slap2": "#/$defs/_Slap2"
@@ -6905,6 +6926,9 @@
                },
                {
                   "$ref": "#/$defs/_Merfish"
+               },
+               {
+                  "$ref": "#/$defs/_One_Photon"
                },
                {
                   "$ref": "#/$defs/_Pophys"
