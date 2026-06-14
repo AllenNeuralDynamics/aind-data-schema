@@ -13,8 +13,17 @@ from aind_data_schema.core.metadata import Metadata
 from aind_data_schema.core.processing import DataProcess, Processing, ProcessName, ProcessStage
 from aind_data_schema.core.quality_control import QCMetric, QCStatus, QualityControl, Stage, Status
 from aind_data_schema.core.subject import Subject
+from aind_data_schema.utils.inheritance import (
+    _accumulate_processing,
+    _accumulate_quality_control,
+    _get_root_asset_name,
+    _get_unique_subject_ids,
+    _inherit_instrument_and_acquisition,
+    _inherit_subject_and_procedures,
+)
 
 from examples.data_description import d as example_dd
+from examples.ephys_instrument import inst as example_inst
 from examples.processing import p as example_processing
 from examples.quality_control import q as example_qc
 from examples.subject import s as example_subject
@@ -311,6 +320,69 @@ class TestFromMetadataEdgeCases(unittest.TestCase):
             location="s3://bucket/derived",
         )
         self.assertEqual(result.name, result.data_description.name)
+
+
+class TestInternalHelpers(unittest.TestCase):
+    """Direct tests for internal helper functions to ensure full coverage"""
+
+    def setUp(self):
+        self.source = _make_metadata()
+        self.derived = Metadata.from_metadata(
+            self.source,
+            process_name="test-pipeline",
+            location="s3://bucket/derived",
+        )
+
+    def test_get_root_asset_name_derived(self):
+        root = _get_root_asset_name(self.derived.data_description)
+        self.assertEqual(root, self.source.data_description.name)
+
+    def test_get_root_asset_name_returns_none_for_non_raw_non_derived(self):
+        simulated_dd = self.source.data_description.model_copy(update={"data_level": DataLevel.SIMULATED})
+        self.assertIsNone(_get_root_asset_name(simulated_dd))
+
+    def test_get_unique_subject_ids_from_data_description(self):
+        no_subject = self.source.model_copy(update={"subject": None})
+        ids = _get_unique_subject_ids([no_subject])
+        self.assertEqual(ids, ["123456"])
+
+    def test_inherit_subject_and_procedures_returns_none_when_no_subject_or_procedures(self):
+        no_subject = self.source.model_copy(update={"subject": None, "procedures": None})
+        subject, procedures = _inherit_subject_and_procedures([no_subject])
+        self.assertIsNone(subject)
+        self.assertIsNone(procedures)
+
+    def test_inherit_instrument_and_acquisition_returns_instrument_when_set(self):
+        with_inst = self.source.model_copy(update={"instrument": example_inst})
+        instrument, acquisition = _inherit_instrument_and_acquisition([with_inst])
+        self.assertIs(instrument, example_inst)
+        self.assertIsNone(acquisition)
+
+    def test_accumulate_processing_two_same_acquisition_sources(self):
+        source_copy = Metadata.model_validate(self.source.model_dump())
+        result = _accumulate_processing([self.source, source_copy])
+        self.assertEqual(
+            len(result.data_processes),
+            2 * len(example_processing.data_processes),
+        )
+
+    def test_accumulate_processing_no_source_processing(self):
+        no_proc = self.source.model_copy(update={"processing": None})
+        result = _accumulate_processing([no_proc], new_processing=example_processing)
+        self.assertIs(result, example_processing)
+
+    def test_accumulate_quality_control_two_same_acquisition_sources(self):
+        source_copy = Metadata.model_validate(self.source.model_dump())
+        result = _accumulate_quality_control([self.source, source_copy])
+        self.assertEqual(
+            len(result.metrics),
+            2 * len(example_qc.metrics),
+        )
+
+    def test_accumulate_quality_control_no_source_qc(self):
+        no_qc = self.source.model_copy(update={"quality_control": None})
+        result = _accumulate_quality_control([no_qc], new_quality_control=example_qc)
+        self.assertIs(result, example_qc)
 
 
 if __name__ == "__main__":
