@@ -464,7 +464,9 @@ class Metadata(DataCoreModel):
         if first_dd is None:
             raise ValueError("At least one source Metadata must have a data_description.")
 
-        source_names = [m.data_description.name for m in metadata_list if m.data_description and m.data_description.name]
+        source_names = [
+            m.data_description.name for m in metadata_list if m.data_description and m.data_description.name
+        ]
 
         derived_dd = DataDescription.from_data_description(
             first_dd,
