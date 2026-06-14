@@ -22,7 +22,6 @@ from aind_data_schema.utils.inheritance import (
     _inherit_subject_and_procedures,
 )
 
-from examples.data_description import d as example_dd
 from examples.ephys_instrument import inst as example_inst
 from examples.processing import p as example_processing
 from examples.quality_control import q as example_qc
