@@ -37,6 +37,7 @@ _counter = 0
 
 
 def _make_metadata(subject_id="123456"):
+    """Helper to create a Metadata object with a given subject ID and unique creation time"""
     global _counter
     _counter += 1
     dd = DataDescription(
@@ -65,6 +66,7 @@ class TestFromMetadataSingleSource(unittest.TestCase):
     """Tests for Metadata.from_metadata with a single source"""
 
     def setUp(self):
+        """Create a single source Metadata object and some new processing and QC to add"""
         self.source = _make_metadata()
         self.new_processing = Processing.create_with_sequential_process_graph(
             data_processes=[
@@ -94,6 +96,7 @@ class TestFromMetadataSingleSource(unittest.TestCase):
         )
 
     def test_single_source_inherits_subject(self):
+        """Subject should be inherited from the single source"""
         result = Metadata.from_metadata(
             self.source,
             process_name="my-analysis",
@@ -103,6 +106,7 @@ class TestFromMetadataSingleSource(unittest.TestCase):
         self.assertEqual(result.subject.subject_id, "123456")
 
     def test_single_source_data_description_is_derived(self):
+        """Data description should be updated to data level DERIVED and name should include process name"""
         result = Metadata.from_metadata(
             self.source,
             process_name="my-analysis",
@@ -113,6 +117,7 @@ class TestFromMetadataSingleSource(unittest.TestCase):
         self.assertIn("my-analysis", result.data_description.name)
 
     def test_single_source_accumulates_processing(self):
+        """Processing from source should be accumulated with new processing"""
         result = Metadata.from_metadata(
             self.source,
             process_name="my-analysis",
@@ -128,6 +133,7 @@ class TestFromMetadataSingleSource(unittest.TestCase):
         )
 
     def test_single_source_accumulates_qc(self):
+        """Quality control metrics from source should be accumulated with new metrics"""
         result = Metadata.from_metadata(
             self.source,
             process_name="my-analysis",
@@ -143,6 +149,7 @@ class TestFromMetadataSingleSource(unittest.TestCase):
         )
 
     def test_single_source_no_new_processing(self):
+        """Processing should remain unchanged when no new processing is provided"""
         result = Metadata.from_metadata(
             self.source,
             process_name="my-analysis",
@@ -155,6 +162,7 @@ class TestFromMetadataSingleSource(unittest.TestCase):
         )
 
     def test_accepts_single_metadata_not_list(self):
+        """Method should accept a single Metadata object, not just a list"""
         result = Metadata.from_metadata(
             self.source,
             process_name="my-analysis",
@@ -167,10 +175,12 @@ class TestFromMetadataMultipleSameSubject(unittest.TestCase):
     """Tests for multiple sources with same subject but different acquisitions"""
 
     def setUp(self):
+        """Create two metadata objects with same subject"""
         self.source1 = _make_metadata(subject_id="123456")
         self.source2 = _make_metadata(subject_id="123456")
 
     def test_same_subject_inherits_subject(self):
+        """Subject should be inherited when all sources have the same subject"""
         result = Metadata.from_metadata(
             [self.source1, self.source2],
             process_name="merge",
@@ -180,6 +190,7 @@ class TestFromMetadataMultipleSameSubject(unittest.TestCase):
         self.assertEqual(result.subject.subject_id, "123456")
 
     def test_different_acquisitions_drops_instrument_and_acquisition(self):
+        """Instrument and acquisition should be dropped when sources have different acquisitions"""
         result = Metadata.from_metadata(
             [self.source1, self.source2],
             process_name="merge",
@@ -189,6 +200,7 @@ class TestFromMetadataMultipleSameSubject(unittest.TestCase):
         self.assertIsNone(result.acquisition)
 
     def test_different_acquisitions_does_not_accumulate_processing(self):
+        """Processing should not be accumulated when sources have different acquisitions"""
         new_proc = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
@@ -212,6 +224,7 @@ class TestFromMetadataMultipleSameSubject(unittest.TestCase):
         self.assertEqual(result.processing.data_processes[0].name, "New step")
 
     def test_different_acquisitions_does_not_accumulate_qc(self):
+        """Quality control should not be accumulated when sources have different acquisitions"""
         new_qc = QualityControl(
             metrics=[
                 QCMetric(
@@ -234,6 +247,7 @@ class TestFromMetadataMultipleSameSubject(unittest.TestCase):
         self.assertEqual(len(result.quality_control.metrics), 1)
 
     def test_source_data_lists_both_sources(self):
+        """Result should list both source assets in source_data field"""
         result = Metadata.from_metadata(
             [self.source1, self.source2],
             process_name="merge",
@@ -247,10 +261,12 @@ class TestFromMetadataDifferentSubjects(unittest.TestCase):
     """Tests for multiple sources with different subjects"""
 
     def setUp(self):
+        """Create two metadata objects with different subjects"""
         self.source1 = _make_metadata(subject_id="123456")
         self.source2 = _make_metadata(subject_id="789012")
 
     def test_different_subjects_drops_subject(self):
+        """Subject should be dropped when sources have different subjects"""
         new_proc = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
@@ -273,6 +289,7 @@ class TestFromMetadataDifferentSubjects(unittest.TestCase):
         self.assertIsNone(result.subject)
 
     def test_different_subjects_drops_procedures(self):
+        """Procedures should be dropped when sources have different subjects"""
         new_proc = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
@@ -299,10 +316,12 @@ class TestFromMetadataEdgeCases(unittest.TestCase):
     """Tests for edge cases"""
 
     def test_empty_list_raises(self):
+        """Empty source list should raise ValueError"""
         with self.assertRaises(ValueError):
             Metadata.from_metadata([], process_name="x", location="s3://bucket/x")
 
     def test_no_data_description_raises(self):
+        """Source without data_description should raise ValueError"""
         m = Metadata(
             name="test",
             location="s3://bucket/test",
@@ -312,6 +331,7 @@ class TestFromMetadataEdgeCases(unittest.TestCase):
             Metadata.from_metadata(m, process_name="x", location="s3://bucket/x")
 
     def test_result_name_matches_data_description(self):
+        """Result name should match its data_description name"""
         source = _make_metadata()
         result = Metadata.from_metadata(
             source,
@@ -325,6 +345,7 @@ class TestInternalHelpers(unittest.TestCase):
     """Direct tests for internal helper functions to ensure full coverage"""
 
     def setUp(self):
+        """Create source metadata and derived metadata for testing"""
         self.source = _make_metadata()
         self.derived = Metadata.from_metadata(
             self.source,
@@ -333,31 +354,37 @@ class TestInternalHelpers(unittest.TestCase):
         )
 
     def test_get_root_asset_name_derived(self):
+        """_get_root_asset_name should return source asset name for derived data"""
         root = _get_root_asset_name(self.derived.data_description)
         self.assertEqual(root, self.source.data_description.name)
 
     def test_get_root_asset_name_returns_none_for_non_raw_non_derived(self):
+        """_get_root_asset_name should return None for non-raw, non-derived data levels"""
         simulated_dd = self.source.data_description.model_copy(update={"data_level": DataLevel.SIMULATED})
         self.assertIsNone(_get_root_asset_name(simulated_dd))
 
     def test_get_unique_subject_ids_from_data_description(self):
+        """_get_unique_subject_ids should extract subject ID from data_description when subject is None"""
         no_subject = self.source.model_copy(update={"subject": None})
         ids = _get_unique_subject_ids([no_subject])
         self.assertEqual(ids, ["123456"])
 
     def test_inherit_subject_and_procedures_returns_none_when_no_subject_or_procedures(self):
+        """_inherit_subject_and_procedures should return None when source has neither subject nor procedures"""
         no_subject = self.source.model_copy(update={"subject": None, "procedures": None})
         subject, procedures = _inherit_subject_and_procedures([no_subject])
         self.assertIsNone(subject)
         self.assertIsNone(procedures)
 
     def test_inherit_instrument_and_acquisition_returns_instrument_when_set(self):
+        """_inherit_instrument_and_acquisition should return instrument when it is set"""
         with_inst = self.source.model_copy(update={"instrument": example_inst})
         instrument, acquisition = _inherit_instrument_and_acquisition([with_inst])
         self.assertIs(instrument, example_inst)
         self.assertIsNone(acquisition)
 
     def test_accumulate_processing_two_same_acquisition_sources(self):
+        """_accumulate_processing should combine processing from multiple sources with same acquisition"""
         source_copy = Metadata.model_validate(self.source.model_dump())
         result = _accumulate_processing([self.source, source_copy])
         self.assertEqual(
@@ -366,11 +393,13 @@ class TestInternalHelpers(unittest.TestCase):
         )
 
     def test_accumulate_processing_no_source_processing(self):
+        """_accumulate_processing should return new_processing when source has no processing"""
         no_proc = self.source.model_copy(update={"processing": None})
         result = _accumulate_processing([no_proc], new_processing=example_processing)
         self.assertIs(result, example_processing)
 
     def test_accumulate_quality_control_two_same_acquisition_sources(self):
+        """_accumulate_quality_control should combine metrics from multiple sources with same acquisition"""
         source_copy = Metadata.model_validate(self.source.model_dump())
         result = _accumulate_quality_control([self.source, source_copy])
         self.assertEqual(
@@ -379,6 +408,7 @@ class TestInternalHelpers(unittest.TestCase):
         )
 
     def test_accumulate_quality_control_no_source_qc(self):
+        """_accumulate_quality_control should return new_quality_control when source has no QC"""
         no_qc = self.source.model_copy(update={"quality_control": None})
         result = _accumulate_quality_control([no_qc], new_quality_control=example_qc)
         self.assertIs(result, example_qc)
