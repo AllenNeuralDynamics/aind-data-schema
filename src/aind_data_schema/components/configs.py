@@ -460,6 +460,12 @@ class OlfactometerConfig(DeviceConfig):
     )
 
 
+class JoystickConfig(DeviceConfig):
+    """Configuration of joystick"""
+
+    is_isometric: bool = Field(..., title="Is isometric")
+
+
 # EPHYS CONFIGS
 
 
