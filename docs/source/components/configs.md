@@ -182,7 +182,7 @@ Configuration of joystick
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `is_isometric` | `bool` | Is isometric  |
+| `is_isometric` | `bool` | Is isometric (Whether the joystick is use isometrically or non-isometrically) |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
