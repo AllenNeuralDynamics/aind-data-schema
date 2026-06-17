@@ -186,6 +186,6 @@ same time. Not all acquisitions have StimulusEpochs.
 | `performance_metrics` | Optional[[PerformanceMetrics](acquisition.md#performancemetrics)] | Performance metrics  |
 | `notes` | `Optional[str]` | Notes  |
 | `active_devices` | `List[str]` | Active devices (Device names must match devices in the Instrument) |
-| `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig) or [OlfactometerConfig](components/configs.md#olfactometerconfig)] | Device configurations  |
+| `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig) or [OlfactometerConfig](components/configs.md#olfactometerconfig) or [JoystickConfig](components/configs.md#joystickconfig)] | Device configurations  |
 | `training_protocol_name` | `Optional[str]` | Training protocol name (Name of the training protocol used during the acquisition, must match a protocol in the Procedures) |
 | `curriculum_status` | `Optional[str]` | Curriculum status (Status within the training protocol curriculum) |
