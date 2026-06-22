@@ -4,7 +4,7 @@
 
 ### FluorescentReagent
 
-Description of an inherently fluorescent marker
+Description of an inherently fluorescent marker. Note this class will change name in v3.0
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
