@@ -185,7 +185,15 @@ class SpecimenProcedure(ProtocolListMixin, DataModel):
     )
 
     procedure_details: DiscriminatedList[
-        HCRSeries | FluorescentReagent | FluorescentStain | Sectioning | PlanarSectioning | ProbeReagent | Reagent | GeneProbeSet | Solution
+        HCRSeries
+        | FluorescentReagent
+        | FluorescentStain
+        | Sectioning
+        | PlanarSectioning
+        | ProbeReagent
+        | Reagent
+        | GeneProbeSet
+        | Solution
     ] = Field(
         default=[],
         title="Procedure details",
