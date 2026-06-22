@@ -21,7 +21,7 @@ Description of an inherently fluorescent marker
 
 ### FluorescentStain
 
-Description of a fluorescent stain consisting of a probe associated with a fluorophore. 
+Description of a fluorescent stain consisting of a probe associated with a fluorophore.
 Note this class will change names in v3.0
 
 | Field | Type | Title (Description) |
