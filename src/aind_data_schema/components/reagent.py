@@ -83,7 +83,7 @@ class ProbeReagent(Reagent):
 
 
 class FluorescentStain(Reagent):
-    """Description of a fluorescent stain consisting of a probe associated with a fluorophore. 
+    """Description of a fluorescent stain consisting of a probe associated with a fluorophore.
     Note this class will change names in v3.0"""
 
     probe: Discriminated[GeneProbe | ProteinProbe | SmallMoleculeProbe] = Field(..., title="Target of the stain")
