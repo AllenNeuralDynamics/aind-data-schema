@@ -15,8 +15,8 @@ from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.wrappers import AssetPath
 
 
-class TransformFrame(str, Enum):
-    """Reference frame for applying transforms"""
+class ReferenceCoordinateSystem(str, Enum):
+    """Reference frame (coordinate system) for applying transforms"""
 
     GLOBAL = "global"
     LOCAL = "local"
@@ -51,10 +51,10 @@ class Scale(DataModel):
     """Scale"""
 
     scale: List[float] = Field(..., title="Scale parameters")
-    pivot: Optional[TransformFrame] = Field(
-        default=TransformFrame.GLOBAL,
+    pivot: Optional[ReferenceCoordinateSystem] = Field(
+        default=ReferenceCoordinateSystem.GLOBAL,
         title="Scale pivot",
-        description="Whether to scale around the global origin or the local origin of the device",
+        description="Whether to scale around the global or local coordinate system origin",
     )
 
     def to_matrix(self) -> List[List[float]]:
@@ -85,9 +85,10 @@ class Translation(DataModel):
     """Translation"""
 
     translation: List[float] = Field(..., title="Translation parameters")
-    frame: TransformFrame = Field(
-        default=TransformFrame.GLOBAL,
+    reference_frame: ReferenceCoordinateSystem = Field(
+        default=ReferenceCoordinateSystem.GLOBAL,
         title="Reference frame",
+        description="Whether to translate on the global or local coordinate system axes",
     )
 
     def to_matrix(self) -> List[List[float]]:
@@ -136,20 +137,20 @@ class Rotation(DataModel):
         title="Axis order",
         description="Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.",
     )
-    frame: TransformFrame = Field(
-        default=TransformFrame.GLOBAL,
+    reference_frame: ReferenceCoordinateSystem = Field(
+        default=ReferenceCoordinateSystem.GLOBAL,
         title="Reference frame",
-        description="Whether to rotate around global axes or local axes (which rotate with the device)",
+        description="Whether to rotate around the global or local coordinate system axes",
     )
     rotation_direction: RotationDirection = Field(
         default=RotationDirection.RIGHT_HAND,
         title="Rotation direction",
         description="Right-hand rule: positive angles rotate CCW when looking toward the origin from the positive axis",
     )
-    pivot: TransformFrame = Field(
-        default=TransformFrame.GLOBAL,
+    pivot: ReferenceCoordinateSystem = Field(
+        default=ReferenceCoordinateSystem.GLOBAL,
         title="Rotation pivot",
-        description="Whether to rotate around the global origin or the local origin of the device",
+        description="Whether to rotate around the global or local coordinate system origin",
     )
 
     @field_validator("axis_order")
@@ -195,7 +196,7 @@ class Rotation(DataModel):
         order = self.axis_order[: len(self.angles)]
 
         # Intrinsic rotations use uppercase axis letters in scipy
-        if self.frame == TransformFrame.LOCAL:
+        if self.frame == ReferenceCoordinateSystem.LOCAL:
             order = order.upper()
 
         rotation = R.from_euler(order, angles)
