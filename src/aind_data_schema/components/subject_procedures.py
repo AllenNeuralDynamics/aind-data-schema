@@ -16,6 +16,7 @@ from aind_data_schema.components.surgery_procedures import (
     BrainInjection,
     CatheterImplant,
     Craniotomy,
+    DeviceImplant,
     GenericSurgeryProcedure,
     Headframe,
     MyomatrixInsertion,
@@ -121,6 +122,7 @@ class Surgery(ProtocolMixin, DataModel):
     procedures: DiscriminatedList[
         CatheterImplant
         | Craniotomy
+        | DeviceImplant
         | ProbeImplant
         | Headframe
         | BrainInjection

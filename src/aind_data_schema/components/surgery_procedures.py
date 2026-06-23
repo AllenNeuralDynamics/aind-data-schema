@@ -13,7 +13,7 @@ from pydantic import Field, field_validator, model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.configs import CatheterConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, Translation
-from aind_data_schema.components.devices import Catheter, EphysProbe, FiberProbe, MyomatrixArray, ThermistorAssembly
+from aind_data_schema.components.devices import Catheter, DevicePosition, EphysProbe, FiberProbe, MyomatrixArray, ThermistorAssembly
 from aind_data_schema.components.identifiers import ProtocolMixin
 from aind_data_schema.components.injection_procedures import Injection
 
@@ -134,7 +134,16 @@ class Craniotomy(ProtocolMixin, DataModel):
         return self
 
 
-class ProbeImplant(ProtocolMixin, DataModel):
+class DeviceImplant(ProtocolMixin, DevicePosition, DataModel):
+    """Description of a generic device implant procedure"""
+
+    implanted_device: str = Field(
+        ...,
+        title="Implanted device",
+    )  # note: exact field name is used by a validator
+
+
+class ProbeImplant(DeviceImplant):
     """Description of a probe (fiber, ephys) implant procedure"""
 
     implanted_device: Union[EphysProbe, FiberProbe] = Field(
