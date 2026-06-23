@@ -37,7 +37,7 @@ A point in an Atlas
 |-------|------|-------------|
 | `coordinate_system` | [Atlas](#atlas) | Atlas  |
 | `translation` | `List[float]` | Translation parameters  |
-| `frame` | [TransformFrame](#transformframe) | Reference frame  |
+| `reference_frame` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference frame (Whether to translate on the global or local coordinate system axes) |
 
 
 ### Axis
@@ -82,6 +82,16 @@ Definition of a nonlinear transform
 | `path` | `AssetPath` | Path to nonlinear transform file (Relative path from metadata json to file) |
 
 
+### ReferenceCoordinateSystem
+
+Reference frame (coordinate system) for applying transforms
+
+| Name | Value |
+|------|-------|
+| `GLOBAL` | `global` |
+| `LOCAL` | `local` |
+
+
 ### Rotation
 
 Rotation
@@ -97,9 +107,9 @@ xyz axis order, pivoting around the global origin.
 | `angles` | `List[float]` | Angles and axes in 3D space (Right-hand rule, positive angles rotate CCW) |
 | `angles_unit` | [AngleUnit](../aind_data_schema_models/units.md#angleunit) | Angle unit  |
 | `axis_order` | `str` | Axis order (Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.) |
-| `frame` | [TransformFrame](#transformframe) | Reference frame (Whether to rotate around global axes or local axes (which rotate with the device)) |
+| `reference_frame` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference frame (Whether to rotate around the global or local coordinate system axes) |
 | `rotation_direction` | [RotationDirection](#rotationdirection) | Rotation direction (Right-hand rule: positive angles rotate CCW when looking toward the origin from the positive axis) |
-| `pivot` | [TransformFrame](#transformframe) | Rotation pivot (Whether to rotate around the global origin or the local origin of the device) |
+| `pivot` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Rotation pivot (Whether to rotate around the global or local coordinate system origin) |
 
 
 ### RotationDirection
@@ -119,17 +129,7 @@ Scale
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `scale` | `List[float]` | Scale parameters  |
-| `pivot` | Optional[[TransformFrame](#transformframe)] | Scale pivot (Whether to scale around the global origin or the local origin of the device) |
-
-
-### TransformFrame
-
-Reference frame for applying transforms
-
-| Name | Value |
-|------|-------|
-| `GLOBAL` | `global` |
-| `LOCAL` | `local` |
+| `pivot` | Optional[[ReferenceCoordinateSystem](#referencecoordinatesystem)] | Scale pivot (Whether to scale around the global or local coordinate system origin) |
 
 
 ### Translation
@@ -139,6 +139,6 @@ Translation
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `translation` | `List[float]` | Translation parameters  |
-| `frame` | [TransformFrame](#transformframe) | Reference frame  |
+| `reference_frame` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference frame (Whether to translate on the global or local coordinate system axes) |
 
 
