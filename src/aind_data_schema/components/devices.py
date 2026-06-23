@@ -42,7 +42,7 @@ from aind_data_schema_models.units import (
 )
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import DataModel, Discriminated, GenericModel
+from aind_data_schema.base import DataModel, Discriminated, GenericModel, migrate_deprecated_coordinate_system
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, AxisName, CoordinateSystem, Scale
 from aind_data_schema.components.geometry import Circle, Rectangle
 from aind_data_schema.components.identifiers import Software
@@ -105,22 +105,36 @@ class DevicePosition(DataModel):
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
 
     # Position
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Device coordinate system",
+        deprecated="Deprecated: use local_coordinate_system instead",
+    )
+    local_coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Device local coordinate system",
+    )
     transform: Optional[TRANSFORM_TYPES] = Field(
         default=None,
         title="Device to instrument transform",
         description="Position and orientation of the device in the instrument coordinate system",
     )
 
+    @model_validator(mode="before")
+    @classmethod
+    def migrate_coordinate_system(cls, data):
+        """Copy deprecated coordinate_system into local_coordinate_system when only old field is provided"""
+        return migrate_deprecated_coordinate_system(data, "local_coordinate_system")
+
     @model_validator(mode="after")
     def validate_transform_and_cs(self):
         """Ensure that transform and coordinate system are either both set or both unset"""
         transform = self.transform
-        coordinate_system = self.coordinate_system
+        coordinate_system = self.local_coordinate_system
 
         if (transform is None) != (coordinate_system is None):
             raise ValueError(
-                "DevicePosition.transform and DevicePosition.coordinate_system"
+                "DevicePosition.transform and DevicePosition.local_coordinate_system"
                 " must either both be set or both be unset."
             )
 

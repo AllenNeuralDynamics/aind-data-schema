@@ -228,10 +228,15 @@ def recursive_coord_system_check(data, coordinate_system_name: Optional[str], ax
     if not data:
         return
 
-    if hasattr(data, "coordinate_system") and data.coordinate_system:
-        # If we find a new coordinate_system, allow it to over-write our settings
-        coordinate_system_name = data.coordinate_system.name
-        axis_count = len(data.coordinate_system.axes)
+    _cs = (
+        getattr(data, "global_coordinate_system", None)
+        or getattr(data, "local_coordinate_system", None)
+        or getattr(data, "coordinate_system", None)
+    )
+    if _cs:
+        # If we find a coordinate system, allow it to over-write our settings
+        coordinate_system_name = _cs.name
+        axis_count = len(_cs.axes)
 
     # Check if the object we are looking at has a coordinate_system_name field
     if hasattr(data, "coordinate_system_name"):

@@ -30,6 +30,41 @@ logger = logging.getLogger(__name__)
 MAX_FILE_SIZE = 500 * 1024  # 500KB
 
 
+def migrate_deprecated_coordinate_system(data: Any, new_field_name: str) -> Any:
+    """Copy the old 'coordinate_system' value into the new renamed field.
+
+    Use this as a ``model_validator(mode="before")`` in any model that has
+    added a ``global_coordinate_system`` or ``local_coordinate_system`` field
+    alongside the now-deprecated ``coordinate_system`` field.  When the old
+    key is present in the raw input dict **and** the new key is absent, the
+    value is copied to the new key and a ``DeprecationWarning`` is issued.
+    The old key is left intact so that the deprecated field is still populated.
+
+    Parameters
+    ----------
+    data:
+        Raw input data passed to the model validator.
+    new_field_name:
+        The new field name (``"global_coordinate_system"`` or
+        ``"local_coordinate_system"``).
+
+    Returns
+    -------
+    Any
+        The (possibly modified) input data.
+    """
+    if isinstance(data, dict) and "coordinate_system" in data and new_field_name not in data:
+        warnings.warn(
+            f"'coordinate_system' is deprecated. Please use '{new_field_name}' instead. "
+            "The value has been automatically copied to the new field.",
+            DeprecationWarning,
+            stacklevel=3,
+        )
+        data = dict(data)  # copy to avoid mutating the caller's dict
+        data[new_field_name] = data["coordinate_system"]
+    return data
+
+
 def _coerce_naive_datetime(v: Any, handler: ValidatorFunctionWrapHandler) -> AwareDatetime:
     """Validator to wrap around AwareDatetime to set a default timezone as user's locale"""
     try:
