@@ -103,7 +103,8 @@ Named assembly of a camera and lens (and optionally a filter)
 | `lens` | [Lens](#lens) | Lens  |
 | `filter` | Optional[[Filter](#filter)] | Filter  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 
@@ -265,7 +266,8 @@ Position class for devices
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 
@@ -629,7 +631,8 @@ Description of visual display for visual stimuli
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 
@@ -897,7 +900,8 @@ Description of a speaker for auditory stimuli
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 

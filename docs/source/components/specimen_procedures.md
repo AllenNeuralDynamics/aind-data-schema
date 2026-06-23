@@ -52,7 +52,8 @@ Description of a sectioning procedure performed on the coronal, sagittal, or tra
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) or [Atlas](coordinates.md#atlas) or NoneType | Sectioning coordinate system (Only required if different from the Procedures.coordinate_system) |
+| <del>`coordinate_system`</del> | [CoordinateSystem](coordinates.md#coordinatesystem) or [Atlas](coordinates.md#atlas) or NoneType | **[DEPRECATED]** Deprecated: use global_coordinate_system instead. Sectioning coordinate system (Only required if different from the Procedures.coordinate_system) |
+| `global_coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) or [Atlas](coordinates.md#atlas) or NoneType | Sectioning global coordinate system (Only required if different from the Procedures.global_coordinate_system) |
 | `sections` | List[[Section](#section) or [PlanarSection](#planarsection)] | Planar sections (Use PlanarSection for new implementations) |
 | `section_orientation` | [SectionOrientation](#sectionorientation) | Sectioning orientation  |
 

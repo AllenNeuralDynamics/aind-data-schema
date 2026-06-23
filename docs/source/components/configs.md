@@ -10,7 +10,8 @@ Air puff device configuration
 |-------|------|-------------|
 | `valence` | [Valence](#valence) | Valence  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Initial relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to acquisition transform  |
 | `pressure` | `Optional[float]` | Pressure  |
 | `pressure_unit` | Optional[[PressureUnit](../aind_data_schema_models/units.md#pressureunit)] | Pressure unit  |
@@ -149,7 +150,8 @@ Configuration of an imaging instrument
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `channels` | `List[typing.Annotated[aind_data_schema.components.configs.Channel, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |   |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Coordinate system (Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.coordinate_system) |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Coordinate system (Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.coordinate_system) |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Local coordinate system (Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.global_coordinate_system) |
 | `images` | List[[PlanarImage](#planarimage) or [PlanarImageStack](#planarimagestack) or [ImageSPIM](#imagespim)] | Images  |
 | `sampling_strategy` | Optional[[SamplingStrategy](#samplingstrategy)] | Sampling strategy  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
@@ -201,7 +203,8 @@ Lick spout acquisition information
 | `volume` | `float` | Volume  |
 | `volume_unit` | [VolumeUnit](../aind_data_schema_models/units.md#volumeunit) | Volume unit  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Initial relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to acquisition transform (Entry coordinate, depth, and rotation in the Acquisition.coordinate_system) |
 | `notes` | `Optional[str]` | Notes  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
@@ -242,7 +245,8 @@ Configuration for a camera used in a New Scale modular insertion system
 | `module` | [MISModuleConfig](#mismoduleconfig) | Module  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 
@@ -301,7 +305,8 @@ Configuration of a manipulator
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) | Device coordinate system  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) | Device local coordinate system  |
 | `local_axis_positions` | [Translation](coordinates.md#translation) | Local axis positions  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
@@ -426,7 +431,8 @@ Configuration for a device inserted into a brain
 | `primary_targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3) | Targeted structure  |
 | `other_targeted_structure` | Optional[List[[BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3)]] | Other targeted structure  |
 | `atlas_coordinate` | Optional[[AtlasCoordinate](coordinates.md#atlascoordinate)] | Target coordinate in Acquisition.atlas  |
-| `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) | Device coordinate system (Device coordinate system, defines un-rotated probe's orientation relative to the Acquisition.coordinate_system) |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system (Device coordinate system, defines un-rotated probe's orientation relative to the Acquisition.coordinate_system) |
+| `local_coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) | Device local coordinate system (Device coordinate system, defines un-rotated probe's orientation relative to the Acquisition.global_coordinate_system) |
 | `transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Device to acquisition transform (Entry coordinate, depth, and rotation in the Acquisition.coordinate_system) |
 | `dye` | `Optional[str]` | Dye  |
 | `notes` | `Optional[str]` | Notes  |
