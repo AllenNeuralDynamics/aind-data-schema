@@ -1,9 +1,9 @@
-""" example processing """
+"""example processing"""
 
 import argparse
 from datetime import datetime, timezone
 
-from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.identifiers import Code, DataAsset
 from aind_data_schema.core.processing import (
     DataProcess,
     Processing,
@@ -52,6 +52,9 @@ p = Processing.create_with_sequential_process_graph(
             name="Imaging processing pipeline",
             url="https://url/for/pipeline",
             version="0.1.1",
+            input_data=[DataAsset(
+                name="123456_2026-05-20_14-14-14",
+            )]
         ),
     ],
     data_processes=[
@@ -61,7 +64,7 @@ p = Processing.create_with_sequential_process_graph(
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
-            output_path="/path/to/outputs",
+            output_path="path/to/outputs",
             pipeline_name="Imaging processing pipeline",
             code=example_code.model_copy(
                 update=dict(
@@ -90,7 +93,7 @@ p = Processing.create_with_sequential_process_graph(
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
-            output_path="/path/to/outputs",
+            output_path="path/to/outputs",
             code=example_code.model_copy(
                 update=dict(
                     parameters={"u": 7, "z": True},
@@ -104,7 +107,7 @@ p = Processing.create_with_sequential_process_graph(
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
-            output_path="/path/to/output",
+            output_path="path/to/output",
             code=example_code.model_copy(
                 update=dict(
                     parameters={"a": 2, "b": -2},
@@ -112,12 +115,13 @@ p = Processing.create_with_sequential_process_graph(
             ),
         ),
         DataProcess(
+            name="Analysis 1",
             stage=ProcessStage.ANALYSIS,
             experimenters=["Some Analyzer"],
             process_type=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,
-            output_path="/path/to/outputs",
+            output_path="path/to/outputs",
             code=example_code.model_copy(
                 update=dict(
                     parameters={"size": 7},
@@ -131,7 +135,7 @@ p = Processing.create_with_sequential_process_graph(
             process_type=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,
-            output_path="/path/to/outputs",
+            output_path="path/to/outputs",
             code=example_code.model_copy(
                 update=dict(
                     parameters={"u": 7, "z": True},

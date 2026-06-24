@@ -25,7 +25,7 @@ from aind_data_schema.components.identifiers import Person
 class Funding(DataModel):
     """Description of funding sources"""
 
-    funder: Organization.FUNDERS = Field(..., title="Funder")
+    funder: Organization.ONE_OF = Field(..., title="Funder")
     grant_number: Optional[str] = Field(default=None, title="Grant number")
     fundee: Optional[List[Person]] = Field(
         default=None, title="Fundee", description="Person(s) funded by this mechanism"
@@ -37,7 +37,7 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.3.3"]] = Field(default="2.3.3")
+    schema_version: SkipValidation[Literal["2.4.0"]] = Field(default="2.4.0")
     license: License = Field(default=License.CC_BY_40, title="License")
 
     subject_id: Optional[str] = Field(
@@ -65,7 +65,7 @@ class DataDescription(DataCoreModel):
         title="Data asset name",
         validate_default=True,
     )
-    institution: Organization.RESEARCH_INSTITUTIONS = Field(
+    institution: Organization.ONE_OF = Field(
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
@@ -155,13 +155,13 @@ class DataDescription(DataCoreModel):
 
     @model_validator(mode="after")
     def build_name(self):
-        """sets the name of the file"""
+        """Set the name of data_description when data_level is RAW and the name is empty"""
         if self.name is None and self.data_level == DataLevel.RAW:
             self.name = build_data_name(self.subject_id, creation_datetime=self.creation_time)
 
-        # check that the name matches the name regex
-        if not re.match(DataRegex.DATA.value, self.name):
-            raise ValueError(f"Name({self.name}) does not match allowed Regex pattern")
+            # check that the name matches the name regex
+            if not re.match(DataRegex.DATA.value, self.name):
+                raise ValueError(f"Name({self.name}) does not match allowed Regex pattern")
 
         return self
 

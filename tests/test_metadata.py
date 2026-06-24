@@ -29,6 +29,7 @@ from examples.ephys_instrument import inst as ephys_inst
 from aind_data_schema.components.subject_procedures import TrainingProtocol
 from aind_data_schema.core.acquisition import StimulusEpoch
 
+from examples.barseq_acquisition import acquisition as barseq_acquisition
 from examples.data_description import d as data_description
 from examples.subject import s as subject
 
@@ -96,9 +97,10 @@ class TestMetadata(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
+                    name="My Analysis",
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    output_path="/path/to/outputs",
+                    output_path="path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -333,6 +335,19 @@ class TestMetadata(unittest.TestCase):
             "Metadata must contain at least one of the following files: subject, processing, model",
             str(context.exception),
         )
+
+    def test_external_data_stream_no_instrument_warning(self):
+        """Test that ExternalDataStream-only acquisitions do not warn about missing instrument"""
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                subject=subject,
+                acquisition=barseq_acquisition,
+            )
+        instrument_warnings = [str(warning.message) for warning in w if "instrument" in str(warning.message)]
+        self.assertEqual([], instrument_warnings)
 
     def test_validate_acquisition_connections(self):
         """Tests that acquisition connections are validated correctly."""
@@ -812,9 +827,10 @@ class TestMetadata(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
+                    name="My Analysis",
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    output_path="/path/to/outputs",
+                    output_path="path/to/outputs",
                     start_date_time=datetime(2023, 4, 3, 20, 0, 0, tzinfo=timezone.utc),  # After acquisition
                     end_date_time=datetime(2023, 4, 3, 21, 0, 0, tzinfo=timezone.utc),
                     code=Code(
@@ -839,9 +855,10 @@ class TestMetadata(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=["Dr. Dan"],
+                    name="My Analysis",
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    output_path="/path/to/outputs",
+                    output_path="path/to/outputs",
                     start_date_time=datetime(2023, 4, 3, 17, 0, 0, tzinfo=timezone.utc),  # Before acquisition start
                     end_date_time=datetime(2023, 4, 3, 21, 0, 0, tzinfo=timezone.utc),
                     code=Code(

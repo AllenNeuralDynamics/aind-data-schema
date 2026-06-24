@@ -39,7 +39,9 @@ Starting with the v2.0 release all changes must be accompanied by an [upgrader](
 
 ### Documentation
 
-**Note**: The core files (`docs/source/acquisition.md`, etc) are auto-generated from the base files in the folder `docs/base/core` with the model definitions appended. You must modify the **base** file or your changes will be overwritten when you run the documentation generators.
+Documentation is automatically built when you open a PR into the aind-data-schema repository. For **core files, please make sure that you modify the base file**, these are used to construct the source files: i.e. `docs/base/core/acquisition.md` will over-write any changes made to `docs/source/acquisition.md`. 
+
+#### Manually build documentation
 
 To generate the source files for the documentation and model class links, run:
 

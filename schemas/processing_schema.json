@@ -39,6 +39,20 @@
                "default": null,
                "title": "Code version"
             },
+            "commit_hash": {
+               "anyOf": [
+                  {
+                     "pattern": "^[0-9a-fA-F]{7,60}$",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Commit hash of the code.",
+               "title": "Commit hash"
+            },
             "container": {
                "anyOf": [
                   {
@@ -269,15 +283,33 @@
                "title": "Object Type",
                "type": "string"
             },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Name of the data asset",
+               "title": "Asset name"
+            },
             "url": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "URL pointing to the data asset",
-               "title": "Asset location",
-               "type": "string"
+               "title": "Asset location"
             }
          },
-         "required": [
-            "url"
-         ],
          "title": "DataAsset",
          "type": "object"
       },
@@ -449,6 +481,7 @@
             "Ephys visualization",
             "Fiducial segmentation",
             "File format conversion",
+            "Fix color range",
             "Fluorescence event detection",
             "Image atlas alignment",
             "Image background subtraction",
@@ -460,6 +493,7 @@
             "Image flat-field correction",
             "Image importing",
             "Image mip visualization",
+            "Image multiscaling",
             "Image radial correction",
             "Image spot detection",
             "Image spot spectral unmixing",
@@ -467,6 +501,7 @@
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
+            "Manual curation",
             "Model evaluation",
             "Model training",
             "Neuron skeleton processing",
@@ -743,8 +778,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.5",
-         "default": "2.2.5",
+         "const": "2.2.9",
+         "default": "2.2.9",
          "title": "Schema Version",
          "type": "string"
       },

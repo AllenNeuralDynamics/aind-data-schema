@@ -201,8 +201,8 @@ class BaseTests(unittest.TestCase):
         self.assertRaises(ValidationError, lambda: TestCoreModel(**v2_from_v1.model_dump()))
 
     @patch("builtins.open", new_callable=mock_open)
-    @patch("logging.warning")
-    def test_write_standard_file_size_warning(self, mock_logging_warning: MagicMock, mock_open: MagicMock):
+    @patch("aind_data_schema.base.logger")
+    def test_write_standard_file_size_warning(self, mock_logger: MagicMock, mock_open: MagicMock):
         """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
 
         s = Subject.model_construct()
@@ -210,7 +210,7 @@ class BaseTests(unittest.TestCase):
         s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
 
         mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
-        mock_logging_warning.assert_called_once_with(
+        mock_logger.warning.assert_called_once_with(
             f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/subject.foo.bar"
         )
 
@@ -309,10 +309,10 @@ class DataCoreModelTests(unittest.TestCase):
         mock_open.assert_called_once_with(expected_filename, "w")
 
     @patch("builtins.open", new_callable=mock_open)
-    @patch("logging.warning")
+    @patch("aind_data_schema.base.logger")
     @patch("aind_data_schema.utils.validators.recursive_check_paths")
     def test_write_standard_file_size_warning(
-        self, mock_recursive_check_paths: MagicMock, mock_logging_warning: MagicMock, mock_open: MagicMock
+        self, mock_recursive_check_paths: MagicMock, mock_logger: MagicMock, mock_open: MagicMock
     ):
         """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
 
@@ -327,7 +327,7 @@ class DataCoreModelTests(unittest.TestCase):
         model_instance.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
 
         mock_open.assert_has_calls([call(Path("dir/test_model.foo.bar"), "w")])
-        mock_logging_warning.assert_called_once_with(
+        mock_logger.warning.assert_called_once_with(
             f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/test_model.foo.bar"
         )
 

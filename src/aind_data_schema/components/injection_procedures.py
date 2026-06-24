@@ -11,6 +11,7 @@ from aind_data_schema_models.units import CurrentUnit, TimeUnit, VolumeUnit
 from pydantic import Field, model_validator
 
 from aind_data_schema.base import DataModel, DiscriminatedList
+from aind_data_schema.components.identifiers import ProtocolMixin
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -102,7 +103,7 @@ class InjectionDynamics(DataModel):
         return self
 
 
-class Injection(DataModel):
+class Injection(ProtocolMixin, DataModel):
     """Description of an injection procedure"""
 
     injection_materials: DiscriminatedList[ViralMaterial | NonViralMaterial] = Field(
@@ -116,4 +117,3 @@ class Injection(DataModel):
     dynamics: List[InjectionDynamics] = Field(
         ..., title="Injection dynamics", description="List of injection events, one per location/depth"
     )
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")

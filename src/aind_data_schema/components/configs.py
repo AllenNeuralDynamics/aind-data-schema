@@ -7,8 +7,11 @@ from typing import List, Optional
 from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import ImmersionMedium
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from aind_data_schema_models.units import (
     AngleUnit,
+    ConcentrationUnit,
     FrequencyUnit,
     PowerUnit,
     PressureUnit,
@@ -16,10 +19,7 @@ from aind_data_schema_models.units import (
     SoundIntensityUnit,
     TimeUnit,
     VolumeUnit,
-    ConcentrationUnit,
 )
-from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
-from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -458,6 +458,13 @@ class OlfactometerConfig(DeviceConfig):
         title="Channel configurations",
         description="List of channels with their odorant and concentration",
     )
+
+
+class JoystickConfig(DeviceConfig):
+    """Configuration of joystick"""
+
+    is_isometric: bool = Field(..., title="Is isometric",
+                               description="Whether the joystick is use isometrically or non-isometrically")
 
 
 # EPHYS CONFIGS

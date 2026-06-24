@@ -17,6 +17,7 @@ Process names
 | `EPHYS_VISUALIZATION` | `Ephys visualization` |
 | `FIDUCIAL_SEGMENTATION` | `Fiducial segmentation` |
 | `FILE_FORMAT_CONVERSION` | `File format conversion` |
+| `FIX_COLOR_RANGE` | `Fix color range` |
 | `FLUORESCENCE_EVENT_DETECTION` | `Fluorescence event detection` |
 | `IMAGE_ATLAS_ALIGNMENT` | `Image atlas alignment` |
 | `IMAGE_BACKGROUND_SUBTRACTION` | `Image background subtraction` |
@@ -28,6 +29,7 @@ Process names
 | `IMAGE_FLAT_FIELD_CORRECTION` | `Image flat-field correction` |
 | `IMAGE_IMPORTING` | `Image importing` |
 | `IMAGE_MIP_VISUALIZATION` | `Image mip visualization` |
+| `IMAGE_MULTISCALING` | `Image multiscaling` |
 | `IMAGE_RADIAL_CORRECTION` | `Image radial correction` |
 | `IMAGE_SPOT_DETECTION` | `Image spot detection` |
 | `IMAGE_SPOT_SPECTRAL_UNMIXING` | `Image spot spectral unmixing` |
@@ -35,6 +37,7 @@ Process names
 | `IMAGE_TILE_ALIGNMENT` | `Image tile alignment` |
 | `IMAGE_TILE_FUSING` | `Image tile fusing` |
 | `IMAGE_TILE_PROJECTION` | `Image tile projection` |
+| `MANUAL_CURATION` | `Manual curation` |
 | `MODEL_EVALUATION` | `Model evaluation` |
 | `MODEL_TRAINING` | `Model training` |
 | `NEURON_SKELETON_PROCESSING` | `Neuron skeleton processing` |

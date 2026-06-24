@@ -1,15 +1,15 @@
 """Schemas for Quality Metrics"""
 
+import warnings
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, List, Literal, Optional, Union
-import warnings
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_str_tuple_lists
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_str_tuple_lists, remove_duplicates
 
 
 class Status(str, Enum):
@@ -301,7 +301,7 @@ class QualityControl(DataCoreModel):
         This function is for backwards compatibility with v2.2.X where default_grouping was stored as a list of strings.
         Remove this function in aind-data-schema v3.X
         """
-        if "default_grouping" not in value:
+        if "default_grouping" not in value or "metrics" not in value or len(value["metrics"]) == 0:
             return value
 
         if all(isinstance(item, str) for item in value["default_grouping"]):

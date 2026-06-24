@@ -117,7 +117,7 @@ class MouseSubject(DataModel):
     breeding_info: Optional[BreedingInfo] = Field(default=None, title="Breeding Info")
     wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
     housing: Optional[Housing] = Field(default=None, title="Housing")
-    source: Organization.SUBJECT_SOURCES = Field(
+    source: Organization.ONE_OF = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
         title="Source",
@@ -159,13 +159,13 @@ class HumanSubject(DataModel):
     species: SpeciesModel = Field(default=Species.HUMAN, title="Species")
     sex: Sex = Field(..., title="Sex")
     year_of_birth: int = Field(..., title="Year of birth")
-    source: Organization.SUBJECT_SOURCES = Field(
+    source: Organization.ONE_OF = Field(
         ...,
         description="Where the subject was acquired from.",
         title="Source",
     )
 
-    @field_validator("species", mode='before')
+    @field_validator("species", mode="before")
     def validate_species_is_human(cls, v):
         """Ensure species is always human for HumanSubject"""
         if v != Species.HUMAN:
@@ -181,7 +181,7 @@ class NonHumanPrimateSubject(DataModel):
     date_of_birth: Optional[Annotated[date_type, TimeValidation.BEFORE]] = Field(default=None, title="Date of birth")
     year_of_birth: int = Field(..., title="Year of birth")
     mating_status: MatingStatus = Field(..., title="Mating status")
-    source: Organization.SUBJECT_SOURCES = Field(
+    source: Organization.ONE_OF = Field(
         ...,
         description="Where the subject was acquired from.",
         title="Source",

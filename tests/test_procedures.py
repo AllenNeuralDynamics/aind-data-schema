@@ -28,6 +28,7 @@ from aind_data_schema.components.specimen_procedures import (
     PlanarSection,
     PlanarSectioning,
     Section,
+    Sectioning,
     SectionOrientation,
     SpecimenProcedure,
 )
@@ -52,6 +53,29 @@ class ProceduresTests(unittest.TestCase):
 
         p = Procedures(subject_id="12345")
         self.assertEqual("12345", p.subject_id)
+
+    @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
+    def test_unwrapped_injection_warns(self, mock_get_emapa_id):
+        """Unwrapped Injection in subject_procedures should emit a UserWarning"""
+        mock_get_emapa_id.return_value = "123456"
+        with self.assertWarns(UserWarning):
+            Procedures(
+                subject_id="12345",
+                subject_procedures=[
+                    Injection(
+                        injection_materials=[NonViralMaterial(name="saline", source=Organization.OTHER)],
+                        dynamics=[
+                            InjectionDynamics(
+                                volume=1,
+                                volume_unit=VolumeUnit.UL,
+                                duration=1,
+                                duration_unit=TimeUnit.S,
+                                profile=InjectionProfile.BOLUS,
+                            )
+                        ],
+                    )
+                ],
+            )
 
     @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
     def test_injection_material_check(self, mock_get_emapa_id):
@@ -309,6 +333,19 @@ class ProceduresTests(unittest.TestCase):
             )
         )
 
+        self.assertIsNotNone(
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type="Sectioning",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=["Mam Moth"],
+                protocol_id=["10"],
+                notes=None,
+                procedure_details=[Sectioning(sections=[Section(output_specimen_id="1000_spinal")])],
+            )
+        )
+
     def test_validate_procedure_type_multiple(self):
         """Test that error thrown when multiple types are passed to procedure_details"""
 
@@ -515,6 +552,25 @@ class ProceduresTests(unittest.TestCase):
             )
         expected_exception = "specimen_id must be an extension of the subject_id."
         self.assertIn(expected_exception, str(e.exception))
+
+    def test_validate_subject_specimen_id_list_valid(self):
+        """Test that specimen_id accepts a list of strings when all contain subject_id"""
+
+        valid_procedure = Procedures(
+                subject_id="12345",
+                specimen_procedures=[
+                    SpecimenProcedure(
+                        specimen_id=["12345_001", "12345_002"],
+                        procedure_type="Other",
+                        start_date=date.fromisoformat("2020-10-10"),
+                        end_date=date.fromisoformat("2020-10-11"),
+                        experimenters=["Mam Moth"],
+                        protocol_id=["10"],
+                        notes="some notes",
+                    )
+                ],
+            )
+        self.assertIsNotNone(valid_procedure)
 
     def test_craniotomy_position_validation(self):
         """Test validation for craniotomy position"""

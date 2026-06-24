@@ -407,54 +407,54 @@ class TestRecursiveCheckPaths(unittest.TestCase):
     """Tests for recursive_check_paths function"""
 
     @patch("pathlib.Path.exists")
-    @patch("logging.warning")
+    @patch("aind_data_schema.utils.validators.logger")
     def test_path_exists(self, mock_warning: MagicMock, mock_exists: MagicMock):
         """Test when the path exists"""
         mock_exists.return_value = True
         test_path = AssetPath("test_file.txt")
         recursive_check_paths(test_path, Path("/base/directory"))
-        mock_warning.assert_not_called()
+        mock_warning.warning.assert_not_called()
         recursive_check_paths(test_path, None)
-        mock_warning.assert_not_called()
+        mock_warning.warning.assert_not_called()
 
     @patch("pathlib.Path.exists")
-    @patch("logging.warning")
+    @patch("aind_data_schema.utils.validators.logger")
     def test_path_does_not_exist(self, mock_warning: MagicMock, mock_exists: MagicMock):
         """Test when the path does not exist"""
         mock_exists.return_value = False
         test_path = AssetPath("test_file.txt")
         recursive_check_paths(test_path, Path("/base/directory"))
-        mock_warning.assert_called_once_with(
+        mock_warning.warning.assert_called_once_with(
             "AssetPath /base/directory/test_file.txt does not exist,"
             " ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.exists")
-    @patch("logging.warning")
+    @patch("aind_data_schema.utils.validators.logger")
     def test_nested_paths_in_list(self, mock_warning: MagicMock, mock_exists: MagicMock):
         """Test nested paths in a list"""
         mock_exists.side_effect = [True, False]
         test_paths = [AssetPath("existing_file.txt"), AssetPath("missing_file.txt")]
         recursive_check_paths(test_paths, Path("/base/directory"))
-        mock_warning.assert_called_once_with(
+        mock_warning.warning.assert_called_once_with(
             "AssetPath /base/directory/missing_file.txt does not exist,"
             " ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.exists")
-    @patch("logging.warning")
+    @patch("aind_data_schema.utils.validators.logger")
     def test_nested_paths_in_dict(self, mock_warning: MagicMock, mock_exists: MagicMock):
         """Test nested paths in a dictionary"""
         mock_exists.side_effect = [False, True]
         test_paths = {"file1": AssetPath("missing_file.txt"), "file2": AssetPath("existing_file.txt")}
         recursive_check_paths(test_paths, Path("/base/directory"))
-        mock_warning.assert_called_once_with(
+        mock_warning.warning.assert_called_once_with(
             "AssetPath /base/directory/missing_file.txt does not exist,"
             " ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.exists")
-    @patch("logging.warning")
+    @patch("aind_data_schema.utils.validators.logger")
     def test_nested_paths_in_object(self, mock_warning: MagicMock, mock_exists: MagicMock):
         """Test nested paths in a custom object"""
 
@@ -469,35 +469,35 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         mock_exists.side_effect = [False, True]
         obj = MockObject(AssetPath("missing_file.txt"), AssetPath("existing_file.txt"))
         recursive_check_paths(obj, Path("/base/directory"))
-        mock_warning.assert_called_once_with(
+        mock_warning.warning.assert_called_once_with(
             "AssetPath /base/directory/missing_file.txt does not exist,"
             " ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.exists")
-    @patch("logging.warning")
+    @patch("aind_data_schema.utils.validators.logger")
     def test_no_paths(self, mock_warning: MagicMock, mock_exists: MagicMock):
         """Test when no paths are present"""
         data = {"key": "value", "list": [1, 2, 3]}
         recursive_check_paths(data, Path("/base/directory"))
-        mock_warning.assert_not_called()
+        mock_warning.warning.assert_not_called()
 
     @patch("pathlib.Path.is_absolute")
     @patch("pathlib.Path.exists")
-    @patch("logging.warning")
+    @patch("aind_data_schema.utils.validators.logger")
     def test_absolute_path_warning(self, mock_warning: MagicMock, mock_is_absolute: MagicMock, mock_exists: MagicMock):
         """Test when the path is absolute"""
         mock_is_absolute.return_value = True
         mock_exists.return_value = True
         test_path = AssetPath("/absolute/path/to/file.txt")
         recursive_check_paths(test_path, None)
-        mock_warning.assert_called_with(
+        mock_warning.warning.assert_called_with(
             "AssetPath /absolute/path/to/file.txt is absolute, ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.is_absolute", return_value=False)
     @patch("pathlib.Path.exists", returns_value=True)
-    @patch("logging.warning")
+    @patch("aind_data_schema.utils.validators.logger")
     def test_relative_path_no_warning(
         self, mock_warning: MagicMock, mock_is_absolute: MagicMock, mock_exists: MagicMock
     ):

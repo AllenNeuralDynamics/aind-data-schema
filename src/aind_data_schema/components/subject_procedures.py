@@ -9,7 +9,7 @@ from pydantic import Field
 
 from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem, Translation
-from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.identifiers import Code, ProtocolMixin
 from aind_data_schema.components.injection_procedures import Injection
 from aind_data_schema.components.surgery_procedures import (
     Anaesthetic,
@@ -25,7 +25,7 @@ from aind_data_schema.components.surgery_procedures import (
 )
 
 
-class GenericSubjectProcedure(DataModel):
+class GenericSubjectProcedure(ProtocolMixin, DataModel):
     """Description of a non-surgical procedure performed on a subject"""
 
     start_date: date = Field(..., title="Start date")
@@ -34,8 +34,19 @@ class GenericSubjectProcedure(DataModel):
         title="experimenter(s)",
     )
     ethics_review_id: str = Field(..., title="Ethics review ID")
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     description: str = Field(..., title="Description")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class NonSurgicalInjection(DataModel):
+    """Injection procedure performed outside of surgery,
+    which may include one or more injections at different locations/depths
+    """
+
+    start_date: date = Field(..., title="Start date")
+    ethics_review_id: str = Field(..., title="Ethics review ID")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    injections: List[Injection] = Field(..., title="Injections", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -72,10 +83,9 @@ class WaterRestriction(DataModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
-class Surgery(DataModel):
+class Surgery(ProtocolMixin, DataModel):
     """Description of subject procedures performed at one time"""
 
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
     experimenters: Optional[List[str]] = Field(
         default=None,

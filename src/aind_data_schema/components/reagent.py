@@ -5,9 +5,9 @@ from typing import List, Optional, Union
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.reagent import FluorophoreType, StainType
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.units import MassUnit, SizeUnit
-from aind_data_schema_models.reagent import StainType, FluorophoreType
 from pydantic import Field
 
 from aind_data_schema.base import DataModel, Discriminated
@@ -29,6 +29,13 @@ class Reagent(DataModel):
     rrid: Optional[PIDName] = Field(default=None, title="Research Resource ID")
     lot_number: Optional[str] = Field(default=None, title="Lot number")
     expiration_date: Optional[date] = Field(default=None, title="Lot expiration date")
+
+
+class Solution(DataModel):
+    """Description of a solution made in house. Should match a solution named in protocol."""
+
+    name: str = Field(..., title="Name")
+    lot_number: Optional[str] = Field(default=None, title="Lot number")
 
 
 class OligoProbe(DataModel):

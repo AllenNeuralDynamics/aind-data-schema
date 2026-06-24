@@ -23,6 +23,7 @@ Modalities
 | `MAPSEQ` | `Multiplexed analysis of projections by sequencing` | `MAPseq` |
 | `MERFISH` | `Multiplexed error-robust fluorescence in situ hybridization` | `merfish` |
 | `MRI` | `Magnetic resonance imaging` | `MRI` |
+| `ONE_PHOTON` | `One-photon imaging` | `one-photon` |
 | `POPHYS` | `Planar optical physiology` | `pophys` |
 | `SCRNASEQ` | `Single cell RNA sequencing` | `scRNAseq` |
 | `SLAP2` | `Random access projection microscopy` | `slap2` |

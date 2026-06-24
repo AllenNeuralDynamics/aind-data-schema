@@ -57,7 +57,7 @@ Camera Detector
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `detector_type` | [DetectorType](../aind_data_schema_models/devices.md#detectortype) |   |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Data interface  |
 | `cooling` | [Cooling](../aind_data_schema_models/devices.md#cooling) | Cooling  |
 | `frame_rate` | `Optional[decimal.Decimal]` | Frame rate (Hz) (Frame rate being used) |
@@ -192,7 +192,7 @@ Data acquisition device containing multiple I/O channels
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Type of connection to PC  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
 | `firmware_version` | `Optional[str]` | Firmware version  |
 | `hardware_version` | `Optional[str]` | Hardware version  |
@@ -210,7 +210,7 @@ Description of a generic detector
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `detector_type` | [DetectorType](../aind_data_schema_models/devices.md#detectortype) | Detector Type  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Data interface  |
 | `cooling` | [Cooling](../aind_data_schema_models/devices.md#cooling) | Cooling  |
 | `frame_rate` | `Optional[decimal.Decimal]` | Frame rate (Hz) (Frame rate being used) |
@@ -417,7 +417,7 @@ Filter used in a light path
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `filter_type` | [FilterType](../aind_data_schema_models/devices.md#filtertype) | Type of filter  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `cut_off_wavelength` | `Optional[int]` | Cut-off wavelength (nm)  |
 | `cut_on_wavelength` | `Optional[int]` | Cut-on wavelength (nm)  |
 | `center_wavelength` | `int or List[int] or NoneType` | Center wavelength (nm) (Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters) |
@@ -435,7 +435,7 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) | Type of Harp device  |
 | `core_version` | `Optional[str]` | Core version  |
 | `tag_version` | `Optional[str]` | Tag version  |
@@ -476,7 +476,7 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `wavelength` | `int` | Wavelength (nm)  |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
 | `coupling` | Optional[[Coupling](../aind_data_schema_models/devices.md#coupling)] | Coupling  |
@@ -508,7 +508,7 @@ Lens
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
 | `model` | `Optional[str]` | Model  |
@@ -564,7 +564,7 @@ Description of a Light Emitting Diode (LED) device
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `wavelength` | `int` | Wavelength (nm)  |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
 | `bandwidth` | `Optional[int]` | Bandwidth (FWHM)  |
@@ -582,7 +582,7 @@ Manipulator used on a dome module
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
 | `model` | `Optional[str]` | Model  |
@@ -610,7 +610,7 @@ Description of visual display for visual stimuli
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `refresh_rate` | `int` | Refresh rate (Hz)  |
 | `width` | `int` | Width (pixels)  |
 | `height` | `int` | Height (pixels)  |
@@ -732,7 +732,7 @@ Description of an olfactometer for odor stimuli
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) | Type of Harp device  |
 | `channels` | List[[OlfactometerChannel](#olfactometerchannel)] |   |
 | `core_version` | `Optional[str]` | Core version  |
@@ -777,7 +777,7 @@ Multichannel electrophysiology DAQ
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `ports` | List[[ProbePort](#probeport)] | Acquisition board ports  |
-| `data_interface` | `"DataInterface.USB"` |   |
+| `data_interface` | `"USB"` |   |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
 | `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
 | `firmware_version` | `Optional[str]` | Firmware version  |
@@ -888,7 +888,7 @@ Description of a speaker for auditory stimuli
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) | Manufacturer  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
 | `model` | `Optional[str]` | Model  |

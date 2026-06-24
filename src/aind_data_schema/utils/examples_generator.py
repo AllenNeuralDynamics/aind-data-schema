@@ -6,6 +6,8 @@ import subprocess
 from glob import glob
 from pathlib import Path
 
+logger = logging.getLogger(__name__)
+
 CURRENT_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
 ROOT_DIR = CURRENT_DIR.parents[2]
 EXAMPLES_DIR = ROOT_DIR / "examples"
@@ -24,7 +26,7 @@ class ExamplesGenerator:
             If None, defaults to the same directory as the example script.
         """
 
-        logging.info(f"Running all examples in {EXAMPLES_DIR}")
+        logger.info(f"Running all examples in {EXAMPLES_DIR}")
         for example_file in glob(str(EXAMPLES_DIR / "*.py")):
             if Path(example_file).name == "__init__.py":
                 continue
@@ -42,7 +44,7 @@ class ExamplesGenerator:
             If None, defaults to the same directory as the example script.
         """
 
-        logging.info(f"Running {example_file}")
+        logger.info(f"Running {example_file}")
         cmd = ["python", example_file]
         if output_directory is not None:
             cmd.extend(["--output-dir", str(output_directory)])
