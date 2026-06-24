@@ -1,0 +1,110 @@
+{
+   "$defs": {
+      "FileSet": {
+         "additionalProperties": false,
+         "description": "A set of files matching a glob pattern, inspired by Croissant cr:FileSet",
+         "properties": {
+            "object_type": {
+               "const": "File set",
+               "default": "File set",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Description"
+            },
+            "encoding_format": {
+               "title": "Encoding format (MIME type)",
+               "type": "string"
+            },
+            "includes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "title": "Glob pattern(s) for included files"
+            },
+            "excludes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Glob pattern(s) for excluded files"
+            }
+         },
+         "required": [
+            "name",
+            "encoding_format",
+            "includes"
+         ],
+         "title": "FileSet",
+         "type": "object"
+      }
+   },
+   "additionalProperties": false,
+   "description": "Description of the expected file organization for a data asset folder",
+   "properties": {
+      "object_type": {
+         "const": "Files",
+         "default": "Files",
+         "title": "Object Type",
+         "type": "string"
+      },
+      "describedBy": {
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/files.py",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/files.py",
+         "title": "Describedby",
+         "type": "string"
+      },
+      "schema_version": {
+         "const": "0.1.0",
+         "default": "0.1.0",
+         "title": "Schema Version",
+         "type": "string"
+      },
+      "file_sets": {
+         "items": {
+            "$ref": "#/$defs/FileSet"
+         },
+         "minItems": 1,
+         "title": "File sets",
+         "type": "array"
+      }
+   },
+   "required": [
+      "file_sets"
+   ],
+   "title": "Files",
+   "type": "object"
+}

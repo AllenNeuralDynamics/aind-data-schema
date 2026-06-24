@@ -23,6 +23,7 @@ from aind_data_schema.components.identifiers import DatabaseIdentifiers
 from aind_data_schema.components.subjects import CalibrationObject
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
+from aind_data_schema.core.files import Files
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.model import Model
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
@@ -42,6 +43,7 @@ CORE_FILES = [
     "acquisition",
     "quality_control",
     "model",
+    "files",
 ]
 
 # Files present must include at least one of these "file set" keys,
@@ -71,7 +73,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.6.1"]] = Field(default="2.6.1")
+    schema_version: SkipValidation[Literal["2.6.2"]] = Field(default="2.6.2")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -110,6 +112,9 @@ class Metadata(DataCoreModel):
     )
     model: Optional[Model] = Field(
         default=None, title="Model", description="Description of a machine learning model trained on data."
+    )
+    files: Optional[Files] = Field(
+        default=None, title="Files", description="Description of the expected file organization for the data asset."
     )
 
     @field_validator(
