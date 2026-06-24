@@ -855,13 +855,13 @@ function buildExport() {
   const xfLines = state.transforms.map(xf => {
     if (xf.type === 'T') {
       const vals = xf.translation.map(v => v.toFixed(4)).join(', ');
-      const frame = xf.frame !== 'global' ? `\n        frame=TransformFrame.LOCAL,` : '';
+      const frame = xf.frame !== 'global' ? `\n        reference_frame=ReferenceCoordinateSystem.LOCAL,` : '';
       return `    Translation(\n        translation=[${vals}],${frame}\n    ),`;
     } else {
       const vals = xf.angles.map(v => v.toFixed(4)).join(', ');
       const extras = [];
       if (xf.direction && xf.direction !== 'right_hand') extras.push(`        rotation_direction=RotationDirection.LEFT_HAND,`);
-      if (xf.pivot && xf.pivot !== 'global') extras.push(`        pivot=TransformFrame.LOCAL,`);
+      if (xf.pivot && xf.pivot !== 'global') extras.push(`        pivot=ReferenceCoordinateSystem.LOCAL,`);
       const ex = extras.length ? '\n' + extras.join('\n') : '';
       return `    Rotation(\n        angles=[${vals}],\n        angles_unit=AngleUnit.DEG,${ex}\n    ),`;
     }
@@ -869,12 +869,12 @@ function buildExport() {
 
   const code = `from aind_data_schema.components.coordinates import (
     Axis, AxisName, CoordinateSystem, Direction,
-    Handedness, Origin, Rotation, RotationDirection,
-    Scale, SizeUnit, Translation, TransformFrame,
+    Handedness, Origin, ReferenceCoordinateSystem,
+    Rotation, RotationDirection, Scale, SizeUnit, Translation,
 )
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 
-# Instrument coordinate system
+# Instrument global coordinate system
 instrument_cs = CoordinateSystem(
     name="${cs.name}",
     origin=Origin.${cs.origin},
@@ -884,7 +884,7 @@ ${axLines}
     ],
 )
 
-# Device coordinate system
+# Device local coordinate system
 device_cs = CoordinateSystem(
     name="${devCs.csName}",
     origin=Origin.${devCs.csOrigin},
@@ -894,7 +894,7 @@ ${devAxLines}
     ],
 )
 
-# Device-to-instrument transform list
+# Local-to-global transform list
 transform = [
 ${xfLines}
 ]
