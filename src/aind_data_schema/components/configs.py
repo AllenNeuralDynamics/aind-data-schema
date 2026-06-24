@@ -23,7 +23,14 @@ from aind_data_schema_models.units import (
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, Discriminated, DiscriminatedList, GenericModel, migrate_deprecated_coordinate_system
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataModel,
+    Discriminated,
+    DiscriminatedList,
+    GenericModel,
+    migrate_deprecated_coordinate_system,
+)
 from aind_data_schema.components.coordinates import (
     TRANSFORM_TYPES,
     AtlasCoordinate,

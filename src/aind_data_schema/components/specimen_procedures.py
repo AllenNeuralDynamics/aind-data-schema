@@ -11,7 +11,12 @@ from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureTy
 from aind_data_schema_models.units import SizeUnit
 from pydantic import Field, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList, migrate_deprecated_coordinate_system
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataModel,
+    DiscriminatedList,
+    migrate_deprecated_coordinate_system,
+)
 from aind_data_schema.components.coordinates import Atlas, CoordinateSystem, Translation
 from aind_data_schema.components.identifiers import ProtocolListMixin
 from aind_data_schema.components.reagent import FluorescentStain, GeneProbeSet, ProbeReagent, Reagent, Solution

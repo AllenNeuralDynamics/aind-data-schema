@@ -13,7 +13,14 @@ from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_extra_types.timezone_name import TimeZoneName
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel, migrate_deprecated_coordinate_system
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataCoreModel,
+    DataModel,
+    DiscriminatedList,
+    GenericModel,
+    migrate_deprecated_coordinate_system,
+)
 from aind_data_schema.components.configs import (
     AirPuffConfig,
     CatheterConfig,
