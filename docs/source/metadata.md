@@ -24,3 +24,4 @@ to easily query and index the data.
 | `acquisition` | Optional[[Acquisition](acquisition.md#acquisition)] | Acquisition (Data acquisition) |
 | `quality_control` | Optional[[QualityControl](quality_control.md#qualitycontrol)] | Quality Control (Description of quality metrics for a data asset) |
 | `model` | Optional[[Model](model.md#model)] | Model (Description of a machine learning model trained on data.) |
+| `files` | Optional[[Files](files.md#files)] | Files (Description of the expected file organization for the data asset.) |
