@@ -116,8 +116,8 @@ class DevicePosition(DataModel):
     )
     transform: Optional[TRANSFORM_TYPES] = Field(
         default=None,
-        title="Device to instrument transform",
-        description="Position and orientation of the device in the instrument coordinate system",
+        title="Local to global transform",
+        description="Position and orientation of the device in the instrument global coordinate system",
     )
 
     @model_validator(mode="before")

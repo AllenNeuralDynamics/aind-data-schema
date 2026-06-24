@@ -800,7 +800,7 @@ class ProceduresTests(unittest.TestCase):
         )
 
         combined = p1 + p3
-        self.assertEqual(combined.coordinate_system, CoordinateSystemLibrary.BREGMA_ARI)
+        self.assertEqual(combined.global_coordinate_system, CoordinateSystemLibrary.BREGMA_ARI)
         self.assertEqual(len(combined.subject_procedures), 0)  # Both started with empty procedures
 
 

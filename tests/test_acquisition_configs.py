@@ -276,7 +276,7 @@ class TestImagingConfig(unittest.TestCase):
                 coordinate_system=None,
             )
         self.assertIn(
-            "ImagingConfig.coordinate_system is required when ImagingConfig.images are ImageSPIM objects",
+            "ImagingConfig.local_coordinate_system is required when ImagingConfig.images are ImageSPIM objects",
             str(context.exception),
         )
 

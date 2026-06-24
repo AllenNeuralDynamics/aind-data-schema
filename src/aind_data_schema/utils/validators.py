@@ -263,8 +263,12 @@ def recursive_get_all_names(obj: Any) -> List[str]:
         if hasattr(obj, "name") and isinstance(obj.name, str):  # Ensure name is a string
             names.append(obj.name)
 
-        # Continue recursion into fields
-        for field_value in vars(obj).values():  # Use vars() for robustness
+        # Continue recursion into fields, skipping the deprecated coordinate_system
+        # when a renamed field (local_coordinate_system / global_coordinate_system) is present
+        _has_new_cs = hasattr(obj, "local_coordinate_system") or hasattr(obj, "global_coordinate_system")
+        for field_name, field_value in vars(obj).items():
+            if field_name == "coordinate_system" and _has_new_cs:
+                continue
             names.extend(recursive_get_all_names(field_value))
 
     return names

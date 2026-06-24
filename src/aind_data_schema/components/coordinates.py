@@ -196,7 +196,7 @@ class Rotation(DataModel):
         order = self.axis_order[: len(self.angles)]
 
         # Intrinsic rotations use uppercase axis letters in scipy
-        if self.frame == ReferenceCoordinateSystem.LOCAL:
+        if self.reference_frame == ReferenceCoordinateSystem.LOCAL:
             order = order.upper()
 
         rotation = R.from_euler(order, angles)

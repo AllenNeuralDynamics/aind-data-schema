@@ -121,7 +121,7 @@ class DeviceTests(unittest.TestCase):
                 ],
             )
         self.assertIn(
-            "DevicePosition.transform and DevicePosition.coordinate_system must either both be set or both be unset",
+            "DevicePosition.transform and DevicePosition.local_coordinate_system must either both be set or both be unset",
             str(e1.exception),
         )
 
@@ -132,7 +132,7 @@ class DeviceTests(unittest.TestCase):
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             )
         self.assertIn(
-            "DevicePosition.transform and DevicePosition.coordinate_system must either both be set or both be unset",
+            "DevicePosition.transform and DevicePosition.local_coordinate_system must either both be set or both be unset",
             str(e2.exception),
         )
 

@@ -419,8 +419,8 @@ class LickSpoutConfig(DeviceConfig):
     local_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device local coordinate system")
     transform: Optional[TRANSFORM_TYPES] = Field(
         default=None,
-        title="Device to acquisition transform",
-        description="Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
+        title="Local to global transform",
+        description="Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
     )
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
@@ -457,7 +457,8 @@ class AirPuffConfig(DeviceConfig):
     local_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device local coordinate system")
     transform: Optional[TRANSFORM_TYPES] = Field(
         default=None,
-        title="Device to acquisition transform",
+        title="Local to global transform",
+        description="Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
     )
 
     pressure: Optional[float] = Field(default=None, title="Pressure")
@@ -552,8 +553,8 @@ class ProbeConfig(DeviceConfig):
     )
     transform: TRANSFORM_TYPES = Field(
         ...,
-        title="Device to acquisition transform",
-        description="Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
+        title="Local to global transform",
+        description="Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
     )
 
     dye: Optional[str] = Field(default=None, title="Dye")
