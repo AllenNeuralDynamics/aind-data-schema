@@ -122,9 +122,11 @@ class FileSet(DataModel):
     excludes: Optional[Union[str, List[str]]] = Field(default=None, title="Glob pattern(s) for excluded files")
 
     def _croissant_id(self) -> str:
+        """Generate a Croissant-compatible ID from the file set name."""
         return re.sub(r"[^a-z0-9]+", "-", self.name.lower()).strip("-")
 
     def to_croissant(self) -> Dict[str, Any]:
+        """Convert the FileSet instance to a Croissant-compatible dictionary."""
         entry: Dict[str, Any] = {
             "@type": "cr:FileSet",
             "@id": self._croissant_id(),
