@@ -176,23 +176,17 @@ class Files(DataCoreModel):
         for file_set in self.file_sets:
             include_patterns = _as_pattern_list(file_set.includes)
             exclude_patterns = _as_pattern_list(file_set.excludes)
-            fs_excluded = {
-                p for p in relative_paths if any(_glob_match(p, ep) for ep in exclude_patterns)
-            }
+            fs_excluded = {p for p in relative_paths if any(_glob_match(p, ep) for ep in exclude_patterns)}
             known_excluded.update(fs_excluded)
             for pattern in include_patterns:
-                fs_matches = [
-                    p for p in relative_paths if _glob_match(p, pattern) and p not in fs_excluded
-                ]
+                fs_matches = [p for p in relative_paths if _glob_match(p, pattern) and p not in fs_excluded]
                 if not fs_matches:
                     errors.append(f"FileSet '{file_set.name}': no files matching pattern '{pattern}'")
                 matched.update(fs_matches)
 
         orphans = sorted(set(relative_paths) - matched - known_excluded)
         if orphans:
-            warnings.warn(
-                "Files in folder not described by any FileSet: " + ", ".join(orphans)
-            )
+            warnings.warn("Files in folder not described by any FileSet: " + ", ".join(orphans))
 
         if errors:
             raise ValueError("Files validation failed:\n  - " + "\n  - ".join(errors))
