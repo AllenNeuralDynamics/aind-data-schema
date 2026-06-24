@@ -28,6 +28,7 @@ from aind_data_schema.components.configs import (
     EphysAssemblyConfig,
     FiberAssemblyConfig,
     ImagingConfig,
+    JoystickConfig,
     LaserConfig,
     LickSpoutConfig,
     LightEmittingDiodeConfig,
@@ -319,7 +320,12 @@ class StimulusEpoch(DataModel):
         description="Device names must match devices in the Instrument",
     )
     configurations: DiscriminatedList[
-        SpeakerConfig | LightEmittingDiodeConfig | LaserConfig | MousePlatformConfig | OlfactometerConfig
+        SpeakerConfig
+        | LightEmittingDiodeConfig
+        | LaserConfig
+        | MousePlatformConfig
+        | OlfactometerConfig
+        | JoystickConfig
     ] = Field(default=[], title="Device configurations")
 
     # Training protocol

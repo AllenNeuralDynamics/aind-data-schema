@@ -178,6 +178,16 @@ Description of an interleaved image sampling strategy
 | `frame_rate_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) | Frame rate unit  |
 
 
+### JoystickConfig
+
+Configuration of joystick
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `is_isometric` | `bool` | Is isometric (Whether the joystick is use isometrically or non-isometrically) |
+| `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
+
+
 ### LaserConfig
 
 Configuration of laser settings in an acquisition
