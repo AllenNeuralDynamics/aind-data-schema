@@ -39,7 +39,11 @@ class Handedness(str, Enum):
 class Axis(DataModel):
     """Linked direction and axis"""
 
-    name: AxisName = Field(..., title="Axis")
+    name: AxisName = Field(
+        ...,
+        title="Axis name",
+        description="Note: axis names do not influence order or orientation"
+    )
     direction: Direction = Field(
         ...,
         title="Direction",
@@ -51,7 +55,7 @@ class Scale(DataModel):
     """Scale"""
 
     scale: List[float] = Field(..., title="Scale parameters")
-    pivot: Optional[ReferenceCoordinateSystem] = Field(
+    pivot: ReferenceCoordinateSystem = Field(
         default=ReferenceCoordinateSystem.GLOBAL,
         title="Scale pivot",
         description="Whether to scale around the global or local coordinate system origin",
@@ -121,15 +125,11 @@ class Translation(DataModel):
 class Rotation(DataModel):
     """Rotation
 
-    Rotations are applied as Euler angles in the specified axis order.
-
-    The default convention is fixed global axes, right-hand rule (positive angles rotate
-    counter-clockwise when looking toward the origin from the positive axis),
-    xyz axis order, pivoting around the global origin.
+    Rotations should be applied as Euler angles in the specified axis order.
     """
 
     angles: List[float] = Field(
-        ..., title="Angles and axes in 3D space", description="Right-hand rule, positive angles rotate CCW"
+        ..., title="Angles", description="Right-hand rule, positive angles rotate CCW"
     )
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     axis_order: str = Field(
@@ -209,7 +209,7 @@ class Rotation(DataModel):
 
 
 class Affine(DataModel):
-    """Definition of an affine transform 3x4 matrix"""
+    """Definition of an NxN+1 affine transform matrix"""
 
     affine_transform: List[List[float]] = Field(
         ...,
@@ -301,7 +301,7 @@ TRANSFORM_TYPES_NONLINEAR = DiscriminatedList[Translation | Rotation | Scale | A
 class CoordinateSystem(DataModel):
     """Definition of a coordinate system"""
 
-    name: str = Field(..., title="Name")
+    name: str = Field(..., title="Name", description="Convention is to use <Origin>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc")
 
     origin: Origin | MouseAnatomyModel = Field(
         ..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system"
