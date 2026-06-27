@@ -19,7 +19,14 @@ from aind_data_schema.base import (
 )
 from aind_data_schema.components.coordinates import Atlas, CoordinateSystem, Translation
 from aind_data_schema.components.identifiers import ProtocolListMixin
-from aind_data_schema.components.reagent import FluorescentStain, GeneProbeSet, ProbeReagent, Reagent, Solution
+from aind_data_schema.components.reagent import (
+    FluorescentReagent,
+    FluorescentStain,
+    GeneProbeSet,
+    ProbeReagent,
+    Reagent,
+    Solution,
+)
 from aind_data_schema.utils.exceptions import OneOfError
 
 
@@ -195,7 +202,15 @@ class SpecimenProcedure(ProtocolListMixin, DataModel):
     )
 
     procedure_details: DiscriminatedList[
-        HCRSeries | FluorescentStain | Sectioning | PlanarSectioning | ProbeReagent | Reagent | GeneProbeSet | Solution
+        HCRSeries
+        | FluorescentReagent
+        | FluorescentStain
+        | Sectioning
+        | PlanarSectioning
+        | ProbeReagent
+        | Reagent
+        | GeneProbeSet
+        | Solution
     ] = Field(
         default=[],
         title="Procedure details",
@@ -210,6 +225,7 @@ class SpecimenProcedure(ProtocolListMixin, DataModel):
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_fluorescent_stain = any(isinstance(detail, FluorescentStain) for detail in self.procedure_details)
+        has_fluorescent_reagent = any(isinstance(detail, FluorescentReagent) for detail in self.procedure_details)
         has_protein_probe = any(isinstance(detail, ProbeReagent) for detail in self.procedure_details)
         has_sectioning = any(
             (isinstance(detail, PlanarSectioning) or isinstance(detail, Sectioning))
@@ -227,7 +243,7 @@ class SpecimenProcedure(ProtocolListMixin, DataModel):
         elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not has_hcr_series:
             raise AssertionError("HCRSeries required if procedure_type is HCR.")
         elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not (
-            has_fluorescent_stain or has_protein_probe
+            has_fluorescent_stain or has_protein_probe or has_fluorescent_reagent
         ):
             raise AssertionError("FluorescentStain or ProbeReagent required if procedure_type is Immunolabeling.")
         elif self.procedure_type == SpecimenProcedureType.SECTIONING and not has_sectioning:
