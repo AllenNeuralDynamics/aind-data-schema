@@ -147,3 +147,4 @@ examples/*.json
 docs/base/models/*
 .github/copilot-instructions.md
 uv.lock
+schema_tree.md
