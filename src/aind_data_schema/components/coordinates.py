@@ -16,7 +16,7 @@ from aind_data_schema.components.wrappers import AssetPath
 
 
 class ReferenceCoordinateSystem(str, Enum):
-    """Reference frame (coordinate system) for applying transforms"""
+    """Reference coordinate system for applying transforms"""
 
     GLOBAL = "global"
     LOCAL = "local"
@@ -85,9 +85,9 @@ class Translation(DataModel):
     """Translation"""
 
     translation: List[float] = Field(..., title="Translation parameters")
-    reference_frame: ReferenceCoordinateSystem = Field(
+    reference_coordinate_system: ReferenceCoordinateSystem = Field(
         default=ReferenceCoordinateSystem.GLOBAL,
-        title="Reference frame",
+        title="Reference coordinate system",
         description="Whether to translate on the global or local coordinate system axes",
     )
 
@@ -137,9 +137,9 @@ class Rotation(DataModel):
         title="Axis order",
         description="Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.",
     )
-    reference_frame: ReferenceCoordinateSystem = Field(
+    reference_coordinate_system: ReferenceCoordinateSystem = Field(
         default=ReferenceCoordinateSystem.GLOBAL,
-        title="Reference frame",
+        title="Reference coordinate system",
         description="Whether to rotate around the global or local coordinate system axes",
     )
     rotation_direction: RotationDirection = Field(
@@ -196,7 +196,7 @@ class Rotation(DataModel):
         order = self.axis_order[: len(self.angles)]
 
         # Intrinsic rotations use uppercase axis letters in scipy
-        if self.reference_frame == ReferenceCoordinateSystem.LOCAL:
+        if self.reference_coordinate_system == ReferenceCoordinateSystem.LOCAL:
             order = order.upper()
 
         rotation = R.from_euler(order, angles)
