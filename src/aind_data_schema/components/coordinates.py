@@ -301,7 +301,11 @@ TRANSFORM_TYPES_NONLINEAR = DiscriminatedList[Translation | Rotation | Scale | A
 class CoordinateSystem(DataModel):
     """Definition of a coordinate system"""
 
-    name: str = Field(..., title="Name", description="Convention is to use <Origin>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc")
+    name: str = Field(
+        ...,
+        title="Name",
+        description="Convention is to use <Origin>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc"
+    )
 
     origin: Origin | MouseAnatomyModel = Field(
         ..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system"
