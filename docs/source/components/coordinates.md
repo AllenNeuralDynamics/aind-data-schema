@@ -37,7 +37,7 @@ A point in an Atlas
 |-------|------|-------------|
 | `coordinate_system` | [Atlas](#atlas) | Atlas  |
 | `translation` | `List[float]` | Translation parameters  |
-| `reference_frame` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference frame (Whether to translate on the global or local coordinate system axes) |
+| `reference_coordinate_system` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference coordinate system (Whether to translate on the global or local coordinate system axes) |
 
 
 ### Axis
@@ -84,7 +84,7 @@ Definition of a nonlinear transform
 
 ### ReferenceCoordinateSystem
 
-Reference frame (coordinate system) for applying transforms
+Reference coordinate system for applying transforms
 
 | Name | Value |
 |------|-------|
@@ -107,7 +107,7 @@ xyz axis order, pivoting around the global origin.
 | `angles` | `List[float]` | Angles and axes in 3D space (Right-hand rule, positive angles rotate CCW) |
 | `angles_unit` | [AngleUnit](../aind_data_schema_models/units.md#angleunit) | Angle unit  |
 | `axis_order` | `str` | Axis order (Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.) |
-| `reference_frame` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference frame (Whether to rotate around the global or local coordinate system axes) |
+| `reference_coordinate_system` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference coordinate system (Whether to rotate around the global or local coordinate system axes) |
 | `rotation_direction` | [RotationDirection](#rotationdirection) | Rotation direction (Right-hand rule: positive angles rotate CCW when looking toward the origin from the positive axis) |
 | `pivot` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Rotation pivot (Whether to rotate around the global or local coordinate system origin) |
 
@@ -139,6 +139,6 @@ Translation
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `translation` | `List[float]` | Translation parameters  |
-| `reference_frame` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference frame (Whether to translate on the global or local coordinate system axes) |
+| `reference_coordinate_system` | [ReferenceCoordinateSystem](#referencecoordinatesystem) | Reference coordinate system (Whether to translate on the global or local coordinate system axes) |
 
 
