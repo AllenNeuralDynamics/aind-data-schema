@@ -855,7 +855,7 @@ function buildExport() {
   const xfLines = state.transforms.map(xf => {
     if (xf.type === 'T') {
       const vals = xf.translation.map(v => v.toFixed(4)).join(', ');
-      const frame = xf.frame !== 'global' ? `\n        reference_frame=ReferenceCoordinateSystem.LOCAL,` : '';
+      const frame = xf.frame !== 'global' ? `\n        reference_coordinate_system=ReferenceCoordinateSystem.LOCAL,` : '';
       return `    Translation(\n        translation=[${vals}],${frame}\n    ),`;
     } else {
       const vals = xf.angles.map(v => v.toFixed(4)).join(', ');

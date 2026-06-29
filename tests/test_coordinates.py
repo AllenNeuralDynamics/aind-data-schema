@@ -230,17 +230,17 @@ class TestTranslationFrame(unittest.TestCase):
     def test_default_frame_is_global(self):
         """Test that the default frame is global"""
         t = Translation(translation=[1, 2, 3])
-        self.assertEqual(t.reference_frame, ReferenceCoordinateSystem.GLOBAL)
+        self.assertEqual(t.reference_coordinate_system, ReferenceCoordinateSystem.GLOBAL)
 
     def test_local_frame(self):
         """Test that local frame is stored correctly"""
-        t = Translation(translation=[1, 2, 3], reference_frame=ReferenceCoordinateSystem.LOCAL)
-        self.assertEqual(t.reference_frame, ReferenceCoordinateSystem.LOCAL)
+        t = Translation(translation=[1, 2, 3], reference_coordinate_system=ReferenceCoordinateSystem.LOCAL)
+        self.assertEqual(t.reference_coordinate_system, ReferenceCoordinateSystem.LOCAL)
 
     def test_matrix_unaffected_by_frame(self):
         """Test that the matrix output is the same regardless of frame"""
-        t_global = Translation(translation=[1, 2, 3], reference_frame=ReferenceCoordinateSystem.GLOBAL)
-        t_local = Translation(translation=[1, 2, 3], reference_frame=ReferenceCoordinateSystem.LOCAL)
+        t_global = Translation(translation=[1, 2, 3], reference_coordinate_system=ReferenceCoordinateSystem.GLOBAL)
+        t_local = Translation(translation=[1, 2, 3], reference_coordinate_system=ReferenceCoordinateSystem.LOCAL)
         self.assertEqual(t_global.to_matrix(), t_local.to_matrix())
 
 
@@ -258,7 +258,7 @@ class TestRotationNewFields(unittest.TestCase):
     def test_default_fields(self):
         """Test that default field values are correct"""
         r = Rotation(angles=[45, 0, 0])
-        self.assertEqual(r.reference_frame, ReferenceCoordinateSystem.GLOBAL)
+        self.assertEqual(r.reference_coordinate_system, ReferenceCoordinateSystem.GLOBAL)
         self.assertEqual(r.rotation_direction, RotationDirection.RIGHT_HAND)
         self.assertEqual(r.pivot, ReferenceCoordinateSystem.GLOBAL)
         self.assertEqual(r.axis_order, "xyz")
@@ -296,8 +296,8 @@ class TestRotationNewFields(unittest.TestCase):
     def test_local_frame_differs_from_global(self):
         """Test that local (intrinsic) frame produces a different matrix than global (extrinsic)"""
         angles = [30, 45, 60]
-        r_global = Rotation(angles=angles, reference_frame=ReferenceCoordinateSystem.GLOBAL)
-        r_local = Rotation(angles=angles, reference_frame=ReferenceCoordinateSystem.LOCAL)
+        r_global = Rotation(angles=angles, reference_coordinate_system=ReferenceCoordinateSystem.GLOBAL)
+        r_local = Rotation(angles=angles, reference_coordinate_system=ReferenceCoordinateSystem.LOCAL)
         expected_global = R.from_euler("xyz", angles, degrees=True).as_matrix().tolist()
         expected_local = R.from_euler("XYZ", angles, degrees=True).as_matrix().tolist()
         expected_global = [row + [0.0] for row in expected_global] + [[0.0, 0.0, 0.0, 1.0]]
