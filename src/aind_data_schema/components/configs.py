@@ -7,7 +7,7 @@ from typing import List, Optional
 from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import ImmersionMedium
-from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel, MouseAnatomy
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from aind_data_schema_models.units import (
     AngleUnit,
@@ -509,8 +509,9 @@ class OlfactometerConfig(DeviceConfig):
 class JoystickConfig(DeviceConfig):
     """Configuration of joystick"""
 
-    is_isometric: bool = Field(..., title="Is isometric",
-                               description="Whether the joystick is use isometrically or non-isometrically")
+    is_isometric: bool = Field(
+        ..., title="Is isometric", description="Whether the joystick is use isometrically or non-isometrically"
+    )
 
 
 # EPHYS CONFIGS
