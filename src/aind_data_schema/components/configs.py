@@ -688,13 +688,3 @@ class CatheterConfig(DeviceConfig):
     targeted_structure: MouseAnatomyModel = Field(
         ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
     )
-
-
-class ThermistorConfig(DeviceConfig, DevicePosition):
-    """Configuration of a thermistor for temperature measurement in a surgery"""
-
-    origin: MouseAnatomyModel = Field(
-        default=MouseAnatomy.FRONTONASAL_SUTURE,
-        title="Targeted structure",
-        description="Use options from MouseAnatomyModel, e.g. BrainSurface or BodySurface",
-    )
