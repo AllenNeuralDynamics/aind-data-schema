@@ -2,9 +2,27 @@
 
 ## Model definitions
 
+### FluorescentReagent
+
+Description of an inherently fluorescent marker. Note this class will change name in v3.0
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `stain_type` | [StainType](../aind_data_schema_models/reagent.md#staintype) |   |
+| `excitation_wavelength` | `int` | Excitation wavelength (nm)  |
+| `emission_wavelength` | `int` | Emission wavelength (nm)  |
+| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Excitation wavelength unit  |
+| `name` | `str` | Name  |
+| `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Source  |
+| `rrid` | Optional[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] | Research Resource ID  |
+| `lot_number` | `Optional[str]` | Lot number  |
+| `expiration_date` | `Optional[datetime.date]` | Lot expiration date  |
+
+
 ### FluorescentStain
 
-Description of a fluorescent stain
+Description of a fluorescent stain consisting of a probe associated with a fluorophore.
+Note this class will change names in v3.0
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|

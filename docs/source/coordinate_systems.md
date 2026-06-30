@@ -121,3 +121,22 @@ CoordinateSystem(
 The device is now defined in the instrument coordinate system, but at a physically impossible location overlapping the mouse. Now draw a second picture, which is the actual location of your monitor relative to the mouse. In our case, lets assume that this monitor is facing the mouse's right eye, at a 45 degree angle to the axis of the mouse's body (i.e. the eye to monitor vector is perpendicular to the monitor surface.), and at a viewing distance of 100 mm.
 
 Now we calculate the transforms needed to correctly position the device in the acquisition coordinate system. First we translate the monitor to the correct position by applying `Translation(translation=70.7, 70.7, 0)`. Then, we rotate *clockwise* around the Z axis by applying `Rotation(angles=[0, 0, -45], angles_unit=AngleUnit.DEG)`.
+
+## Interactive Coordinate System Builder
+
+The builder below lets you set up your instrument coordinate system, add a probe or monitor device, and construct the transform list interactively. The 3D viewport shows a semi-transparent brain mesh with the device rendered in its final position. When you are satisfied, copy the generated Python code from the Export panel.
+
+```{raw} html
+<p style="margin-bottom:6px">
+  <a href="_static/coordinate_system_builder.html" target="_blank" rel="noopener">
+    Open builder in full screen ↗
+  </a>
+</p>
+<iframe
+  src="_static/coordinate_system_builder.html"
+  style="width:100%; min-width:820px; height:780px; border:1px solid #ddd; border-radius:6px; overflow:auto;"
+  scrolling="yes"
+  title="AIND Coordinate System Builder">
+</iframe>
+```
+

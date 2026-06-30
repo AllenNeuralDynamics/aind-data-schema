@@ -60,7 +60,8 @@ Description of an instrument
 | `modification_date` | `datetime.date` | Date of modification (Date of the last change to the instrument, hardware addition/removal, calibration, etc.) |
 | `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities (List of all possible modalities that the instrument is capable of acquiring) |
 | `calibrations` | Optional[List[[Calibration](components/measurements.md#calibration) or [VolumeCalibration](components/measurements.md#volumecalibration) or [PowerCalibration](components/measurements.md#powercalibration)]] | Calibrations (List of calibration measurements takend during instrument setup and maintenance) |
-| `coordinate_system` | [CoordinateSystem](components/coordinates.md#coordinatesystem) | Coordinate system (Origin and axis definitions for determining the position of the instrument's components) |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use global_coordinate_system instead. Coordinate system (Origin and axis definitions for determining the position of the instrument's components) |
+| `global_coordinate_system` | [CoordinateSystem](components/coordinates.md#coordinatesystem) | Global coordinate system (Origin and axis definitions for determining the position of the instrument's components) |
 | `temperature_control` | `Optional[bool]` | Temperature control (Does the instrument maintain a constant temperature?) |
 | `notes` | `Optional[str]` | Notes  |
 | `connections` | List[[Connection](components/connections.md#connection)] | Connections (List of all connections between devices in the instrument) |

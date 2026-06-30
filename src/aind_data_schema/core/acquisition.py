@@ -13,7 +13,14 @@ from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_extra_types.timezone_name import TimeZoneName
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataCoreModel,
+    DataModel,
+    DiscriminatedList,
+    GenericModel,
+    migrate_deprecated_coordinate_system,
+)
 from aind_data_schema.components.configs import (
     AirPuffConfig,
     CatheterConfig,
@@ -21,6 +28,7 @@ from aind_data_schema.components.configs import (
     EphysAssemblyConfig,
     FiberAssemblyConfig,
     ImagingConfig,
+    JoystickConfig,
     LaserConfig,
     LickSpoutConfig,
     LightEmittingDiodeConfig,
@@ -312,7 +320,12 @@ class StimulusEpoch(DataModel):
         description="Device names must match devices in the Instrument",
     )
     configurations: DiscriminatedList[
-        SpeakerConfig | LightEmittingDiodeConfig | LaserConfig | MousePlatformConfig | OlfactometerConfig
+        SpeakerConfig
+        | LightEmittingDiodeConfig
+        | LaserConfig
+        | MousePlatformConfig
+        | OlfactometerConfig
+        | JoystickConfig
     ] = Field(default=[], title="Device configurations")
 
     # Training protocol
@@ -423,7 +436,22 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
             "Origin and axis definitions for determining the configured position of devices during acquisition."
             " Required when coordinates are provided within the Acquisition"
         ),
-    )  # note: exact field name is used by a validator
+        deprecated="Deprecated: use global_coordinate_system instead",
+    )
+    global_coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Global coordinate system",
+        description=(
+            "Origin and axis definitions for determining the configured position of devices during acquisition."
+            " Required when coordinates are provided within the Acquisition"
+        ),
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def migrate_coordinate_system(cls, data):
+        """Copy deprecated coordinate_system into global_coordinate_system when only old field is provided"""
+        return migrate_deprecated_coordinate_system(data, "global_coordinate_system")
 
     # Instrument metadata
     calibrations: List[CALIBRATIONS] = Field(
@@ -558,7 +586,7 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
             )
 
         # Figure out what coordinate system to use
-        coordinate_system = merge_coordinate_systems(self.coordinate_system, other.coordinate_system)
+        coordinate_system = merge_coordinate_systems(self.global_coordinate_system, other.global_coordinate_system)
 
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
@@ -613,7 +641,7 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
             ethics_review_id=ethics_review_id,
             instrument_id=instrument_id,
             calibrations=calibrations,
-            coordinate_system=coordinate_system,
+            global_coordinate_system=coordinate_system,
             maintenance=maintenance,
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,

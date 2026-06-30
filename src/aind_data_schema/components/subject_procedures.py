@@ -5,9 +5,9 @@ from typing import Dict, List, Optional
 
 from aind_data_schema_models.coordinates import Origin
 from aind_data_schema_models.units import MassUnit, UnitlessUnit, VolumeUnit
-from pydantic import Field
+from pydantic import Field, model_validator
 
-from aind_data_schema.base import DataModel, DiscriminatedList
+from aind_data_schema.base import DataModel, DiscriminatedList, migrate_deprecated_coordinate_system
 from aind_data_schema.components.coordinates import CoordinateSystem, Translation
 from aind_data_schema.components.identifiers import Code, ProtocolMixin
 from aind_data_schema.components.injection_procedures import Injection
@@ -109,9 +109,24 @@ class Surgery(ProtocolMixin, DataModel):
         default=None,
         title="Surgery coordinate system",
         description=(
-            "Only required when the Surgery.coordinate_system " "is different from the Procedures.coordinate_system"
+            "Only required when the Surgery.coordinate_system is different from the Procedures.coordinate_system"
         ),
-    )  # note: exact field name is used by a validator
+        deprecated="Deprecated: use global_coordinate_system instead",
+    )
+    global_coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Surgery global coordinate system",
+        description=(
+            "Only required when the Surgery.global_coordinate_system "
+            "is different from the Procedures.global_coordinate_system"
+        ),
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def migrate_coordinate_system(cls, data):
+        """Copy deprecated coordinate_system into global_coordinate_system when only old field is provided"""
+        return migrate_deprecated_coordinate_system(data, "global_coordinate_system")
 
     # Measured coordinates
     measured_coordinates: Optional[Dict[Origin, Translation]] = Field(
