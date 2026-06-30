@@ -150,7 +150,7 @@ class DeviceImplant(ProtocolMixin, DevicePosition, DataModel):
     )  # note: exact field name is used by a validator
 
 
-class ProbeImplant(DeviceImplant):
+class ProbeImplant(ProtocolMixin, DataModel):
     """Description of a probe (fiber, ephys) implant procedure"""
 
     implanted_device: Union[EphysProbe, FiberProbe] = Field(

@@ -33,7 +33,14 @@ thermistor_assembly = ThermistorAssembly(
     connector=connector,
 )
 
-coordinate_system = CoordinateSystem(
+thermistor_coordinate_system = CoordinateSystem(
+    name="THERMISTOR",
+    origin=Origin.ORIGIN,
+    axis_unit=SizeUnit.MM,
+    axes=[],
+)
+
+procedures_coordinate_system = CoordinateSystem(
     name="FRONTNASAL-SUTURE_AR",
     origin=Origin.BREGMA,
     axis_unit=SizeUnit.MM,
@@ -48,11 +55,12 @@ coordinate_system = CoordinateSystem(
 thermistor_implant = ThermistorImplant(
     implanted_device=thermistor_assembly,
     relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.RIGHT],
+    local_coordinate_system=thermistor_coordinate_system,
     transform=[
         Translation(
             translation=[3.1, 0.5],  # 3.1 mm anterior, 0.5 mm lateral to the right
         )
-    ]
+    ],
 )
 
 surgery = Surgery(
@@ -64,8 +72,8 @@ surgery = Surgery(
 )
 
 p = Procedures(
-    subject_id="000000",
-    coordinate_system=coordinate_system,
+    subject_id="000000",procedures_coordinate_system
+    global_coordinate_system=coordinate_system,
     subject_procedures=[surgery],
 )
 
