@@ -5,7 +5,7 @@ from typing import List, Optional, Union
 
 from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
-from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.mouse_anatomy import MouseAnatomy, MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import SizeUnit, TimeUnit, VolumeUnit
 from pydantic import Field, field_validator, model_validator
@@ -156,7 +156,7 @@ class ProbeImplant(DeviceImplant):
     )  # note: exact field name is used by a validator
 
 
-class ThermistorImplant(ProtocolMixin, DataModel):
+class ThermistorImplant(ProtocolMixin, DevicePosition, DataModel):
     """Description of a thermistor implant procedure"""
 
     implanted_device: ThermistorAssembly = Field(
