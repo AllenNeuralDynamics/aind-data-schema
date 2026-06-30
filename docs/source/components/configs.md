@@ -536,6 +536,20 @@ Subject position
 | `SUPINE` | `Supine` |
 
 
+### ThermistorConfig
+
+Configuration of a thermistor for temperature measurement in a surgery
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `origin` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Targeted structure (Use options from MouseAnatomyModel, e.g. BrainSurface or BodySurface) |
+| `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Local to global transform (Position and orientation of the device in the instrument global coordinate system) |
+
+
 ### TriggerType
 
 Types of detector triggers

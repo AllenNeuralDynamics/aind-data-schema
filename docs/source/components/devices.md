@@ -905,6 +905,17 @@ Description of a speaker for auditory stimuli
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Local to global transform (Position and orientation of the device in the instrument global coordinate system) |
 
 
+### ThermistorAssembly
+
+Description of a thermistor assembly for temperature measurement
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `name` | `str` | Thermistor assembly name  |
+| `thermistor` | [Device](#device) | Thermistor device  |
+| `connector` | [Device](#device) | Connector device  |
+
+
 ### Treadmill
 
 Description of treadmill platform
