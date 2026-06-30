@@ -5,7 +5,7 @@ from typing import List, Optional, Union
 
 from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
-from aind_data_schema_models.mouse_anatomy import MouseAnatomy, MouseAnatomyModel
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import SizeUnit, TimeUnit, VolumeUnit
 from pydantic import Field, field_validator, model_validator
@@ -13,7 +13,14 @@ from pydantic import Field, field_validator, model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.configs import CatheterConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, Translation
-from aind_data_schema.components.devices import Catheter, DevicePosition, EphysProbe, FiberProbe, MyomatrixArray, ThermistorAssembly
+from aind_data_schema.components.devices import (
+    Catheter,
+    DevicePosition,
+    EphysProbe,
+    FiberProbe,
+    MyomatrixArray,
+    ThermistorAssembly,
+)
 from aind_data_schema.components.identifiers import ProtocolMixin
 from aind_data_schema.components.injection_procedures import Injection
 

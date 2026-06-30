@@ -3,12 +3,11 @@
 import argparse
 from datetime import date
 
-from aind_data_schema.components.coordinates import Axis, CoordinateSystem, CoordinateSystemLibrary, Translation
+from aind_data_schema.components.coordinates import Axis, CoordinateSystem, Translation
 from aind_data_schema.components.devices import Device, ThermistorAssembly
 from aind_data_schema.components.surgery_procedures import Anaesthetic, ThermistorImplant
 from aind_data_schema.core.procedures import Procedures, Surgery
 from aind_data_schema_models.coordinates import AnatomicalRelative, AxisName, Direction, Origin
-from aind_data_schema_models.mouse_anatomy import MouseAnatomy
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import SizeUnit
 
