@@ -8,6 +8,7 @@ from aind_data_schema_models.units import AngleUnit, FrequencyUnit, SizeUnit, Ti
 from pydantic import ValidationError
 
 from aind_data_schema.components.configs import (
+    AirPuffConfig,
     Channel,
     DetectorConfig,
     ImageSPIM,
@@ -276,9 +277,27 @@ class TestImagingConfig(unittest.TestCase):
                 coordinate_system=None,
             )
         self.assertIn(
-            "ImagingConfig.coordinate_system is required when ImagingConfig.images are ImageSPIM objects",
+            "ImagingConfig.local_coordinate_system is required when ImagingConfig.images are ImageSPIM objects",
             str(context.exception),
         )
+
+
+class TestAirPuffConfig(unittest.TestCase):
+    """Tests for the AirPuffConfig class"""
+
+    def test_migrate_deprecated_coordinate_system(self):
+        """Test that deprecated coordinate_system is copied to local_coordinate_system"""
+        import warnings
+
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            config = AirPuffConfig(
+                device_name="AirPuff1",
+                relative_position=[],
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            )
+        self.assertEqual(config.local_coordinate_system, CoordinateSystemLibrary.BREGMA_ARI)
+        self.assertTrue(any(issubclass(warning.category, DeprecationWarning) for warning in w))
 
 
 if __name__ == "__main__":

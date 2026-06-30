@@ -35,12 +35,13 @@ Description of an air puff device
 
 ### Arena
 
-Description of a rectangular arena
+Description of an arena
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `size` | [Scale](coordinates.md#scale) | 3D Size  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| <del>`size`</del> | [Scale](coordinates.md#scale) | **[DEPRECATED]** Use shape. 3D Size  |
+| <del>`size_unit`</del> | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | **[DEPRECATED]** Use shape. Size unit  |
+| `shape` | Optional[[Rectangle](geometry.md#rectangle) or [Circle](geometry.md#circle)] | Shape of the arena  |
 | `objects_in_arena` | List[[Device](#device)] | Objects in arena  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
@@ -102,8 +103,9 @@ Named assembly of a camera and lens (and optionally a filter)
 | `lens` | [Lens](#lens) | Lens  |
 | `filter` | Optional[[Filter](#filter)] | Filter  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Local to global transform (Position and orientation of the device in the instrument global coordinate system) |
 
 
 ### Catheter
@@ -264,8 +266,9 @@ Position class for devices
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Local to global transform (Position and orientation of the device in the instrument global coordinate system) |
 
 
 ### DigitalMicromirrorDevice
@@ -319,8 +322,9 @@ Description of an enclosure
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `size` | [Scale](coordinates.md#scale) | Size  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| <del>`size`</del> | [Scale](coordinates.md#scale) | **[DEPRECATED]** Use shape. Size  |
+| <del>`size_unit`</del> | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | **[DEPRECATED]** Use shape. Size unit  |
+| `shape` | Optional[[Rectangle](geometry.md#rectangle) or [Circle](geometry.md#circle)] | Shape of the enclosure  |
 | `internal_material` | `Optional[str]` | Internal material  |
 | `external_material` | `str` | External material  |
 | `grounded` | `bool` | Grounded  |
@@ -627,8 +631,9 @@ Description of visual display for visual stimuli
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Local to global transform (Position and orientation of the device in the instrument global coordinate system) |
 
 
 ### MotorizedStage
@@ -895,8 +900,9 @@ Description of a speaker for auditory stimuli
 | `additional_settings` | `Optional[dict]` | Additional parameters  |
 | `notes` | `Optional[str]` | Notes  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
+| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
+| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Local to global transform (Position and orientation of the device in the instrument global coordinate system) |
 
 
 ### Treadmill
