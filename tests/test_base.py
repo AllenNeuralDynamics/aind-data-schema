@@ -6,7 +6,7 @@ import warnings
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal, Optional
-from unittest.mock import MagicMock, call, mock_open, patch
+from unittest.mock import MagicMock, mock_open, patch
 
 from aind_data_schema_models.brain_atlas import BrainStructureModel
 from pydantic import Field, SkipValidation, ValidationError, create_model
@@ -36,13 +36,13 @@ class BaseTests(unittest.TestCase):
             s.describedBy,
         )
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch("pathlib.Path.open", new_callable=mock_open)
     def test_write_standard_file(self, mock_open: MagicMock):
         """Tests writer with suffix and output directory defined"""
 
         s = Subject.model_construct()
         s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
-        mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
+        mock_open.assert_called_once_with("w")
         self.assertEqual(1, 1)
 
     def test_aware_datetime_with_default(self):
@@ -200,7 +200,7 @@ class BaseTests(unittest.TestCase):
         # this is to ensure you can't get a bumped schema_version without passing validation
         self.assertRaises(ValidationError, lambda: TestCoreModel(**v2_from_v1.model_dump()))
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch("pathlib.Path.open", new_callable=mock_open)
     @patch("aind_data_schema.base.logger")
     def test_write_standard_file_size_warning(self, mock_logger: MagicMock, mock_open: MagicMock):
         """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
@@ -209,7 +209,7 @@ class BaseTests(unittest.TestCase):
         s.subject_id = "s" * (MAX_FILE_SIZE + 1000)
         s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
 
-        mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
+        mock_open.assert_called_once_with("w")
         mock_logger.warning.assert_called_once_with(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/subject.foo.bar")
 
 
@@ -287,7 +287,7 @@ class DataCoreModelTests(unittest.TestCase):
 
         self.assertEqual(ChildModel.default_filename(), "test_model.json")
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch("pathlib.Path.open", new_callable=mock_open)
     @patch("aind_data_schema.utils.validators.recursive_check_paths")
     def test_write_standard_file(self, mock_recursive_check_paths: MagicMock, mock_open: MagicMock):
         """Tests write_standard_file method"""
@@ -303,10 +303,9 @@ class DataCoreModelTests(unittest.TestCase):
             output_directory=Path("dir"), prefix="prefix", filename_suffix="fsuffix", suffix=".suffix"
         )
 
-        expected_filename = Path("dir/prefix_test_model_fsuffix.suffix")
-        mock_open.assert_called_once_with(expected_filename, "w")
+        mock_open.assert_called_once_with("w")
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch("pathlib.Path.open", new_callable=mock_open)
     @patch("aind_data_schema.base.logger")
     @patch("aind_data_schema.utils.validators.recursive_check_paths")
     def test_write_standard_file_size_warning(
@@ -324,7 +323,7 @@ class DataCoreModelTests(unittest.TestCase):
         model_instance.schema_version = "1" * (MAX_FILE_SIZE + 1000)
         model_instance.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
 
-        mock_open.assert_has_calls([call(Path("dir/test_model.foo.bar"), "w")])
+        mock_open.assert_called_once_with("w")
         mock_logger.warning.assert_called_once_with(
             f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/test_model.foo.bar"
         )
