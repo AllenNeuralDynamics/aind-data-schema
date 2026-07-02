@@ -17,6 +17,7 @@ _SKIP_FIELDS = {"object_type", "describedBy", "schema_version"}
 
 
 def _discriminated_str(types: list) -> str:
+    """Return a string representation for a list of types that are part of a discriminated union."""
     bases = {t.__bases__[0] for t in types if isinstance(t, type) and t.__bases__}
     registry_bases = {b for b in bases if "aind_data_schema_models" in getattr(b, "__module__", "")}
     if len(registry_bases) == 1:
@@ -26,6 +27,7 @@ def _discriminated_str(types: list) -> str:
 
 
 def _annotation_to_str(annotation) -> str:
+    """Return a string representation of a type annotation."""
     origin = get_origin(annotation)
     args = get_args(annotation)
 
@@ -126,6 +128,16 @@ def _extract_named_types(annotation) -> list:
 
 
 def _append_fields(lines: list, model_cls, indent: str, seen: frozenset, depth: int, max_depth: int):
+    """Append the fields of a model class to the lines list, including nested models up to the specified maximum depth.
+    
+    Args:
+        lines (list): The list of strings representing the schema tree.
+        model_cls: The model class whose fields are to be appended.
+        indent (str): The current indentation level for the fields.
+        seen (frozenset): A set of model classes that have already been processed to avoid recursion loops.
+        depth (int): The current depth in the schema tree.
+        max_depth (int): The maximum depth to expand nested models.
+    """
     seen = seen | {model_cls}
     try:
         hints = typing.get_type_hints(model_cls, include_extras=True)
@@ -152,6 +164,11 @@ def _append_fields(lines: list, model_cls, indent: str, seen: frozenset, depth: 
 
 
 def generate_schema_tree(max_depth: int = 2) -> str:
+    """Generate a textual tree representation of the schema for all DataCoreModel subclasses.
+    
+    Each model is represented with its fields, types, and descriptions, expanding nested models
+    up to the specified maximum depth.
+    """
     lines = []
     for model in sorted(DataCoreModel.__subclasses__(), key=lambda m: m.__name__):
         description = (model.__doc__ or "").strip().split("\n")[0]

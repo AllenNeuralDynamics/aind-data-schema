@@ -29,6 +29,7 @@ export function SchemaNode({ id, data }: NodeProps) {
       style={{
         width: "100%",
         height: "100%",
+        boxSizing: "border-box",
         background: "var(--schema-card-bg, #fff)",
         border: `2px solid ${color}`,
         borderRadius: 8,
@@ -56,6 +57,7 @@ export function SchemaNode({ id, data }: NodeProps) {
       <div
         style={{
           height: HEADER_H,
+          boxSizing: "border-box",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -103,6 +105,7 @@ export function SchemaNode({ id, data }: NodeProps) {
             style={{
               position: "relative",
               height: ROW_H,
+              boxSizing: "border-box",
               display: "flex",
               alignItems: "center",
               gap: 4,
