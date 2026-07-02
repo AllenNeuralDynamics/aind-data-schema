@@ -28,10 +28,11 @@ jobs:
       - name: Run linters
         run: flake8 . && interrogate . && codespell src examples tests
   tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         python-version: [ '3.10', '3.11', '3.12', '3.13' ]
+        os: [ ubuntu-latest, windows-latest ]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
