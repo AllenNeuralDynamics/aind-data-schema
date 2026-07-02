@@ -116,8 +116,8 @@ export function SchemaNode({ id, data }: NodeProps) {
             }}
           >
             {expandable ? (
-              <span style={{ color, fontWeight: 700, fontSize: 16, width: 14, flex: "0 0 auto", lineHeight: 1 }}>
-                {expanded ? "▾" : "▸"}
+              <span style={{ color, fontWeight: 700, fontSize: 18, width: 14, flex: "0 0 auto", lineHeight: 1 }}>
+                {expanded ? "−" : "+"}
               </span>
             ) : (
               <span style={{ width: 14, flex: "0 0 auto" }} />
