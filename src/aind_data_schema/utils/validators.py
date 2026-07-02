@@ -293,8 +293,9 @@ def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
         if obj.is_absolute():
             logger.warning(f"AssetPath {obj} is absolute, ensure file paths are relative to the metadata directory")
 
-        full_path = directory / obj if directory else obj
-        full_path = Path(full_path)
+        if directory is None:
+            directory = Path.cwd()
+        full_path = directory / obj
         if not full_path.exists():
             logger.warning(
                 f"AssetPath {full_path} does not exist, ensure file paths are relative to the metadata directory"

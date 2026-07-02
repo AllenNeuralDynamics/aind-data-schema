@@ -289,9 +289,9 @@ class DataCoreModel(DataModel):
         if suffix:
             filename = filename.replace(self._FILE_EXTENSION, suffix)
 
-        if output_directory is not None:
-            output_directory = Path(output_directory)
-            filename = output_directory / filename
+        if output_directory is None:
+            output_directory = Path.cwd()
+        filename = output_directory / filename
 
         with open(filename, "w") as f:
             f.write(self.model_dump_json(indent=3))
