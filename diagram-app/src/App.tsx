@@ -19,6 +19,7 @@ import {
   buildInstanceTree,
   computeFullExpansion,
   computePositions,
+  computeSeedExpansion,
   estimateHeight,
   instanceOfFieldPath,
 } from "./graph";
@@ -65,7 +66,12 @@ function Viewer() {
   useEffect(() => {
     let cancelled = false;
     loadSchema()
-      .then((d) => !cancelled && setSchema(d))
+      .then((d) => {
+        if (cancelled) return;
+        setSchema(d);
+        // Only Metadata's own core-file links start open; everything past that is a click away.
+        setExpandedFields(computeSeedExpansion(d));
+      })
       .catch((e) => !cancelled && setError(String(e)));
     return () => {
       cancelled = true;
@@ -84,16 +90,20 @@ function Viewer() {
   }, []);
 
   const onPaneClick = useCallback(() => {
-    if (!activeBranch) return;
+    if (!activeBranch || !schema) return;
+    const seed = computeSeedExpansion(schema);
     setExpandedFields((prev) => {
       const next = new Set(prev);
       for (const fieldPath of prev) {
+        // Never collapse Metadata's own core-file link — clicking away should only undo
+        // whatever was expanded *within* a branch, not hide the branch itself.
+        if (seed.has(fieldPath)) continue;
         if (branchOf(instanceOfFieldPath(fieldPath)) === activeBranch) next.delete(fieldPath);
       }
       return next;
     });
     setActiveBranch(null);
-  }, [activeBranch]);
+  }, [activeBranch, schema]);
 
   const expandAll = useCallback(() => {
     if (!schema) return;
@@ -102,9 +112,10 @@ function Viewer() {
   }, [schema]);
 
   const collapseAll = useCallback(() => {
-    setExpandedFields(new Set());
+    if (!schema) return;
+    setExpandedFields(computeSeedExpansion(schema));
     setActiveBranch(null);
-  }, []);
+  }, [schema]);
 
   const graph = useMemo(() => {
     if (!schema) return null;

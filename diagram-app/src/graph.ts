@@ -59,15 +59,11 @@ function fieldKeys(field: FieldEntry): string[] {
   return field.links.filter((l) => l.key).map((l) => l.key as string);
 }
 
-/** A field is only click-to-expand when it's genuinely ambiguous (a discriminated union of
- * several possible types). A field with exactly one possible type isn't a choice, so it's
- * always wired in automatically, like a fixed trace on a board. */
-export function isDiscriminated(field: FieldEntry): boolean {
-  return fieldKeys(field).length > 1;
-}
-
-export function isAutoWired(field: FieldEntry): boolean {
-  return fieldKeys(field).length === 1;
+/** Any field with a drillable type is click-to-expand — whether it resolves to exactly one
+ * type or is a discriminated union of several. Only Metadata's own core-file links start out
+ * already expanded (see computeSeedExpansion); everything else starts collapsed. */
+export function isExpandable(field: FieldEntry): boolean {
+  return fieldKeys(field).length > 0;
 }
 
 export function branchColor(index: number, total: number): string {
@@ -115,8 +111,19 @@ function coreFieldAssignments(schema: SchemaDiagramData): Map<string, { side: Si
   return assignments;
 }
 
-/** Build the instances/edges currently visible: every auto-wired field is always followed,
- * and a discriminated field is only followed if its path is in `expandedFields`. */
+/** Every field path that starts out already expanded: just Metadata's own core-file links.
+ * Everything past that — even a field with only one possible type — takes a click. */
+export function computeSeedExpansion(schema: SchemaDiagramData): Set<string> {
+  const seed = new Set<string>();
+  const rootModel = schema.models[schema.root];
+  for (const field of rootModel?.fields ?? []) {
+    if (isExpandable(field)) seed.add(`root::${field.name}`);
+  }
+  return seed;
+}
+
+/** Build the instances/edges currently visible: a field is only followed if its path is in
+ * `expandedFields` (see computeSeedExpansion for what starts there by default). */
 export function buildInstanceTree(
   schema: SchemaDiagramData,
   expandedFields: Set<string>,
@@ -150,13 +157,9 @@ export function buildInstanceTree(
     for (const field of model.fields) {
       const keys = fieldKeys(field);
       if (keys.length === 0) continue;
-      if (keys.length === 1) {
-        addChild(instance, field, keys[0], 0);
-      } else {
-        const fieldPath = `${instance.id}::${field.name}`;
-        if (!expandedFields.has(fieldPath)) continue;
-        keys.forEach((key, idx) => addChild(instance, field, key, idx));
-      }
+      const fieldPath = `${instance.id}::${field.name}`;
+      if (!expandedFields.has(fieldPath)) continue;
+      keys.forEach((key, idx) => addChild(instance, field, key, idx));
     }
   }
 
@@ -164,9 +167,9 @@ export function buildInstanceTree(
   return { instances, edges };
 }
 
-/** Every discriminated field path reachable from the root, expanded all the way down.
- * Guards against a model appearing in its own ancestor chain, defensively — the current
- * schema is a DAG, but this keeps a future cyclic reference from causing infinite recursion. */
+/** Every expandable field path reachable from the root, expanded all the way down. Guards
+ * against a model appearing in its own ancestor chain, defensively — the current schema is a
+ * DAG, but this keeps a future cyclic reference from causing infinite recursion. */
 export function computeFullExpansion(schema: SchemaDiagramData): Set<string> {
   const expanded = new Set<string>();
 
@@ -176,17 +179,12 @@ export function computeFullExpansion(schema: SchemaDiagramData): Set<string> {
     for (const field of model.fields) {
       const keys = fieldKeys(field);
       if (keys.length === 0) continue;
-      if (keys.length === 1) {
-        if (ancestors.has(keys[0])) continue;
-        walk(`${instanceId}::${field.name}::0`, keys[0], new Set(ancestors).add(keys[0]));
-      } else {
-        const fieldPath = `${instanceId}::${field.name}`;
-        expanded.add(fieldPath);
-        keys.forEach((key, idx) => {
-          if (ancestors.has(key)) return;
-          walk(`${fieldPath}::${idx}`, key, new Set(ancestors).add(key));
-        });
-      }
+      const fieldPath = `${instanceId}::${field.name}`;
+      expanded.add(fieldPath);
+      keys.forEach((key, idx) => {
+        if (ancestors.has(key)) return;
+        walk(`${fieldPath}::${idx}`, key, new Set(ancestors).add(key));
+      });
     }
   }
 

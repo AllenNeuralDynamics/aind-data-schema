@@ -1,5 +1,5 @@
 import { Handle, Position, type NodeProps, type NodeTypes } from "@xyflow/react";
-import { HEADER_H, ROW_H, isDiscriminated, isAutoWired, type Side } from "./graph";
+import { HEADER_H, ROW_H, isExpandable, type Side } from "./graph";
 import type { ModelEntry } from "./types";
 
 const FONT = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
@@ -86,10 +86,9 @@ export function SchemaNode({ id, data }: NodeProps) {
       </div>
 
       {model.fields.map((field, idx) => {
-        const discriminated = isDiscriminated(field);
-        const autoWired = isAutoWired(field);
+        const expandable = isExpandable(field);
         const fieldPath = `${id}::${field.name}`;
-        const expanded = discriminated && d.expandedFields.has(fieldPath);
+        const expanded = expandable && d.expandedFields.has(fieldPath);
         const outSide: Side = d.side ?? d.fieldSide?.[field.name] ?? "r";
         // Only show a row-level doc link when there's exactly one candidate type — for a
         // discriminated field, picking one of several options' docs would be misleading;
@@ -99,9 +98,9 @@ export function SchemaNode({ id, data }: NodeProps) {
         return (
           <div
             key={field.name}
-            onClick={discriminated ? () => d.onToggleField(field.name) : undefined}
+            onClick={expandable ? () => d.onToggleField(field.name) : undefined}
             title={`${field.typeStr}${field.description ? " — " + field.description : ""}`}
-            className={discriminated ? "nodrag nopan" : undefined}
+            className={expandable ? "nodrag nopan" : undefined}
             style={{
               position: "relative",
               height: ROW_H,
@@ -112,11 +111,11 @@ export function SchemaNode({ id, data }: NodeProps) {
               padding: "0 8px",
               fontSize: 12,
               borderTop: idx === 0 ? "none" : "1px solid var(--schema-card-divider, #f1f5f9)",
-              cursor: discriminated ? "pointer" : "default",
+              cursor: expandable ? "pointer" : "default",
               background: expanded ? "var(--schema-card-highlight-bg, #eef2ff)" : "var(--schema-card-bg, #fff)",
             }}
           >
-            {discriminated ? (
+            {expandable ? (
               <span style={{ color, fontWeight: 700, fontSize: 16, width: 14, flex: "0 0 auto", lineHeight: 1 }}>
                 {expanded ? "▾" : "▸"}
               </span>
@@ -155,7 +154,7 @@ export function SchemaNode({ id, data }: NodeProps) {
             ) : (
               <span style={{ width: 10, flex: "0 0 auto" }} />
             )}
-            {discriminated || autoWired ? (
+            {expandable ? (
               <Handle
                 type="source"
                 id={`out-${field.name}`}
