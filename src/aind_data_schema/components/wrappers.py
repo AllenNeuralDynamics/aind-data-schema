@@ -1,6 +1,6 @@
 """Wrappers for Pydantic types."""
 
-from pathlib import PurePosixPath
+from pathlib import PurePath, PurePosixPath
 from typing import Any
 
 from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
@@ -10,6 +10,11 @@ from pydantic_core import core_schema
 
 class AssetPath(PurePosixPath):
     """Relative path to a file from the metadata root folder"""
+
+    def __new__(cls, *args):
+        """Normalize any PurePath arguments to POSIX strings for cross-platform consistency."""
+        normalized = [arg.as_posix() if isinstance(arg, PurePath) else arg for arg in args]
+        return super().__new__(cls, *normalized)
 
     @classmethod
     def __get_pydantic_json_schema__(
