@@ -129,7 +129,7 @@ def _extract_named_types(annotation) -> list:
 
 def _append_fields(lines: list, model_cls, indent: str, seen: frozenset, depth: int, max_depth: int):
     """Append the fields of a model class to the lines list, including nested models up to the specified maximum depth.
-    
+
     Args:
         lines (list): The list of strings representing the schema tree.
         model_cls: The model class whose fields are to be appended.
@@ -165,7 +165,7 @@ def _append_fields(lines: list, model_cls, indent: str, seen: frozenset, depth: 
 
 def generate_schema_tree(max_depth: int = 2) -> str:
     """Generate a textual tree representation of the schema for all DataCoreModel subclasses.
-    
+
     Each model is represented with its fields, types, and descriptions, expanding nested models
     up to the specified maximum depth.
     """
