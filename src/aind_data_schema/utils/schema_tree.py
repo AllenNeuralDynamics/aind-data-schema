@@ -15,6 +15,24 @@ for _mod in core.__loader__.get_resource_reader().contents():
 
 _SKIP_FIELDS = {"object_type", "describedBy", "schema_version"}
 
+_LATEX_SPECIAL = str.maketrans({
+    "&": r"\&",
+    "%": r"\%",
+    "$": r"\$",
+    "#": r"\#",
+    "_": r"\_",
+    "{": r"\{",
+    "}": r"\}",
+    "~": r"\textasciitilde{}",
+    "^": r"\textasciicircum{}",
+    "\\": r"\textbackslash{}",
+})
+
+
+def _latex_escape(text: str) -> str:
+    """Escape special LaTeX characters in *text*."""
+    return text.translate(_LATEX_SPECIAL)
+
 
 def _discriminated_str(types: list) -> str:
     """Return a string representation for a list of types that are part of a discriminated union."""
@@ -127,7 +145,15 @@ def _extract_named_types(annotation) -> list:
     return []
 
 
-def _append_fields(lines: list, model_cls, indent: str, seen: frozenset, depth: int, max_depth: int):
+def _append_fields(
+    lines: list,
+    model_cls,
+    indent: str,
+    seen: frozenset,
+    depth: int,
+    max_depth: int,
+    fmt: str = "markdown",
+):
     """Append the fields of a model class to the lines list, including nested models up to the specified maximum depth.
 
     Args:
@@ -137,6 +163,7 @@ def _append_fields(lines: list, model_cls, indent: str, seen: frozenset, depth: 
         seen (frozenset): A set of model classes that have already been processed to avoid recursion loops.
         depth (int): The current depth in the schema tree.
         max_depth (int): The maximum depth to expand nested models.
+        fmt (str): Output format — ``"markdown"`` (default) or ``"latex"``.
     """
     seen = seen | {model_cls}
     try:
@@ -153,28 +180,62 @@ def _append_fields(lines: list, model_cls, indent: str, seen: frozenset, depth: 
         desc = field_info.description or ""
         req_marker = ", required" if field_info.is_required() else ""
         detail = title + (f": {desc}" if desc else "")
-        lines.append(f"{indent}- `{field_name}` ({type_str}{req_marker}) — {detail}")
+
+        if fmt == "latex":
+            fn_escaped = _latex_escape(field_name)
+            type_escaped = _latex_escape(type_str)
+            detail_escaped = _latex_escape(detail)
+            req_escaped = _latex_escape(req_marker)
+            lines.append(
+                f"{indent}\\item \\texttt{{{fn_escaped}}} ({type_escaped}{req_escaped}) --- {detail_escaped}"
+            )
+        else:
+            lines.append(f"{indent}- `{field_name}` ({type_str}{req_marker}) — {detail}")
 
         if depth < max_depth:
             for t in _extract_expandable_types(annotation):
                 if t not in seen:
                     t_desc = (t.__doc__ or "").strip().split("\n")[0]
-                    lines.append(f"{indent}  - **{t.__name__}** — {t_desc}")
-                    _append_fields(lines, t, indent + "    ", seen, depth + 1, max_depth)
+                    if fmt == "latex":
+                        t_name_escaped = _latex_escape(t.__name__)
+                        t_desc_escaped = _latex_escape(t_desc)
+                        lines.append(f"{indent}  \\item \\textbf{{{t_name_escaped}}} --- {t_desc_escaped}")
+                        _append_fields(lines, t, indent + "  ", seen, depth + 1, max_depth, fmt=fmt)
+                    else:
+                        lines.append(f"{indent}  - **{t.__name__}** — {t_desc}")
+                        _append_fields(lines, t, indent + "    ", seen, depth + 1, max_depth, fmt=fmt)
 
 
-def generate_schema_tree(max_depth: int = 2) -> str:
+def generate_schema_tree(max_depth: int = 2, fmt: str = "markdown") -> str:
     """Generate a textual tree representation of the schema for all DataCoreModel subclasses.
 
     Each model is represented with its fields, types, and descriptions, expanding nested models
     up to the specified maximum depth.
+
+    Args:
+        max_depth (int): Maximum depth to expand nested models.
+        fmt (str): Output format — ``"markdown"`` (default) or ``"latex"``.
+            The LaTeX output wraps the tree in a ``description`` environment.
     """
     lines = []
+    if fmt == "latex":
+        lines.append(r"\begin{description}")
     for model in sorted(DataCoreModel.__subclasses__(), key=lambda m: m.__name__):
         description = (model.__doc__ or "").strip().split("\n")[0]
-        lines.append(f"- **{model.__name__}** — {description}")
-        model_depth = 0 if model.__name__ == "Metadata" else max_depth
-        _append_fields(lines, model, "  ", frozenset(), depth=0, max_depth=model_depth)
+        if fmt == "latex":
+            name_escaped = _latex_escape(model.__name__)
+            desc_escaped = _latex_escape(description)
+            lines.append(f"  \\item[\\textbf{{{name_escaped}}}] {desc_escaped}")
+            lines.append("  \\begin{description}")
+            model_depth = 0 if model.__name__ == "Metadata" else max_depth
+            _append_fields(lines, model, "    ", frozenset(), depth=0, max_depth=model_depth, fmt=fmt)
+            lines.append("  \\end{description}")
+        else:
+            lines.append(f"- **{model.__name__}** — {description}")
+            model_depth = 0 if model.__name__ == "Metadata" else max_depth
+            _append_fields(lines, model, "  ", frozenset(), depth=0, max_depth=model_depth, fmt=fmt)
+    if fmt == "latex":
+        lines.append(r"\end{description}")
     return "\n".join(lines)
 
 
@@ -321,6 +382,23 @@ def write_schema_diagram_json(output_path) -> None:
 
 
 if __name__ == "__main__":
-    # Print to an output file
-    with open("schema_tree.md", "w") as f:
-        f.write(generate_schema_tree())
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Generate a schema tree document.")
+    parser.add_argument(
+        "--latex",
+        action="store_true",
+        help="Output in LaTeX format instead of Markdown.",
+    )
+    parser.add_argument(
+        "--max-depth",
+        type=int,
+        default=2,
+        help="Maximum depth to expand nested models (default: 2).",
+    )
+    args = parser.parse_args()
+
+    fmt = "latex" if args.latex else "markdown"
+    output_file = "schema_tree.tex" if args.latex else "schema_tree.md"
+    with open(output_file, "w") as f:
+        f.write(generate_schema_tree(max_depth=args.max_depth, fmt=fmt))
