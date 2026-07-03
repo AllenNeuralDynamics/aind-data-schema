@@ -7,8 +7,8 @@ on:
       - opened
     # Execute this action only on PRs that touch
     # documentation files
-    # paths:
-    #   - "docs/**"
+    paths:
+      - "docs/**"
 
 permissions:
   pull-requests: write
