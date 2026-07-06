@@ -12,11 +12,11 @@ Description of a food restriction procedure
 | `target_fraction_weight` | `int` | Target fraction weight (%)  |
 | `target_fraction_weight_unit` | [UnitlessUnit](../aind_data_schema_models/units.md#unitlessunit) | Target fraction weight unit  |
 | `minimum_food_per_day` | `float` | Minimum food per day  |
-| `minimum_food_per_day_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) | Minimum water per day unit  |
+| `minimum_food_per_day_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) | Minimum food per day unit  |
 | `baseline_weight` | `float` | Baseline weight (g) (Weight at start of food restriction) |
 | `weight_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) | Weight unit  |
-| `start_date` | `datetime.date` | Water restriction start date  |
-| `end_date` | `Optional[datetime.date]` | Water restriction end date  |
+| `start_date` | `datetime.date` | Food restriction start date  |
+| `end_date` | `Optional[datetime.date]` | Food restriction end date  |
 
 
 ### GenericSubjectProcedure
