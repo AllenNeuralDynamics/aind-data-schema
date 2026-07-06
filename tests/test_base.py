@@ -210,9 +210,7 @@ class BaseTests(unittest.TestCase):
         s.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
 
         mock_open.assert_has_calls([call(Path("dir/subject.foo.bar"), "w")])
-        mock_logger.warning.assert_called_once_with(
-            f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/subject.foo.bar"
-        )
+        mock_logger.warning.assert_called_once_with(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/subject.foo.bar")
 
 
 class DataModelTests(unittest.TestCase):
