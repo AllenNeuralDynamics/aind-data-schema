@@ -51,6 +51,20 @@ html_theme_options = {
 }
 myst_heading_anchors = 3
 
+# -- Interactive schema diagram -----------------------------------------------
+# Generate the JSON backing the React Flow diagram embedded on the front page
+# (index.rst) straight into _static/schema-diagram/, next to the JS/CSS bundle
+# built by `diagram-app` (see .readthedocs.yaml's pre_build step).
+
+
+def _write_schema_diagram_json():
+    from aind_data_schema.utils.schema_tree import write_schema_diagram_json
+
+    write_schema_diagram_json(Path(dirname(this_file_path)) / "_static" / "schema-diagram" / "schema_diagram.json")
+
+
+_write_schema_diagram_json()
+
 
 def setup(app):
     app.add_css_file('custom.css')

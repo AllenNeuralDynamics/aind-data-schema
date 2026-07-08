@@ -14,7 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=5.7.1,<6',
+    'aind-data-schema-models>=6.1.0,<7',
     'pydantic>=2.7, <2.12',
     'pydantic-extra-types',
     'tzdata',
@@ -53,10 +53,6 @@ transforms = [
     'scipy',
 ]
 
-viz = [
-    'matplotlib'
-]
-
 [tool.setuptools.packages.find]
 where = ["src"]
 
@@ -88,7 +84,8 @@ exclude = '''
 omit = [
     "*__init__*",
     "*/aind_data_schema/visualizations/*",
-    "*/tests/test_diagram_builder.py"
+    "*/tests/test_diagram_builder.py",
+    "*/aind_data_schema/utils/schema_tree.py"
 ]
 source = ["aind_data_schema", "tests"]
 
