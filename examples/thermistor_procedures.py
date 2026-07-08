@@ -5,7 +5,7 @@ from datetime import date
 
 from aind_data_schema.components.coordinates import Axis, CoordinateSystem, Translation
 from aind_data_schema.components.devices import Device
-from aind_data_schema.components.surgery_procedures import Anaesthetic, ThermistorImplant
+from aind_data_schema.components.surgery_procedures import Anaesthetic, DeviceImplant
 from aind_data_schema.core.procedures import Procedures, Surgery
 from aind_data_schema_models.coordinates import AnatomicalRelative, AxisName, Direction, Origin
 from aind_data_schema_models.organizations import Organization
@@ -38,7 +38,7 @@ procedures_coordinate_system = CoordinateSystem(
 
 
 # Position: from frontonasal suture, 3.1 mm anterior, 0.5 mm lateral to the right
-thermistor_implant = ThermistorImplant(
+thermistor_implant = DeviceImplant(
     implanted_device=thermistor_wire,
     relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.RIGHT],
     local_coordinate_system=thermistor_coordinate_system,

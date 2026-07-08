@@ -144,7 +144,7 @@ class Craniotomy(ProtocolMixin, DataModel):
 class DeviceImplant(ProtocolMixin, DevicePosition, DataModel):
     """Description of a generic device implant procedure"""
 
-    implanted_device: str = Field(
+    implanted_device: Device = Field(
         ...,
         title="Implanted device",
     )  # note: exact field name is used by a validator
@@ -160,15 +160,6 @@ class ProbeImplant(ProtocolMixin, DataModel):
     device_config: ProbeConfig = Field(
         ...,
         title="Device configuration",
-    )  # note: exact field name is used by a validator
-
-
-class ThermistorImplant(ProtocolMixin, DevicePosition, DataModel):
-    """Description of a thermistor implant procedure"""
-
-    implanted_device: Device = Field(
-        ...,
-        title="Implanted device",
     )  # note: exact field name is used by a validator
 
 
