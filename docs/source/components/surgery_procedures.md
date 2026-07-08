@@ -76,7 +76,7 @@ Description of a generic device implant procedure
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `implanted_device` | `str` | Implanted device  |
+| `implanted_device` | [Device](devices.md#device) | Implanted device  |
 | `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
 | <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
@@ -209,19 +209,5 @@ Sample type
 |------|-------|
 | `BLOOD` | `Blood` |
 | `OTHER` | `Other` |
-
-
-### ThermistorImplant
-
-Description of a thermistor implant procedure
-
-| Field | Type | Title (Description) |
-|-------|------|-------------|
-| `implanted_device` | [Device](devices.md#device) | Implanted device  |
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
-| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
-| <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |
-| `local_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device local coordinate system  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Local to global transform (Position and orientation of the device in the instrument global coordinate system) |
 
 
