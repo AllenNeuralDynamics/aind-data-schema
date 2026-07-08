@@ -23,7 +23,6 @@ from aind_data_schema.components.surgery_procedures import (
     Perfusion,
     ProbeImplant,
     SampleCollection,
-    ThermistorImplant,
 )
 
 
@@ -140,7 +139,6 @@ class Surgery(ProtocolMixin, DataModel):
         | Craniotomy
         | DeviceImplant
         | ProbeImplant
-        | ThermistorImplant
         | Headframe
         | BrainInjection
         | Injection
