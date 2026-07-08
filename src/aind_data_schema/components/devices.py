@@ -779,11 +779,3 @@ class MyomatrixArray(Device):
 
 class Microscope(Device):
     """Description of a microscope"""
-
-
-class ThermistorAssembly(DataModel):
-    """Description of a thermistor assembly for temperature measurement"""
-
-    name: str = Field(..., title="Thermistor assembly name")
-    thermistor: Device = Field(..., title="Thermistor device")
-    connector: Device = Field(..., title="Connector device")

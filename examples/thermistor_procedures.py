@@ -4,7 +4,7 @@ import argparse
 from datetime import date
 
 from aind_data_schema.components.coordinates import Axis, CoordinateSystem, Translation
-from aind_data_schema.components.devices import Device, ThermistorAssembly
+from aind_data_schema.components.devices import Device
 from aind_data_schema.components.surgery_procedures import Anaesthetic, ThermistorImplant
 from aind_data_schema.core.procedures import Procedures, Surgery
 from aind_data_schema_models.coordinates import AnatomicalRelative, AxisName, Direction, Origin
@@ -17,20 +17,6 @@ thermistor_wire = Device(
     model="GAG22K7MCD419",
     notes="Digi-Key part number: GAG22K7MCD419. "
     "https://www.digikey.com/en/products/detail/te-connectivity-measurement-specialties/GAG22K7MCD419/5277253",
-)
-
-connector = Device(
-    name="Connector",
-    manufacturer=Organization.OTHER,
-    model="0533984002",
-    notes="Molex connector. Digi-Key part number: 900-0533984002CT-ND. "
-    "https://www.digikey.com/en/products/detail/molex/0533984002/15622916",
-)
-
-thermistor_assembly = ThermistorAssembly(
-    name="Thermistor",
-    thermistor=thermistor_wire,
-    connector=connector,
 )
 
 thermistor_coordinate_system = CoordinateSystem(
@@ -53,7 +39,7 @@ procedures_coordinate_system = CoordinateSystem(
 
 # Position: from frontonasal suture, 3.1 mm anterior, 0.5 mm lateral to the right
 thermistor_implant = ThermistorImplant(
-    implanted_device=thermistor_assembly,
+    implanted_device=thermistor_wire,
     relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.RIGHT],
     local_coordinate_system=thermistor_coordinate_system,
     transform=[

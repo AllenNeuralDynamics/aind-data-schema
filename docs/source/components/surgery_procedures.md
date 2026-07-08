@@ -217,7 +217,7 @@ Description of a thermistor implant procedure
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `implanted_device` | [ThermistorAssembly](devices.md#thermistorassembly) | Implanted device  |
+| `implanted_device` | [Device](devices.md#device) | Implanted device  |
 | `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
 | <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use local_coordinate_system instead. Device coordinate system  |

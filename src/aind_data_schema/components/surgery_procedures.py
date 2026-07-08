@@ -15,11 +15,11 @@ from aind_data_schema.components.configs import CatheterConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, Translation
 from aind_data_schema.components.devices import (
     Catheter,
+    Device,
     DevicePosition,
     EphysProbe,
     FiberProbe,
     MyomatrixArray,
-    ThermistorAssembly,
 )
 from aind_data_schema.components.identifiers import ProtocolMixin
 from aind_data_schema.components.injection_procedures import Injection
@@ -166,7 +166,7 @@ class ProbeImplant(ProtocolMixin, DataModel):
 class ThermistorImplant(ProtocolMixin, DevicePosition, DataModel):
     """Description of a thermistor implant procedure"""
 
-    implanted_device: ThermistorAssembly = Field(
+    implanted_device: Device = Field(
         ...,
         title="Implanted device",
     )  # note: exact field name is used by a validator
