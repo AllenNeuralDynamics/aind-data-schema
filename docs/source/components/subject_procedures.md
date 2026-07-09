@@ -2,6 +2,23 @@
 
 ## Model definitions
 
+### FoodRestriction
+
+Description of a food restriction procedure
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `ethics_review_id` | `str` | Ethics review ID  |
+| `target_fraction_weight` | `int` | Target fraction weight (%)  |
+| `target_fraction_weight_unit` | [UnitlessUnit](../aind_data_schema_models/units.md#unitlessunit) | Target fraction weight unit  |
+| `minimum_food_per_day` | `float` | Minimum food per day  |
+| `minimum_food_per_day_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) | Minimum food per day unit  |
+| `baseline_weight` | `float` | Baseline weight (g) (Weight at start of food restriction) |
+| `weight_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) | Weight unit  |
+| `start_date` | `datetime.date` | Food restriction start date  |
+| `end_date` | `Optional[datetime.date]` | Food restriction end date  |
+
+
 ### GenericSubjectProcedure
 
 Description of a non-surgical procedure performed on a subject
@@ -47,7 +64,7 @@ Description of subject procedures performed at one time
 | <del>`coordinate_system`</del> | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | **[DEPRECATED]** Deprecated: use global_coordinate_system instead. Surgery coordinate system (Only required when the Surgery.coordinate_system is different from the Procedures.coordinate_system) |
 | `global_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Surgery global coordinate system (Only required when the Surgery.global_coordinate_system is different from the Procedures.global_coordinate_system) |
 | `measured_coordinates` | Optional[Dict[[Origin](../aind_data_schema_models/coordinates.md#origin), [Translation](coordinates.md#translation)]] | Measured coordinates (Coordinates measured during the procedure, for example Bregma and Lambda) |
-| `procedures` | List[[CatheterImplant](surgery_procedures.md#catheterimplant) or [Craniotomy](surgery_procedures.md#craniotomy) or [ProbeImplant](surgery_procedures.md#probeimplant) or [Headframe](surgery_procedures.md#headframe) or [BrainInjection](surgery_procedures.md#braininjection) or [Injection](injection_procedures.md#injection) or [MyomatrixInsertion](surgery_procedures.md#myomatrixinsertion) or [GenericSurgeryProcedure](surgery_procedures.md#genericsurgeryprocedure) or [Perfusion](surgery_procedures.md#perfusion) or [SampleCollection](surgery_procedures.md#samplecollection)] | Procedures  |
+| `procedures` | List[[CatheterImplant](surgery_procedures.md#catheterimplant) or [Craniotomy](surgery_procedures.md#craniotomy) or [DeviceImplant](surgery_procedures.md#deviceimplant) or [ProbeImplant](surgery_procedures.md#probeimplant) or [Headframe](surgery_procedures.md#headframe) or [BrainInjection](surgery_procedures.md#braininjection) or [Injection](injection_procedures.md#injection) or [MyomatrixInsertion](surgery_procedures.md#myomatrixinsertion) or [GenericSurgeryProcedure](surgery_procedures.md#genericsurgeryprocedure) or [Perfusion](surgery_procedures.md#perfusion) or [SampleCollection](surgery_procedures.md#samplecollection)] | Procedures  |
 | `notes` | `Optional[str]` | Notes  |
 | `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
