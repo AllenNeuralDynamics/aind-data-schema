@@ -421,6 +421,9 @@ class Metadata(DataCoreModel):
            QualityControl from the sources with the new ones. Otherwise, only use the
            new Processing/QualityControl.
 
+        Note that the intent is to track the provenance/properties of data assets, using
+        aggregated reference data (e.g. an atlas) does not make data multi-subject.
+
         Parameters
         ----------
         metadata : Metadata or List[Metadata]
