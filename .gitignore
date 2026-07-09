@@ -144,6 +144,15 @@ notebook/
 ephys_instrument.json
 examples/*.json
 *.json
+!diagram-app/package.json
+!diagram-app/package-lock.json
+!diagram-app/tsconfig.json
+
+# diagram-app (React Flow schema diagram embedded in the docs front page)
+diagram-app/node_modules/
+docs/source/_static/schema-diagram/
 docs/base/models/*
 .github/copilot-instructions.md
 uv.lock
+schema_tree.md
+schema_tree.tex

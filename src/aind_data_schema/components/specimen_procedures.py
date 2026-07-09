@@ -11,7 +11,12 @@ from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureTy
 from aind_data_schema_models.units import SizeUnit
 from pydantic import Field, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataModel,
+    DiscriminatedList,
+    migrate_deprecated_coordinate_system,
+)
 from aind_data_schema.components.coordinates import Atlas, CoordinateSystem, Translation
 from aind_data_schema.components.identifiers import ProtocolListMixin
 from aind_data_schema.components.reagent import (
@@ -136,7 +141,19 @@ class PlanarSectioning(Sectioning):
         default=None,
         title="Sectioning coordinate system",
         description="Only required if different from the Procedures.coordinate_system",
+        deprecated="Deprecated: use global_coordinate_system instead",
     )
+    global_coordinate_system: Optional[CoordinateSystem | Atlas] = Field(
+        default=None,
+        title="Sectioning global coordinate system",
+        description="Only required if different from the Procedures.global_coordinate_system",
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def migrate_coordinate_system(cls, data):
+        """Copy deprecated coordinate_system into global_coordinate_system when only old field is provided"""
+        return migrate_deprecated_coordinate_system(data, "global_coordinate_system")
 
     sections: List[Union[Section, PlanarSection]] = Field(
         ..., title="Planar sections", description="Use PlanarSection for new implementations"

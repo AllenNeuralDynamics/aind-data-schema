@@ -6,6 +6,14 @@ Welcome to aind-data-schema
 
 Data acquired at the Allen Institute for Neural Dynamics (AIND) is accompanied by metadata describing how it was acquired, processed, and analyzed. This metadata is stored in JSON files according to the schema defined in this library. Our goal in capturing this metadata is to make our data findable and understandable.
 
+Explore the schema by going into core files on the left sidebar, or through this interactive diagram.
+
+.. raw:: html
+
+   <link rel="stylesheet" href="_static/schema-diagram/schema-diagram.css">
+   <div class="rf-schema-diagram" style="height: calc(620px + 20vh); border: 1px solid var(--color-background-border, #ccc); border-radius: 6px;"></div>
+   <script type="module" src="_static/schema-diagram/schema-diagram.js"></script>
+
 Data assets acquired from a live subject or in vivo specimen must contain the following *core* metadata files:
 
 - :doc:`data_description <data_description>`: Administrative metadata about the source of the data, funding, relevant licenses, and restrictions on use.

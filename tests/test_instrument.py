@@ -636,7 +636,7 @@ class InstrumentTests(unittest.TestCase):
         # Verify the combined instrument has the expected properties
         self.assertEqual(combined.instrument_id, inst1.instrument_id)
         self.assertEqual(combined.location, inst1.location)
-        self.assertEqual(combined.coordinate_system, inst1.coordinate_system)
+        self.assertEqual(combined.global_coordinate_system, inst1.global_coordinate_system)
         self.assertEqual(combined.temperature_control, inst1.temperature_control)
 
         # Check that modalities are combined and sorted (should be the same since we're adding identical instruments)
@@ -831,7 +831,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id=ephys_instrument.instrument_id,
             modification_date=ephys_instrument.modification_date,
             modalities=ephys_instrument.modalities,
-            coordinate_system=ephys_instrument.coordinate_system,
+            global_coordinate_system=ephys_instrument.global_coordinate_system,
             components=list(ephys_instrument.components) + [duplicate_component],
             connections=ephys_instrument.connections or [],
             calibrations=ephys_instrument.calibrations,
@@ -847,7 +847,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id=ephys_instrument.instrument_id,
             modification_date=ephys_instrument.modification_date,
             modalities=ephys_instrument.modalities,
-            coordinate_system=ephys_instrument.coordinate_system,
+            global_coordinate_system=ephys_instrument.global_coordinate_system,
             components=list(ephys_instrument.components),
             connections=ephys_instrument.connections or [],
             calibrations=ephys_instrument.calibrations,

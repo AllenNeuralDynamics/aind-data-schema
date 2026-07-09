@@ -81,24 +81,14 @@ class TestHumanSubject(unittest.TestCase):
         """Test the species validator"""
 
         with self.assertRaises(ValueError) as context:
-            HumanSubject(
-                sex=Sex.MALE,
-                species=Species.HOUSE_MOUSE,
-                year_of_birth=1962,
-                source=Organization.UCSD
-            )
+            HumanSubject(sex=Sex.MALE, species=Species.HOUSE_MOUSE, year_of_birth=1962, source=Organization.UCSD)
         self.assertIn("HumanSubject species must be HUMAN", str(context.exception))
 
     def test_validate_species_is_human_success(self):
         """Test the species validator with valid human species"""
 
         # This test covers line 173 - the successful return path
-        subject = HumanSubject(
-            sex=Sex.FEMALE,
-            species=Species.HUMAN,
-            year_of_birth=1990,
-            source=Organization.AI
-        )
+        subject = HumanSubject(sex=Sex.FEMALE, species=Species.HUMAN, year_of_birth=1990, source=Organization.AI)
 
         self.assertEqual(subject.species, Species.HUMAN)
         self.assertEqual(subject.sex, Sex.FEMALE)
@@ -121,7 +111,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
             sex=Sex.MALE,
             year_of_birth=2019,
             mating_status=MatingStatus.UNMATED,
-            source=Organization.JAX
+            source=Organization.JAX,
         )
 
         self.assertEqual(subject.species, Species.RHESUS_MACAQUE)
@@ -139,7 +129,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
             sex=Sex.FEMALE,
             year_of_birth=2021,
             mating_status=MatingStatus.UNKNOWN,
-            source=Organization.AI
+            source=Organization.AI,
         )
 
         self.assertEqual(subject.mating_status, MatingStatus.UNKNOWN)
@@ -155,7 +145,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
             date_of_birth=birth_date,
             year_of_birth=2020,  # Matching year
             mating_status=MatingStatus.MATED,
-            source=Organization.COLUMBIA
+            source=Organization.COLUMBIA,
         )
 
         self.assertEqual(subject.date_of_birth, birth_date)
@@ -172,7 +162,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
                 date_of_birth=date(2019, 8, 10),  # Year 2019
                 year_of_birth=2020,  # Different year
                 mating_status=MatingStatus.UNMATED,
-                source=Organization.COLUMBIA
+                source=Organization.COLUMBIA,
             )
 
         self.assertIn("Date of birth (2019) does not match year of birth (2020)", str(context.exception))
@@ -186,7 +176,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
             date_of_birth=None,  # No date provided
             year_of_birth=2021,
             mating_status=MatingStatus.UNKNOWN,
-            source=Organization.AI
+            source=Organization.AI,
         )
 
         self.assertIsNone(subject.date_of_birth)
@@ -199,9 +189,7 @@ class TestCalibrationObject(unittest.TestCase):
     def test_calibration_object_with_description_only(self):
         """Test creating a CalibrationObject with only description (minimal case)"""
 
-        calibration_obj = CalibrationObject(
-            description="Simple calibration sphere"
-        )
+        calibration_obj = CalibrationObject(description="Simple calibration sphere")
 
         self.assertEqual(calibration_obj.description, "Simple calibration sphere")
         self.assertFalse(calibration_obj.empty)  # Default should be False
@@ -210,10 +198,7 @@ class TestCalibrationObject(unittest.TestCase):
     def test_calibration_object_empty(self):
         """Test creating an empty CalibrationObject"""
 
-        calibration_obj = CalibrationObject(
-            empty=True,
-            description="Empty calibration - no object used"
-        )
+        calibration_obj = CalibrationObject(empty=True, description="Empty calibration - no object used")
 
         self.assertTrue(calibration_obj.empty)
         self.assertEqual(calibration_obj.description, "Empty calibration - no object used")
@@ -235,7 +220,7 @@ class TestBreedingInfo(unittest.TestCase):
                 maternal_id="M001",
                 maternal_genotype="wt/wt",
                 paternal_id="P001",
-                paternal_genotype="wt/wt"
+                paternal_genotype="wt/wt",
             )
 
             # Check that warning was issued
@@ -250,10 +235,7 @@ class TestBreedingInfo(unittest.TestCase):
         """Test creating BreedingInfo without the deprecated breeding_group field"""
 
         breeding_info = BreedingInfo(
-            maternal_id="M001",
-            maternal_genotype="wt/wt",
-            paternal_id="P001",
-            paternal_genotype="wt/wt"
+            maternal_id="M001", maternal_genotype="wt/wt", paternal_id="P001", paternal_genotype="wt/wt"
         )
 
         self.assertEqual(breeding_info.maternal_id, "M001")

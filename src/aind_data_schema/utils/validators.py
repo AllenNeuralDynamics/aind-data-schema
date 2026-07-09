@@ -228,10 +228,15 @@ def recursive_coord_system_check(data, coordinate_system_name: Optional[str], ax
     if not data:
         return
 
-    if hasattr(data, "coordinate_system") and data.coordinate_system:
-        # If we find a new coordinate_system, allow it to over-write our settings
-        coordinate_system_name = data.coordinate_system.name
-        axis_count = len(data.coordinate_system.axes)
+    _cs = (
+        getattr(data, "global_coordinate_system", None)
+        or getattr(data, "local_coordinate_system", None)
+        or getattr(data, "coordinate_system", None)
+    )
+    if _cs:
+        # If we find a coordinate system, allow it to over-write our settings
+        coordinate_system_name = _cs.name
+        axis_count = len(_cs.axes)
 
     # Check if the object we are looking at has a coordinate_system_name field
     if hasattr(data, "coordinate_system_name"):
@@ -258,8 +263,12 @@ def recursive_get_all_names(obj: Any) -> List[str]:
         if hasattr(obj, "name") and isinstance(obj.name, str):  # Ensure name is a string
             names.append(obj.name)
 
-        # Continue recursion into fields
-        for field_value in vars(obj).values():  # Use vars() for robustness
+        # Continue recursion into fields, skipping the deprecated coordinate_system
+        # when a renamed field (local_coordinate_system / global_coordinate_system) is present
+        _has_new_cs = hasattr(obj, "local_coordinate_system") or hasattr(obj, "global_coordinate_system")
+        for field_name, field_value in vars(obj).items():
+            if field_name == "coordinate_system" and _has_new_cs:
+                continue
             names.extend(recursive_get_all_names(field_value))
 
     return names
