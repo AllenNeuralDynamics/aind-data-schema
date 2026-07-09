@@ -4,6 +4,7 @@ import inspect
 import json
 import logging
 import warnings
+from pathlib import Path
 from typing import Dict, List, Literal, Optional, Union, get_args
 
 from aind_data_schema_models.modalities import Modality
@@ -398,6 +399,34 @@ class Metadata(DataCoreModel):
                         )
 
         return self
+
+    def write_standard_files(self, output_directory: Optional[Path] = None) -> None:
+        """Write all present core file objects to their standard JSON files.
+
+        Parameters
+        ----------
+        output_directory : Optional[Path]
+            Optional directory to write files to. Defaults to current directory.
+        """
+        for field_name in CORE_FILES:
+            value = getattr(self, field_name, None)
+            if value is None:
+                continue
+
+            field_class = [
+                f for f in get_args(type(self).model_fields[field_name].annotation) if inspect.isclass(f)
+            ][0]
+
+            if isinstance(value, dict):
+                try:
+                    obj = field_class.model_validate(value)
+                except ValidationError as e:
+                    logger.warning(f"Error validating {field_name} for write, falling back to model_construct: {e}")
+                    obj = field_class.model_construct(**value)
+            else:
+                obj = value
+
+            obj.write_standard_file(output_directory=output_directory)
 
     @classmethod
     def from_metadata(
