@@ -84,6 +84,24 @@ class WaterRestriction(DataModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
+class FoodRestriction(DataModel):
+    """Description of a food restriction procedure"""
+
+    ethics_review_id: str = Field(..., title="Ethics review ID")
+    target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
+    target_fraction_weight_unit: UnitlessUnit = Field(default=UnitlessUnit.PERCENT, title="Target fraction weight unit")
+    minimum_food_per_day: float = Field(..., title="Minimum food per day")
+    minimum_food_per_day_unit: MassUnit = Field(..., title="Minimum food per day unit")
+    baseline_weight: float = Field(
+        ...,
+        title="Baseline weight (g)",
+        description="Weight at start of food restriction",
+    )
+    weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
+    start_date: date = Field(..., title="Food restriction start date")
+    end_date: Optional[date] = Field(default=None, title="Food restriction end date")
+
+
 class Surgery(ProtocolMixin, DataModel):
     """Description of subject procedures performed at one time"""
 
