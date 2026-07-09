@@ -15,13 +15,12 @@ thermistor_wire = Device(
     name="Thermistor wire",
     manufacturer=Organization.TE_CONNECTIVITY,
     model="GAG22K7MCD419",
-    notes="Digi-Key part number: GAG22K7MCD419. "
-    "https://www.digikey.com/en/products/detail/te-connectivity-measurement-specialties/GAG22K7MCD419/5277253",
+    notes=""
 )
 
 thermistor_coordinate_system = CoordinateSystem(
     name="THERMISTOR",
-    origin=Origin.ORIGIN,
+    origin=Origin.TIP,
     axis_unit=SizeUnit.MM,
     axes=[],
 )
@@ -37,7 +36,6 @@ procedures_coordinate_system = CoordinateSystem(
 )
 
 
-# Position: from frontonasal suture, 3.1 mm anterior, 0.5 mm lateral to the right
 thermistor_implant = DeviceImplant(
     implanted_device=thermistor_wire,
     relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.RIGHT],
