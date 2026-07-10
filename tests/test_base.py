@@ -328,6 +328,40 @@ class DataCoreModelTests(unittest.TestCase):
             f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/test_model.foo.bar"
         )
 
+    @patch("pathlib.Path.open", new_callable=mock_open)
+    @patch("aind_data_schema.utils.validators.recursive_check_paths")
+    def test_write_standard_file_string_output_directory(
+        self, mock_recursive_check_paths: MagicMock, mock_open: MagicMock
+    ):
+        """Tests write_standard_file with a string output_directory (should be coerced to Path)"""
+
+        class TestModel(DataCoreModel):
+            """Temporary test model"""
+
+            describedBy: str = "modelv1"
+            schema_version: str = "1.0.0"
+
+        model_instance = TestModel()
+        model_instance.write_standard_file(output_directory="dir")
+        mock_open.assert_called_once_with("w")
+
+    @patch("pathlib.Path.open", new_callable=mock_open)
+    @patch("aind_data_schema.utils.validators.recursive_check_paths")
+    def test_write_standard_file_no_output_directory(
+        self, mock_recursive_check_paths: MagicMock, mock_open: MagicMock
+    ):
+        """Tests write_standard_file with no output_directory (defaults to cwd)"""
+
+        class TestModel(DataCoreModel):
+            """Temporary test model"""
+
+            describedBy: str = "modelv1"
+            schema_version: str = "1.0.0"
+
+        model_instance = TestModel()
+        model_instance.write_standard_file()
+        mock_open.assert_called_once_with("w")
+
 
 if __name__ == "__main__":
     unittest.main()
