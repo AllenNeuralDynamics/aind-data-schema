@@ -13,7 +13,14 @@ from pydantic import Field, field_validator, model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.configs import CatheterConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, Translation
-from aind_data_schema.components.devices import Catheter, EphysProbe, FiberProbe, MyomatrixArray
+from aind_data_schema.components.devices import (
+    Catheter,
+    Device,
+    DevicePosition,
+    EphysProbe,
+    FiberProbe,
+    MyomatrixArray,
+)
 from aind_data_schema.components.identifiers import ProtocolMixin
 from aind_data_schema.components.injection_procedures import Injection
 
@@ -132,6 +139,15 @@ class Craniotomy(ProtocolMixin, DataModel):
         if self.craniotomy_type in SIZE_REQUIRED and not self.size:
             raise ValueError(f"Craniotomy.size must be provided for craniotomy type {self.craniotomy_type}")
         return self
+
+
+class DeviceImplant(ProtocolMixin, DevicePosition, DataModel):
+    """Description of a generic device implant procedure"""
+
+    implanted_device: Device = Field(
+        ...,
+        title="Implanted device",
+    )  # note: exact field name is used by a validator
 
 
 class ProbeImplant(ProtocolMixin, DataModel):

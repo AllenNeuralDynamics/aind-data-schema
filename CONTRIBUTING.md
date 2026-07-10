@@ -51,11 +51,20 @@ python src/aind_data_schema/utils/docs/registries_generator.py
 python src/aind_data_schema/utils/docs/doc_generator.py
 ```
 
+The front page embeds an interactive React Flow diagram of the `Metadata` schema (`diagram-app/`). Build its JS/CSS bundle once before building the docs (it's git-ignored and only needs rebuilding when `diagram-app/` changes):
+
+```bash
+npm --prefix diagram-app ci
+npm --prefix diagram-app run build
+```
+
 Then to create the documentation html files, run:
 
 ```bash
 sphinx-build -b html docs/source/ docs/build/html
 ```
+
+This also (re)generates `docs/source/_static/schema-diagram/schema_diagram.json`, the data the diagram reads at runtime, from the current schema classes.
 
 More info on sphinx installation can be found here: https://www.sphinx-doc.org/en/master/usage/installation.html
 

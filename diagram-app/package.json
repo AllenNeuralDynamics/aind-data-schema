@@ -1,0 +1,26 @@
+{
+  "name": "aind-data-schema-diagram-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Interactive React Flow diagram of the aind-data-schema Metadata model, embedded in the Sphinx docs front page.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.3.5",
+    "dagre": "^0.8.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/dagre": "^0.7.54",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
