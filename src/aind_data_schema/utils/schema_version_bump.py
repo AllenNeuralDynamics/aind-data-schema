@@ -72,12 +72,34 @@ class SchemaVersionHandler:
             core_model_json = core_model.model_json_schema()
             original_schema = self._get_schema_json(core_model)
 
-            diff_list = list(dictdiffer.diff(original_schema, core_model_json))
+            diff_list = [d for d in dictdiffer.diff(original_schema, core_model_json) if not self._is_schema_version_diff(d)]
 
             if len(diff_list) > 0:
                 schemas_that_need_updating.append(core_model)
 
         return schemas_that_need_updating
+
+    @staticmethod
+    def _is_schema_version_diff(diff) -> bool:
+        """
+        Determine whether a dictdiffer diff entry only concerns the
+        schema_version field, which should not by itself trigger a bump.
+        Parameters
+        ----------
+        diff : tuple
+          A single diff entry produced by dictdiffer.diff
+
+        Returns
+        -------
+        bool
+          True if the diff refers to the top-level schema_version const/default
+        """
+        _, path, _ = diff
+        if isinstance(path, str):
+            path_parts = path.split(".")
+        else:
+            path_parts = [str(part) for part in path]
+        return path_parts[:2] == ["properties", "schema_version"]
 
     def _get_incremented_versions_map(self, models_that_changed: List[DataCoreModel]) -> Dict[DataCoreModel, str]:
         """
