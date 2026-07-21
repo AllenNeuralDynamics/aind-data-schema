@@ -5,7 +5,7 @@ import unittest
 import warnings
 from datetime import datetime, timezone
 from pathlib import Path
-from unittest.mock import mock_open, patch
+from unittest.mock import patch
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -972,7 +972,7 @@ class TestMetadata(unittest.TestCase):
 class TestWriteStandardFiles(unittest.TestCase):
     """Tests for Metadata.write_standard_files"""
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch.object(Path, "open", autospec=True)
     @patch("aind_data_schema.utils.validators.recursive_check_paths")
     def test_writes_each_present_core_file(self, mock_rcp, mock_open_fn):
         """write_standard_files calls write_standard_file for each non-None core field"""
@@ -986,14 +986,14 @@ class TestWriteStandardFiles(unittest.TestCase):
         )
         m.write_standard_files()
 
-        opened_files = [call_args[0][0] for call_args in mock_open_fn.call_args_list]
+        opened_files = [call_args[0][0].name for call_args in mock_open_fn.call_args_list]
         self.assertIn("subject.json", opened_files)
         self.assertIn("data_description.json", opened_files)
         self.assertIn("processing.json", opened_files)
         self.assertIn("quality_control.json", opened_files)
         self.assertEqual(4, mock_open_fn.call_count)
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch.object(Path, "open", autospec=True)
     @patch("aind_data_schema.utils.validators.recursive_check_paths")
     def test_skips_none_fields(self, mock_rcp, mock_open_fn):
         """Fields that are None produce no file writes"""
@@ -1005,10 +1005,10 @@ class TestWriteStandardFiles(unittest.TestCase):
         m.write_standard_files()
 
         self.assertEqual(1, mock_open_fn.call_count)
-        opened_files = [call_args[0][0] for call_args in mock_open_fn.call_args_list]
+        opened_files = [call_args[0][0].name for call_args in mock_open_fn.call_args_list]
         self.assertIn("processing.json", opened_files)
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch.object(Path, "open", autospec=True)
     @patch("aind_data_schema.utils.validators.recursive_check_paths")
     def test_output_directory_forwarded(self, mock_rcp, mock_open_fn):
         """output_directory is forwarded to each write_standard_file call"""
@@ -1024,7 +1024,7 @@ class TestWriteStandardFiles(unittest.TestCase):
         self.assertIn(Path("output_dir/subject.json"), opened_files)
         self.assertIn(Path("output_dir/model.json"), opened_files)
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch.object(Path, "open", autospec=True)
     @patch("aind_data_schema.utils.validators.recursive_check_paths")
     def test_dict_field_validates_and_writes(self, mock_rcp, mock_open_fn):
         """A dict stored in a field is validated into the proper class then written"""
@@ -1036,11 +1036,11 @@ class TestWriteStandardFiles(unittest.TestCase):
         )
         m.write_standard_files()
 
-        opened_files = [call_args[0][0] for call_args in mock_open_fn.call_args_list]
+        opened_files = [call_args[0][0].name for call_args in mock_open_fn.call_args_list]
         self.assertIn("subject.json", opened_files)
         self.assertEqual(1, mock_open_fn.call_count)
 
-    @patch("builtins.open", new_callable=mock_open)
+    @patch.object(Path, "open", autospec=True)
     @patch("aind_data_schema.utils.validators.recursive_check_paths")
     @patch("aind_data_schema.core.metadata.logger")
     def test_dict_field_falls_back_to_model_construct_on_invalid(self, mock_logger, mock_rcp, mock_open_fn):
@@ -1055,7 +1055,7 @@ class TestWriteStandardFiles(unittest.TestCase):
         m.write_standard_files()
 
         # File should still be written despite validation failure
-        opened_files = [call_args[0][0] for call_args in mock_open_fn.call_args_list]
+        opened_files = [call_args[0][0].name for call_args in mock_open_fn.call_args_list]
         self.assertIn("subject.json", opened_files)
         # Warning should have been logged mentioning the field name
         mock_logger.warning.assert_called_once()
