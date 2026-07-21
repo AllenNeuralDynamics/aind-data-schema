@@ -11,7 +11,9 @@ The four specific principles to follow are:
 - If a derived asset is related to a single acquisition, inherit the **Instrument** and **Acquisition** unchanged. Otherwise, drop these files.
 - If a derived asset is related to a single acquisition, *accumulate* **Processing** and **Quality Control**. Otherwise, start these files from scratch in the new asset.
 
-Most users should rely on the `Metadata.from_metadata` function which implements all four of these rules for you. Load your core files and validate them as a `Metadata` object as well as any new `Processing` or `QualityControl` core data that was generated during your processing or analysis, then pass all three objects to the function.
+In practice this means that multi-session assets (from one or more subjects) generate a new data description, processing, and quality control from scratch.
+
+Most users can rely on the `Metadata.from_metadata` function which implements all four of these rules for you. Load your core files and validate them as a `Metadata` object as well as any new `Processing` or `QualityControl` core data that was generated during your processing or analysis, then pass all three objects to the function. Then, call `metadata.write_standard_files()` to output your derived core files.
 
 Note that relying on aggregated reference data (such as the CCF template) in your processing pipeline or analysis code does not make your asset multi-subject.
 
@@ -70,5 +72,5 @@ derived = Metadata.from_metadata(
     new_quality_control=new_qc,
 )
 
-derived.write_standard_file(output_directory="path/to/output")
+derived.write_standard_files(output_directory="path/to/output")
 ```
