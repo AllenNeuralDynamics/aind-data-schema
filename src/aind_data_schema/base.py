@@ -276,7 +276,8 @@ class DataCoreModel(DataModel):
             optional str for replacing the file extension
             Default: None
         """
-
+        if type(output_directory) is str:
+            output_directory = Path(output_directory)
         # Go through the subfields recursively and check whether paths exist
         recursive_check_paths(self, output_directory)
 
@@ -289,11 +290,11 @@ class DataCoreModel(DataModel):
         if suffix:
             filename = filename.replace(self._FILE_EXTENSION, suffix)
 
-        if output_directory is not None:
-            output_directory = Path(output_directory)
-            filename = output_directory / filename
+        if output_directory is None:
+            output_directory = Path.cwd()
+        filename = output_directory / filename
 
-        with open(filename, "w") as f:
+        with filename.open("w") as f:
             f.write(self.model_dump_json(indent=3))
 
         # Check that size doesn't exceed the maximum
