@@ -466,7 +466,7 @@ class Metadata(DataCoreModel):
         new_quality_control : Optional[QualityControl]
             New quality control performed on this derived asset.
         **data_description_kwargs
-            Additional keyword arguments passed to DataDescription.from_data_description.
+            Additional keyword arguments passed to derive_data_description.
 
         Returns
         -------
@@ -478,6 +478,8 @@ class Metadata(DataCoreModel):
             _accumulate_quality_control,
             _inherit_instrument_and_acquisition,
             _inherit_subject_and_procedures,
+            derive_data_description,
+            derive_data_description_analyzed,
         )
 
         if isinstance(metadata, Metadata):
@@ -500,12 +502,20 @@ class Metadata(DataCoreModel):
             m.data_description.name for m in metadata_list if m.data_description and m.data_description.name
         ]
 
-        derived_dd = DataDescription.from_data_description(
-            first_dd,
-            process_name=process_name,
-            source_data=source_names if len(source_names) > 1 else None,
-            **data_description_kwargs,
-        )
+        if len(metadata_list) > 1:
+            derived_dd = derive_data_description_analyzed(
+                first_dd,
+                analysis_name=process_name,
+                source_data=source_names,
+                **data_description_kwargs,
+            )
+        else:
+            derived_dd = derive_data_description(
+                first_dd,
+                process_name=process_name,
+                source_data=source_names if len(source_names) > 1 else None,
+                **data_description_kwargs,
+            )
 
         subject, procedures = _inherit_subject_and_procedures(metadata_list)
         instrument, acquisition = _inherit_instrument_and_acquisition(metadata_list)
