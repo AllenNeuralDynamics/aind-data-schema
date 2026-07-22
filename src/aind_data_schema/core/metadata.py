@@ -445,7 +445,7 @@ class Metadata(DataCoreModel):
         metadata : Metadata or List[Metadata]
             Source metadata object(s) to derive from.
         process_name : str
-            Shortened name for the process or pipeline that was run - 
+            Shortened name for the process or pipeline that was run -
             used in creating name of derived asset. Defaults to 'processed'.
         location : Optional[str]
             Location of the new derived data asset.
