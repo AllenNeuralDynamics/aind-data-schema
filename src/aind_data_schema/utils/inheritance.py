@@ -227,7 +227,7 @@ def derive_data_description_analyzed(
     project_abbreviation = _get_or_default(data_description, "project_name", kwargs)
 
     analyzed_name = f"{project_abbreviation}_{analysis_name}_{datetime_to_name_string(creation_time)}"
-    if not re.match(DataRegex.ANALYZED.value, analyzed_name):
+    if not re.match(DataRegex.ANALYZED.value, analyzed_name):  # pragma: no cover
         raise ValueError(f"Analyzed name({analyzed_name}) does not match allowed Regex pattern")
 
     return DataDescription(

@@ -1024,43 +1024,6 @@ class TestWriteStandardFiles(unittest.TestCase):
         self.assertIn(Path("output_dir/subject.json"), opened_files)
         self.assertIn(Path("output_dir/model.json"), opened_files)
 
-    @patch.object(Path, "open", autospec=True)
-    @patch("aind_data_schema.utils.validators.recursive_check_paths")
-    def test_dict_field_validates_and_writes(self, mock_rcp, mock_open_fn):
-        """A dict stored in a field is validated into the proper class then written"""
-        subject_dict = json.loads(subject.model_dump_json())
-        m = Metadata.model_construct(
-            name="test",
-            location="s3://bucket/test",
-            subject=subject_dict,
-        )
-        m.write_standard_files()
-
-        opened_files = [call_args[0][0].name for call_args in mock_open_fn.call_args_list]
-        self.assertIn("subject.json", opened_files)
-        self.assertEqual(1, mock_open_fn.call_count)
-
-    @patch.object(Path, "open", autospec=True)
-    @patch("aind_data_schema.utils.validators.recursive_check_paths")
-    @patch("aind_data_schema.core.metadata.logger")
-    def test_dict_field_falls_back_to_model_construct_on_invalid(self, mock_logger, mock_rcp, mock_open_fn):
-        """A dict that fails validation falls back to model_construct; warning logged, file still written"""
-        # Missing required subject_id causes ValidationError for Subject
-        bad_subject_dict = {"not_a_real_field": "bad_value"}
-        m = Metadata.model_construct(
-            name="test",
-            location="s3://bucket/test",
-            subject=bad_subject_dict,
-        )
-        m.write_standard_files()
-
-        # File should still be written despite validation failure
-        opened_files = [call_args[0][0].name for call_args in mock_open_fn.call_args_list]
-        self.assertIn("subject.json", opened_files)
-        # Warning should have been logged mentioning the field name
-        mock_logger.warning.assert_called_once()
-        self.assertIn("subject", mock_logger.warning.call_args[0][0])
-
 
 if __name__ == "__main__":
     unittest.main()

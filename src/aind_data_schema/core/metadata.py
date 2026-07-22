@@ -413,27 +413,14 @@ class Metadata(DataCoreModel):
             if value is None:
                 continue
 
-            field_class = [
-                f for f in get_args(type(self).model_fields[field_name].annotation) if inspect.isclass(f)
-            ][0]
-
-            if isinstance(value, dict):
-                try:
-                    obj = field_class.model_validate(value)
-                except ValidationError as e:
-                    logger.warning(f"Error validating {field_name} for write, falling back to model_construct: {e}")
-                    obj = field_class.model_construct(**value)
-            else:
-                obj = value
-
-            obj.write_standard_file(output_directory=output_directory)
+            value.write_standard_file(output_directory=output_directory)
 
     @classmethod
     def from_metadata(
         cls,
         metadata: "Union[Metadata, List[Metadata]]",
-        process_name: str,
-        location: str,
+        process_name: str = "processed",
+        location: Optional[str] = None,
         new_processing: Optional[Processing] = None,
         new_quality_control: Optional[QualityControl] = None,
         **data_description_kwargs,
@@ -458,8 +445,9 @@ class Metadata(DataCoreModel):
         metadata : Metadata or List[Metadata]
             Source metadata object(s) to derive from.
         process_name : str
-            Name of the process that created this derived asset.
-        location : str
+            Shortened name for the process or pipeline that was run - 
+            used in creating name of derived asset. Defaults to 'processed'.
+        location : Optional[str]
             Location of the new derived data asset.
         new_processing : Optional[Processing]
             New processing performed to create this derived asset.

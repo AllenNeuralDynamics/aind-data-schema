@@ -20,6 +20,7 @@ from aind_data_schema.utils.inheritance import (
     _get_unique_subject_ids,
     _inherit_instrument_and_acquisition,
     _inherit_subject_and_procedures,
+    derive_data_description_analyzed,
 )
 
 from examples.ephys_instrument import inst as example_inst
@@ -412,6 +413,28 @@ class TestInternalHelpers(unittest.TestCase):
         no_qc = self.source.model_copy(update={"quality_control": None})
         result = _accumulate_quality_control([no_qc], new_quality_control=example_qc)
         self.assertIs(result, example_qc)
+
+    def test_derive_data_description_analyzed_name(self):
+        """derive_data_description_analyzed should build an ANALYZED-style name from the project"""
+        creation_time = datetime(2022, 5, 1, 10, 0, 0, tzinfo=timezone.utc)
+        result = derive_data_description_analyzed(
+            self.source.data_description,
+            analysis_name="merged-analysis",
+            source_data=["a", "b"],
+            creation_time=creation_time,
+        )
+        self.assertEqual(result.data_level, DataLevel.DERIVED)
+        self.assertEqual(result.name, "Test project_merged-analysis_2022-05-01_10-00-00")
+        self.assertEqual(result.source_data, ["a", "b"])
+
+    def test_derive_data_description_analyzed_invalid_creation_time(self):
+        """derive_data_description_analyzed should raise when creation_time is not a datetime"""
+        with self.assertRaises(ValueError):
+            derive_data_description_analyzed(
+                self.source.data_description,
+                analysis_name="merged-analysis",
+                creation_time="not a datetime",
+            )
 
 
 if __name__ == "__main__":
