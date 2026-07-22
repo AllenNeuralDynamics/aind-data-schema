@@ -66,7 +66,7 @@ new_qc = QualityControl(
 # Create the derived metadata -- this applies all four inheritance rules
 derived = Metadata.from_metadata(
     source,
-    process_name="tile-fusing",
+    process_name="fused",
     location="s3://my-bucket/derived-asset",
     new_processing=new_processing,
     new_quality_control=new_qc,
