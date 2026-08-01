@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.5.1",
-               "default": "2.5.1",
+               "const": "2.5.3",
+               "default": "2.5.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -754,8 +754,22 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition",
                "title": "Coordinate system"
+            },
+            "global_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition",
+               "title": "Global coordinate system"
             },
             "calibrations": {
                "default": [],
@@ -1091,6 +1105,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -1427,6 +1442,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -1542,7 +1560,7 @@
       },
       "Affine": {
          "additionalProperties": false,
-         "description": "Definition of an affine transform 3x4 matrix",
+         "description": "Definition of an NxN+1 affine transform matrix",
          "properties": {
             "object_type": {
                "const": "Affine",
@@ -1603,7 +1621,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -1640,7 +1671,8 @@
                   }
                ],
                "default": null,
-               "title": "Device to acquisition transform"
+               "description": "Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
+               "title": "Local to global transform"
             },
             "pressure": {
                "anyOf": [
@@ -1821,6 +1853,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -2155,6 +2188,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -2347,7 +2383,7 @@
       },
       "Arena": {
          "additionalProperties": false,
-         "description": "Description of a rectangular arena",
+         "description": "Description of an arena",
          "properties": {
             "object_type": {
                "const": "Arena",
@@ -2480,6 +2516,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -2816,6 +2853,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -2919,11 +2959,39 @@
             },
             "size": {
                "$ref": "#/$defs/Scale",
+               "deprecated": true,
                "title": "3D Size"
             },
             "size_unit": {
                "$ref": "#/$defs/SizeUnit",
+               "deprecated": true,
                "title": "Size unit"
+            },
+            "shape": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "Circle": "#/$defs/Circle",
+                           "Rectangle": "#/$defs/Rectangle"
+                        },
+                        "propertyName": "object_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/Rectangle"
+                        },
+                        {
+                           "$ref": "#/$defs/Circle"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Shape of the arena"
             },
             "objects_in_arena": {
                "default": [],
@@ -2957,8 +3025,16 @@
                "title": "Atlas name"
             },
             "origin": {
-               "$ref": "#/$defs/Origin",
-               "description": "Defines the position of (0,0,0) in the coordinate system"
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Origin"
+                  },
+                  {
+                     "$ref": "#/$defs/MouseAnatomyModel"
+                  }
+               ],
+               "description": "Defines the position of (0,0,0) in the coordinate system",
+               "title": "Origin"
             },
             "axes": {
                "description": "Axis names and directions",
@@ -2971,6 +3047,19 @@
             "axis_unit": {
                "$ref": "#/$defs/SizeUnit",
                "title": "Size unit"
+            },
+            "handedness": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Handedness"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Whether the coordinate system is right-handed or left-handed",
+               "title": "Handedness"
             },
             "version": {
                "title": "Atlas version",
@@ -3030,6 +3119,12 @@
                "title": "Translation parameters",
                "type": "array"
             },
+            "reference_coordinate_system": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to translate on the global or local coordinate system axes",
+               "title": "Reference coordinate system"
+            },
             "coordinate_system": {
                "$ref": "#/$defs/Atlas"
             }
@@ -3062,7 +3157,8 @@
             },
             "name": {
                "$ref": "#/$defs/AxisName",
-               "title": "Axis"
+               "description": "Note: axis names do not influence order or orientation",
+               "title": "Axis name"
             },
             "direction": {
                "$ref": "#/$defs/Direction",
@@ -3763,6 +3859,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -4097,6 +4194,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -4497,7 +4597,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -4534,8 +4647,8 @@
                   }
                ],
                "default": null,
-               "description": "Position and orientation of the device in the instrument coordinate system",
-               "title": "Device to instrument transform"
+               "description": "Position and orientation of the device in the instrument global coordinate system",
+               "title": "Local to global transform"
             },
             "name": {
                "title": "Camera assembly name",
@@ -4731,6 +4844,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -5067,6 +5181,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -5345,6 +5462,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -5681,6 +5799,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -5918,6 +6039,32 @@
             "detector"
          ],
          "title": "Channel",
+         "type": "object"
+      },
+      "Circle": {
+         "additionalProperties": false,
+         "description": "Circle geometry",
+         "properties": {
+            "object_type": {
+               "const": "Circle",
+               "default": "Circle",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "radius": {
+               "title": "Radius",
+               "type": "number"
+            },
+            "radius_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "title": "Radius unit"
+            }
+         },
+         "required": [
+            "radius",
+            "radius_unit"
+         ],
+         "title": "Circle",
          "type": "object"
       },
       "Code": {
@@ -6294,6 +6441,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -6630,6 +6778,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -6864,7 +7015,7 @@
       },
       "CoordinateSystem": {
          "additionalProperties": false,
-         "description": "Definition of a coordinate system relative to a brain",
+         "description": "Definition of a coordinate system",
          "properties": {
             "object_type": {
                "const": "Coordinate system",
@@ -6873,12 +7024,21 @@
                "type": "string"
             },
             "name": {
+               "description": "Convention is to use <Origin>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc",
                "title": "Name",
                "type": "string"
             },
             "origin": {
-               "$ref": "#/$defs/Origin",
-               "description": "Defines the position of (0,0,0) in the coordinate system"
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Origin"
+                  },
+                  {
+                     "$ref": "#/$defs/MouseAnatomyModel"
+                  }
+               ],
+               "description": "Defines the position of (0,0,0) in the coordinate system",
+               "title": "Origin"
             },
             "axes": {
                "description": "Axis names and directions",
@@ -6891,6 +7051,19 @@
             "axis_unit": {
                "$ref": "#/$defs/SizeUnit",
                "title": "Size unit"
+            },
+            "handedness": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Handedness"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Whether the coordinate system is right-handed or left-handed",
+               "title": "Handedness"
             }
          },
          "required": [
@@ -7168,6 +7341,7 @@
                      "fib": "#/$defs/_Fib",
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
+                     "one-photon": "#/$defs/_One_Photon",
                      "pophys": "#/$defs/_Pophys",
                      "scRNAseq": "#/$defs/_Scrnaseq",
                      "slap2": "#/$defs/_Slap2"
@@ -7219,6 +7393,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Merfish"
+                  },
+                  {
+                     "$ref": "#/$defs/_One_Photon"
                   },
                   {
                      "$ref": "#/$defs/_Pophys"
@@ -7560,6 +7737,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -7894,6 +8072,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -8104,8 +8285,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.3.4",
-               "default": "2.3.4",
+               "const": "2.4.1",
+               "default": "2.4.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -8270,6 +8451,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -8606,6 +8788,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -8742,6 +8927,7 @@
                         "fib": "#/$defs/_Fib",
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
+                        "one-photon": "#/$defs/_One_Photon",
                         "pophys": "#/$defs/_Pophys",
                         "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap2": "#/$defs/_Slap2"
@@ -8793,6 +8979,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/_One_Photon"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
@@ -9055,6 +9244,7 @@
                         "fib": "#/$defs/_Fib",
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
+                        "one-photon": "#/$defs/_One_Photon",
                         "pophys": "#/$defs/_Pophys",
                         "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap2": "#/$defs/_Slap2"
@@ -9106,6 +9296,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/_One_Photon"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
@@ -9398,6 +9591,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -9732,6 +9926,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -10373,6 +10570,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -10707,6 +10905,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -10849,6 +11050,111 @@
          "title": "DeviceDriver",
          "type": "string"
       },
+      "DeviceImplant": {
+         "additionalProperties": false,
+         "description": "Description of a generic device implant procedure",
+         "properties": {
+            "object_type": {
+               "const": "Device implant",
+               "default": "Device implant",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Relative position",
+               "type": "array"
+            },
+            "coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
+               "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
+            },
+            "transform": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Affine": "#/$defs/Affine",
+                              "Rotation": "#/$defs/Rotation",
+                              "Scale": "#/$defs/Scale",
+                              "Translation": "#/$defs/Translation"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/Translation"
+                           },
+                           {
+                              "$ref": "#/$defs/Rotation"
+                           },
+                           {
+                              "$ref": "#/$defs/Scale"
+                           },
+                           {
+                              "$ref": "#/$defs/Affine"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Position and orientation of the device in the instrument global coordinate system",
+               "title": "Local to global transform"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
+            "implanted_device": {
+               "$ref": "#/$defs/Device",
+               "title": "Implanted device"
+            }
+         },
+         "required": [
+            "relative_position",
+            "implanted_device"
+         ],
+         "title": "DeviceImplant",
+         "type": "object"
+      },
       "DigitalMicromirrorDevice": {
          "additionalProperties": false,
          "description": "Description of a Digital Micromirror Device (DMD)",
@@ -10984,6 +11290,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -11318,6 +11625,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -11639,6 +11949,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -11973,6 +12284,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -12299,6 +12613,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -12635,6 +12950,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -12738,11 +13056,39 @@
             },
             "size": {
                "$ref": "#/$defs/Scale",
+               "deprecated": true,
                "title": "Size"
             },
             "size_unit": {
                "$ref": "#/$defs/SizeUnit",
+               "deprecated": true,
                "title": "Size unit"
+            },
+            "shape": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "Circle": "#/$defs/Circle",
+                           "Rectangle": "#/$defs/Rectangle"
+                        },
+                        "propertyName": "object_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/Rectangle"
+                        },
+                        {
+                           "$ref": "#/$defs/Circle"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Shape of the enclosure"
             },
             "internal_material": {
                "anyOf": [
@@ -13004,6 +13350,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -13340,6 +13687,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -13507,6 +13857,7 @@
                         "fib": "#/$defs/_Fib",
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
+                        "one-photon": "#/$defs/_One_Photon",
                         "pophys": "#/$defs/_Pophys",
                         "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap2": "#/$defs/_Slap2"
@@ -13558,6 +13909,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/_One_Photon"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
@@ -13820,6 +14174,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -14154,6 +14509,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -14436,6 +14794,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -14770,6 +15129,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -15087,6 +15449,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -15421,6 +15784,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -15604,13 +15970,13 @@
          "title": "FitType",
          "type": "string"
       },
-      "FluorescentStain": {
+      "FluorescentReagent": {
          "additionalProperties": false,
-         "description": "Description of a fluorescent stain",
+         "description": "Description of an inherently fluorescent marker. Note this class will change name in v3.0",
          "properties": {
             "object_type": {
-               "const": "Fluorescent stain",
-               "default": "Fluorescent stain",
+               "const": "Fluorescent reagent",
+               "default": "Fluorescent reagent",
                "title": "Object Type",
                "type": "string"
             },
@@ -15725,6 +16091,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -16059,6 +16426,594 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
+                     "$ref": "#/$defs/_Tamron"
+                  },
+                  {
+                     "$ref": "#/$defs/_Technical_Manufacturing_Corporation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
+                  },
+                  {
+                     "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_The_Imaging_Source"
+                  },
+                  {
+                     "$ref": "#/$defs/_The_Lee_Company"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thermo_Fisher_Scientific"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thorlabs"
+                  },
+                  {
+                     "$ref": "#/$defs/_Transducer_Techniques"
+                  },
+                  {
+                     "$ref": "#/$defs/_Tymphany"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vieworks"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vortran"
+                  },
+                  {
+                     "$ref": "#/$defs/_World_Precision_Intstruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ams_Osram"
+                  }
+               ],
+               "title": "Source"
+            },
+            "rrid": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PIDName"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Research Resource ID"
+            },
+            "lot_number": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lot number"
+            },
+            "expiration_date": {
+               "anyOf": [
+                  {
+                     "format": "date",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lot expiration date"
+            },
+            "stain_type": {
+               "$ref": "#/$defs/StainType",
+               "type": "Stain type"
+            },
+            "excitation_wavelength": {
+               "title": "Excitation wavelength (nm)",
+               "type": "integer"
+            },
+            "emission_wavelength": {
+               "title": "Emission wavelength (nm)",
+               "type": "integer"
+            },
+            "wavelength_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "default": "nanometer",
+               "title": "Excitation wavelength unit"
+            }
+         },
+         "required": [
+            "name",
+            "source",
+            "stain_type",
+            "excitation_wavelength",
+            "emission_wavelength"
+         ],
+         "title": "FluorescentReagent",
+         "type": "object"
+      },
+      "FluorescentStain": {
+         "additionalProperties": false,
+         "description": "Description of a fluorescent stain consisting of a probe associated with a fluorophore.\nNote this class will change names in v3.0",
+         "properties": {
+            "object_type": {
+               "const": "Fluorescent stain",
+               "default": "Fluorescent stain",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "source": {
+               "discriminator": {
+                  "mapping": {
+                     "AA Opto Electronic": "#/$defs/_Aa_Opto_Electronic",
+                     "ASUS": "#/$defs/_Asus",
+                     "Abcam": "#/$defs/_Abcam",
+                     "Addgene": "#/$defs/_Addgene",
+                     "Ailipu Technology Co": "#/$defs/_Ailipu_Technology_Co",
+                     "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Allen Institute for Brain Science": "#/$defs/_Allen_Institute_For_Brain_Science",
+                     "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
+                     "Allied": "#/$defs/_Allied",
+                     "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
+                     "Arduino": "#/$defs/_Arduino",
+                     "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
+                     "Basler": "#/$defs/_Basler",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Boston University": "#/$defs/_Boston_University",
+                     "Broadcom": "#/$defs/_Broadcom",
+                     "Bruker": "#/$defs/_Bruker",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
+                     "Cambridge Technology": "#/$defs/_Cambridge_Technology",
+                     "Carl Zeiss": "#/$defs/_Carl_Zeiss",
+                     "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
+                     "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
+                     "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
+                     "Chroma": "#/$defs/_Chroma",
+                     "Coherent Scientific": "#/$defs/_Coherent_Scientific",
+                     "Columbia University": "#/$defs/_Columbia_University",
+                     "Computar": "#/$defs/_Computar",
+                     "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
+                     "Custom": "#/$defs/_Custom",
+                     "DigiKey": "#/$defs/_Digikey",
+                     "Dodotronic": "#/$defs/_Dodotronic",
+                     "Doric": "#/$defs/_Doric",
+                     "Ealing": "#/$defs/_Ealing",
+                     "Edmund Optics": "#/$defs/_Edmund_Optics",
+                     "Emory University": "#/$defs/_Emory_University",
+                     "Euresys": "#/$defs/_Euresys",
+                     "Excelitas Technologies": "#/$defs/_Excelitas_Technologies",
+                     "Fujinon": "#/$defs/_Fujinon",
+                     "Hamamatsu": "#/$defs/_Hamamatsu",
+                     "Hamilton": "#/$defs/_Hamilton",
+                     "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "IR Robot Co": "#/$defs/_Ir_Robot_Co",
+                     "ISL Products International": "#/$defs/_Isl_Products_International",
+                     "Infinity Photo-Optical": "#/$defs/_Infinity_Photo_Optical",
+                     "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
+                     "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
+                     "Invitrogen": "#/$defs/_Invitrogen",
+                     "Item": "#/$defs/_Item",
+                     "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
+                     "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Jenoptik": "#/$defs/_Jenoptik",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
+                     "Julabo": "#/$defs/_Julabo",
+                     "Kent Scientific Corporation": "#/$defs/_Kent_Scientific_Corporation",
+                     "Kowa": "#/$defs/_Kowa",
+                     "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
+                     "LG": "#/$defs/_Lg",
+                     "Leica": "#/$defs/_Leica",
+                     "LifeCanvas": "#/$defs/_Lifecanvas",
+                     "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
+                     "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
+                     "MKS Newport": "#/$defs/_Mks_Newport",
+                     "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
+                     "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
+                     "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
+                     "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
+                     "Mitutuyo": "#/$defs/_Mitutuyo",
+                     "Molecular Instruments": "#/$defs/_Molecular_Instruments",
+                     "NResearch Inc": "#/$defs/_Nresearch_Inc",
+                     "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
+                     "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
+                     "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
+                     "National Instruments": "#/$defs/_National_Instruments",
+                     "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
+                     "Neurophotometrics": "#/$defs/_Neurophotometrics",
+                     "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
+                     "New York University": "#/$defs/_New_York_University",
+                     "Nikon": "#/$defs/_Nikon",
+                     "Olympus": "#/$defs/_Olympus",
+                     "Open Ephys Production Site": "#/$defs/_Open_Ephys_Production_Site",
+                     "Optotune": "#/$defs/_Optotune",
+                     "Other": "#/$defs/_Other",
+                     "Oxford Instruments": "#/$defs/_Oxford_Instruments",
+                     "Oxxius": "#/$defs/_Oxxius",
+                     "Placid Industries": "#/$defs/_Placid_Industries",
+                     "Prizmatix": "#/$defs/_Prizmatix",
+                     "Quantifi": "#/$defs/_Quantifi",
+                     "Raspberry Pi": "#/$defs/_Raspberry_Pi",
+                     "SICGEN": "#/$defs/_Sicgen",
+                     "Same Sky": "#/$defs/_Same_Sky",
+                     "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
+                     "Scientifica": "#/$defs/_Scientifica",
+                     "Second Order Effects": "#/$defs/_Second_Order_Effects",
+                     "Semrock": "#/$defs/_Semrock",
+                     "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
+                     "Simons Foundation": "#/$defs/_Simons_Foundation",
+                     "Spectra-Physics": "#/$defs/_Spectra_Physics",
+                     "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
+                     "Tamron": "#/$defs/_Tamron",
+                     "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
+                     "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
+                     "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
+                     "The Imaging Source": "#/$defs/_The_Imaging_Source",
+                     "The Lee Company": "#/$defs/_The_Lee_Company",
+                     "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
+                     "Thorlabs": "#/$defs/_Thorlabs",
+                     "Transducer Techniques": "#/$defs/_Transducer_Techniques",
+                     "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
+                     "Vieworks": "#/$defs/_Vieworks",
+                     "Vortran": "#/$defs/_Vortran",
+                     "World Precision Intstruments": "#/$defs/_World_Precision_Intstruments",
+                     "ams OSRAM": "#/$defs/_Ams_Osram"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Aa_Opto_Electronic"
+                  },
+                  {
+                     "$ref": "#/$defs/_Asus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Abcam"
+                  },
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ailipu_Technology_Co"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute_For_Brain_Science"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Allied"
+                  },
+                  {
+                     "$ref": "#/$defs/_Applied_Scientific_Instrumentation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Arduino"
+                  },
+                  {
+                     "$ref": "#/$defs/_Arecont_Vision_Costar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Broadcom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cambridge_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Carl_Zeiss"
+                  },
+                  {
+                     "$ref": "#/$defs/_Champalimaud_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
+                  },
+                  {
+                     "$ref": "#/$defs/_Charles_River_Laboratories"
+                  },
+                  {
+                     "$ref": "#/$defs/_Chroma"
+                  },
+                  {
+                     "$ref": "#/$defs/_Coherent_Scientific"
+                  },
+                  {
+                     "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Computar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Custom"
+                  },
+                  {
+                     "$ref": "#/$defs/_Digikey"
+                  },
+                  {
+                     "$ref": "#/$defs/_Dodotronic"
+                  },
+                  {
+                     "$ref": "#/$defs/_Doric"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ealing"
+                  },
+                  {
+                     "$ref": "#/$defs/_Edmund_Optics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emory_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Euresys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Excelitas_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_Fujinon"
+                  },
+                  {
+                     "$ref": "#/$defs/_Hamamatsu"
+                  },
+                  {
+                     "$ref": "#/$defs/_Hamilton"
+                  },
+                  {
+                     "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ir_Robot_Co"
+                  },
+                  {
+                     "$ref": "#/$defs/_Isl_Products_International"
+                  },
+                  {
+                     "$ref": "#/$defs/_Infinity_Photo_Optical"
+                  },
+                  {
+                     "$ref": "#/$defs/_Integrated_Dna_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_Interuniversity_Microelectronics_Center"
+                  },
+                  {
+                     "$ref": "#/$defs/_Invitrogen"
+                  },
+                  {
+                     "$ref": "#/$defs/_Item"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jackson_Laboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jenoptik"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Julabo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kent_Scientific_Corporation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Kowa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lasos_Lasertechnik"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lg"
+                  },
+                  {
+                     "$ref": "#/$defs/_Leica"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lifecanvas"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mks_Newport"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Meadowlark_Optics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Midwest_Optical_Systems_Inc_"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mitutuyo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Molecular_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Nresearch_Inc"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Institute_Of_Mental_Health"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neurophotometrics"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_Scale_Technologies"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_York_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Nikon"
+                  },
+                  {
+                     "$ref": "#/$defs/_Olympus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Open_Ephys_Production_Site"
+                  },
+                  {
+                     "$ref": "#/$defs/_Optotune"
+                  },
+                  {
+                     "$ref": "#/$defs/_Other"
+                  },
+                  {
+                     "$ref": "#/$defs/_Oxford_Instruments"
+                  },
+                  {
+                     "$ref": "#/$defs/_Oxxius"
+                  },
+                  {
+                     "$ref": "#/$defs/_Placid_Industries"
+                  },
+                  {
+                     "$ref": "#/$defs/_Prizmatix"
+                  },
+                  {
+                     "$ref": "#/$defs/_Quantifi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Raspberry_Pi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sicgen"
+                  },
+                  {
+                     "$ref": "#/$defs/_Same_Sky"
+                  },
+                  {
+                     "$ref": "#/$defs/_Schneider_Kreuznach"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scientifica"
+                  },
+                  {
+                     "$ref": "#/$defs/_Second_Order_Effects"
+                  },
+                  {
+                     "$ref": "#/$defs/_Semrock"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sigma_Aldrich"
+                  },
+                  {
+                     "$ref": "#/$defs/_Simons_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spectra_Physics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -16380,6 +17335,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -16714,6 +17670,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -16967,6 +17926,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -17301,6 +18261,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -17675,6 +18638,15 @@
          "title": "HCRSeries",
          "type": "object"
       },
+      "Handedness": {
+         "description": "Coordinate system handedness",
+         "enum": [
+            "right",
+            "left"
+         ],
+         "title": "Handedness",
+         "type": "string"
+      },
       "HarpDevice": {
          "additionalProperties": false,
          "description": "DAQ that uses the Harp protocol for synchronization and data transmission",
@@ -17814,6 +18786,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -18148,6 +19121,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -18815,6 +19791,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -19151,6 +20128,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -19322,7 +20302,21 @@
             "dimensions": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Scale"
+                     "discriminator": {
+                        "mapping": {
+                           "Rectangle": "#/$defs/Rectangle",
+                           "Scale": "#/$defs/Scale"
+                        },
+                        "propertyName": "object_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/Scale"
+                        },
+                        {
+                           "$ref": "#/$defs/Rectangle"
+                        }
+                     ]
                   },
                   {
                      "type": "null"
@@ -19425,8 +20419,22 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.coordinate_system",
                "title": "Coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.global_coordinate_system",
+               "title": "Local coordinate system"
             },
             "images": {
                "items": {
@@ -19757,8 +20765,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.5",
-               "default": "2.2.5",
+               "const": "2.2.7",
+               "default": "2.2.7",
                "title": "Schema Version",
                "type": "string"
             },
@@ -19808,6 +20816,7 @@
                         "fib": "#/$defs/_Fib",
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
+                        "one-photon": "#/$defs/_One_Photon",
                         "pophys": "#/$defs/_Pophys",
                         "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap2": "#/$defs/_Slap2"
@@ -19859,6 +20868,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/_One_Photon"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
@@ -19915,9 +20927,23 @@
                "title": "Calibrations"
             },
             "coordinate_system": {
-               "$ref": "#/$defs/CoordinateSystem",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
                "description": "Origin and axis definitions for determining the position of the instrument's components",
                "title": "Coordinate system"
+            },
+            "global_coordinate_system": {
+               "$ref": "#/$defs/CoordinateSystem",
+               "description": "Origin and axis definitions for determining the position of the instrument's components",
+               "title": "Global coordinate system"
             },
             "temperature_control": {
                "anyOf": [
@@ -20132,10 +21158,38 @@
             "instrument_id",
             "modification_date",
             "modalities",
-            "coordinate_system",
+            "global_coordinate_system",
             "components"
          ],
          "title": "Instrument",
+         "type": "object"
+      },
+      "JoystickConfig": {
+         "additionalProperties": false,
+         "description": "Configuration of joystick",
+         "properties": {
+            "object_type": {
+               "const": "Joystick config",
+               "default": "Joystick config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "is_isometric": {
+               "description": "Whether the joystick is use isometrically or non-isometrically",
+               "title": "Is isometric",
+               "type": "boolean"
+            }
+         },
+         "required": [
+            "device_name",
+            "is_isometric"
+         ],
+         "title": "JoystickConfig",
          "type": "object"
       },
       "Lamp": {
@@ -20273,6 +21327,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -20609,6 +21664,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -20903,6 +21961,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -21237,6 +22296,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -21632,6 +22694,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -21968,6 +23031,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -22225,6 +23291,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -22561,6 +23628,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -22810,7 +23880,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -22847,8 +23930,8 @@
                   }
                ],
                "default": null,
-               "description": "Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
-               "title": "Device to acquisition transform"
+               "description": "Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
+               "title": "Local to global transform"
             },
             "notes": {
                "anyOf": [
@@ -23037,6 +24120,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -23373,6 +24457,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -23608,7 +24695,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -23645,8 +24745,8 @@
                   }
                ],
                "default": null,
-               "description": "Position and orientation of the device in the instrument coordinate system",
-               "title": "Device to instrument transform"
+               "description": "Position and orientation of the device in the instrument global coordinate system",
+               "title": "Local to global transform"
             },
             "device_name": {
                "description": "Must match a device defined in the instrument.json",
@@ -24268,6 +25368,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -24604,6 +25705,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -24723,8 +25827,21 @@
                "type": "string"
             },
             "coordinate_system": {
-               "$ref": "#/$defs/CoordinateSystem",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "$ref": "#/$defs/CoordinateSystem",
+               "title": "Device local coordinate system"
             },
             "local_axis_positions": {
                "$ref": "#/$defs/Translation",
@@ -24733,7 +25850,7 @@
          },
          "required": [
             "device_name",
-            "coordinate_system",
+            "local_coordinate_system",
             "local_axis_positions"
          ],
          "title": "ManipulatorConfig",
@@ -24910,6 +26027,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -25244,6 +26362,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -25864,7 +26985,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -25901,8 +27035,8 @@
                   }
                ],
                "default": null,
-               "description": "Position and orientation of the device in the instrument coordinate system",
-               "title": "Device to instrument transform"
+               "description": "Position and orientation of the device in the instrument global coordinate system",
+               "title": "Local to global transform"
             },
             "name": {
                "title": "Device name",
@@ -26027,6 +27161,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -26363,6 +27498,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -26694,6 +27832,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -27028,6 +28167,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -27485,6 +28627,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -27821,6 +28964,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -28053,6 +29199,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -28387,6 +29534,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -28777,6 +29927,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -29111,6 +30262,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -29474,6 +30628,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -29808,6 +30963,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -30062,6 +31220,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -30396,6 +31555,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -30663,6 +31825,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -30999,6 +32162,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -31290,6 +32456,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -31624,6 +32791,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -32274,6 +33444,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -32608,6 +33779,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -33139,7 +34313,21 @@
             "dimensions": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Scale"
+                     "discriminator": {
+                        "mapping": {
+                           "Rectangle": "#/$defs/Rectangle",
+                           "Scale": "#/$defs/Scale"
+                        },
+                        "propertyName": "object_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/Scale"
+                        },
+                        {
+                           "$ref": "#/$defs/Rectangle"
+                        }
+                     ]
                   },
                   {
                      "type": "null"
@@ -33234,7 +34422,21 @@
             "dimensions": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Scale"
+                     "discriminator": {
+                        "mapping": {
+                           "Rectangle": "#/$defs/Rectangle",
+                           "Scale": "#/$defs/Scale"
+                        },
+                        "propertyName": "object_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/Scale"
+                        },
+                        {
+                           "$ref": "#/$defs/Rectangle"
+                        }
+                     ]
                   },
                   {
                      "type": "null"
@@ -33449,8 +34651,25 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "Only required if different from the Procedures.coordinate_system",
                "title": "Sectioning coordinate system"
+            },
+            "global_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "$ref": "#/$defs/Atlas"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Only required if different from the Procedures.global_coordinate_system",
+               "title": "Sectioning global coordinate system"
             },
             "section_orientation": {
                "$ref": "#/$defs/SectionOrientation",
@@ -33640,6 +34859,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -33974,6 +35194,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -34294,6 +35517,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -34628,6 +35852,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -34963,12 +36190,26 @@
                "title": "Target coordinate in Acquisition.atlas"
             },
             "coordinate_system": {
-               "$ref": "#/$defs/CoordinateSystem",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
                "description": "Device coordinate system, defines un-rotated probe's orientation relative to the Acquisition.coordinate_system",
                "title": "Device coordinate system"
             },
+            "local_coordinate_system": {
+               "$ref": "#/$defs/CoordinateSystem",
+               "description": "Device coordinate system, defines un-rotated probe's orientation relative to the Acquisition.global_coordinate_system",
+               "title": "Device local coordinate system"
+            },
             "transform": {
-               "description": "Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
+               "description": "Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -34994,7 +36235,7 @@
                      }
                   ]
                },
-               "title": "Device to acquisition transform",
+               "title": "Local to global transform",
                "type": "array"
             },
             "dye": {
@@ -35025,7 +36266,7 @@
          "required": [
             "device_name",
             "primary_targeted_structure",
-            "coordinate_system",
+            "local_coordinate_system",
             "transform"
          ],
          "title": "ProbeConfig",
@@ -35244,6 +36485,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -35580,6 +36822,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -35716,8 +36961,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.1",
-               "default": "2.2.1",
+               "const": "2.2.2",
+               "default": "2.2.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -35784,8 +37029,22 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures",
                "title": "Coordinate System"
+            },
+            "global_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures",
+               "title": "Global Coordinate System"
             },
             "notes": {
                "anyOf": [
@@ -35886,8 +37145,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.9",
-               "default": "2.2.9",
+               "const": "2.3.1",
+               "default": "2.3.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -36118,6 +37377,7 @@
                      "fib": "#/$defs/_Fib",
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
+                     "one-photon": "#/$defs/_One_Photon",
                      "pophys": "#/$defs/_Pophys",
                      "scRNAseq": "#/$defs/_Scrnaseq",
                      "slap2": "#/$defs/_Slap2"
@@ -36169,6 +37429,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Merfish"
+                  },
+                  {
+                     "$ref": "#/$defs/_One_Photon"
                   },
                   {
                      "$ref": "#/$defs/_Pophys"
@@ -36312,8 +37575,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.4.1",
-               "default": "2.4.1",
+               "const": "2.4.2",
+               "default": "2.4.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -36536,6 +37799,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -36872,6 +38136,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -36976,12 +38243,56 @@
          "title": "Reagent",
          "type": "object"
       },
+      "Rectangle": {
+         "additionalProperties": false,
+         "description": "Rectangle geometry",
+         "properties": {
+            "object_type": {
+               "const": "Rectangle",
+               "default": "Rectangle",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "width": {
+               "title": "Width",
+               "type": "number"
+            },
+            "height": {
+               "title": "Height",
+               "type": "number"
+            },
+            "size_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "title": "Size unit"
+            }
+         },
+         "required": [
+            "width",
+            "height",
+            "size_unit"
+         ],
+         "title": "Rectangle",
+         "type": "object"
+      },
+      "ReferenceCoordinateSystem": {
+         "description": "Reference coordinate system for applying transforms",
+         "enum": [
+            "global",
+            "local"
+         ],
+         "title": "ReferenceCoordinateSystem",
+         "type": "string"
+      },
       "Registry": {
          "description": "Registries",
          "enum": [
             "Addgene (ADDGENE)",
+            "C. elegans Development Ontology (WBLS)",
             "Digital Object Identifier (DOI)",
+            "Drosophila Development (FBDV)",
             "Edinburgh Mouse Atlas Project (EMAPA)",
+            "Human Developmental Stages (HSAPDV)",
+            "Mouse Developmental Stages (MMUSDV)",
             "Mouse Genome Informatics (MGI)",
             "NCBI GenBank (GENBANK)",
             "National Center for Biotechnology Information (NCBI)",
@@ -37182,7 +38493,7 @@
       },
       "Rotation": {
          "additionalProperties": false,
-         "description": "Rotation\n\nRotations are applied as Euler angles in order X/Y/Z\n\nAngles follow right-hand rule, with positive angles rotating counter-clockwise.",
+         "description": "Rotation\n\nRotations should be applied as Euler angles in the specified axis order.",
          "properties": {
             "object_type": {
                "const": "Rotation",
@@ -37195,13 +38506,37 @@
                "items": {
                   "type": "number"
                },
-               "title": "Angles and axes in 3D space",
+               "title": "Angles",
                "type": "array"
             },
             "angles_unit": {
                "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Angle unit"
+            },
+            "axis_order": {
+               "default": "xyz",
+               "description": "Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.",
+               "title": "Axis order",
+               "type": "string"
+            },
+            "reference_coordinate_system": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to rotate around the global or local coordinate system axes",
+               "title": "Reference coordinate system"
+            },
+            "rotation_direction": {
+               "$ref": "#/$defs/RotationDirection",
+               "default": "right_hand",
+               "description": "Right-hand rule: positive angles rotate CCW when looking toward the origin from the positive axis",
+               "title": "Rotation direction"
+            },
+            "pivot": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to rotate around the global or local coordinate system origin",
+               "title": "Rotation pivot"
             }
          },
          "required": [
@@ -37209,6 +38544,15 @@
          ],
          "title": "Rotation",
          "type": "object"
+      },
+      "RotationDirection": {
+         "description": "Rotation direction convention",
+         "enum": [
+            "right_hand",
+            "left_hand"
+         ],
+         "title": "RotationDirection",
+         "type": "string"
       },
       "SampleChamberConfig": {
          "additionalProperties": false,
@@ -37349,6 +38693,12 @@
                },
                "title": "Scale parameters",
                "type": "array"
+            },
+            "pivot": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to scale around the global or local coordinate system origin",
+               "title": "Scale pivot"
             }
          },
          "required": [
@@ -37492,6 +38842,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -37826,6 +39177,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -38081,6 +39435,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -38415,6 +39770,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -39006,7 +40364,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -39043,8 +40414,8 @@
                   }
                ],
                "default": null,
-               "description": "Position and orientation of the device in the instrument coordinate system",
-               "title": "Device to instrument transform"
+               "description": "Position and orientation of the device in the instrument global coordinate system",
+               "title": "Local to global transform"
             },
             "name": {
                "title": "Device name",
@@ -39169,6 +40540,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -39505,6 +40877,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -39779,6 +41154,7 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "Fluorescent reagent": "#/$defs/FluorescentReagent",
                         "Fluorescent stain": "#/$defs/FluorescentStain",
                         "Gene probe set": "#/$defs/GeneProbeSet",
                         "HCR series": "#/$defs/HCRSeries",
@@ -39793,6 +41169,9 @@
                   "oneOf": [
                      {
                         "$ref": "#/$defs/HCRSeries"
+                     },
+                     {
+                        "$ref": "#/$defs/FluorescentReagent"
                      },
                      {
                         "$ref": "#/$defs/FluorescentStain"
@@ -40002,6 +41381,7 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "Joystick config": "#/$defs/JoystickConfig",
                         "Laser config": "#/$defs/LaserConfig",
                         "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
                         "Mouse platform config": "#/$defs/MousePlatformConfig",
@@ -40025,6 +41405,9 @@
                      },
                      {
                         "$ref": "#/$defs/OlfactometerConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/JoystickConfig"
                      }
                   ]
                },
@@ -40099,8 +41482,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.3.1",
-               "default": "2.3.1",
+               "const": "2.3.2",
+               "default": "2.3.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -40284,8 +41667,22 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "Only required when the Surgery.coordinate_system is different from the Procedures.coordinate_system",
                "title": "Surgery coordinate system"
+            },
+            "global_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Only required when the Surgery.global_coordinate_system is different from the Procedures.global_coordinate_system",
+               "title": "Surgery global coordinate system"
             },
             "measured_coordinates": {
                "anyOf": [
@@ -40313,6 +41710,7 @@
                         "Brain injection": "#/$defs/BrainInjection",
                         "Catheter implant": "#/$defs/CatheterImplant",
                         "Craniotomy": "#/$defs/Craniotomy",
+                        "Device implant": "#/$defs/DeviceImplant",
                         "Generic surgery procedure": "#/$defs/GenericSurgeryProcedure",
                         "Headframe": "#/$defs/Headframe",
                         "Injection": "#/$defs/Injection",
@@ -40329,6 +41727,9 @@
                      },
                      {
                         "$ref": "#/$defs/Craniotomy"
+                     },
+                     {
+                        "$ref": "#/$defs/DeviceImplant"
                      },
                      {
                         "$ref": "#/$defs/ProbeImplant"
@@ -40590,6 +41991,12 @@
                },
                "title": "Translation parameters",
                "type": "array"
+            },
+            "reference_coordinate_system": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to translate on the global or local coordinate system axes",
+               "title": "Reference coordinate system"
             }
          },
          "required": [
@@ -40733,6 +42140,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -41067,6 +42475,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -41363,6 +42774,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -41697,6 +43109,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -42305,6 +43720,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -42639,6 +44055,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Spinnaker"
+                        },
+                        {
+                           "$ref": "#/$defs/_Stanford_University"
                         },
                         {
                            "$ref": "#/$defs/_Te_Connectivity"
@@ -47479,6 +48898,26 @@
          "title": "_Olympus",
          "type": "object"
       },
+      "_One_Photon": {
+         "additionalProperties": false,
+         "description": "Model one-photon",
+         "properties": {
+            "name": {
+               "const": "One-photon imaging",
+               "default": "One-photon imaging",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "one-photon",
+               "default": "one-photon",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_One_Photon",
+         "type": "object"
+      },
       "_Open_Ephys_Production_Site": {
          "description": "Model Open Ephys Production Site",
          "properties": {
@@ -48584,6 +50023,48 @@
             }
          },
          "title": "_Spinnaker",
+         "type": "object"
+      },
+      "_Stanford_University": {
+         "description": "Model Stanford University",
+         "properties": {
+            "name": {
+               "const": "Stanford University",
+               "default": "Stanford University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "00f54p054",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Stanford_University",
          "type": "object"
       },
       "_Stepperdriver": {
@@ -49716,8 +51197,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.7.2",
-         "default": "2.7.2",
+         "const": "2.7.4",
+         "default": "2.7.4",
          "title": "Schema Version",
          "type": "string"
       },

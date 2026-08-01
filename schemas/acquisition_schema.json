@@ -101,7 +101,7 @@
       },
       "Affine": {
          "additionalProperties": false,
-         "description": "Definition of an affine transform 3x4 matrix",
+         "description": "Definition of an NxN+1 affine transform matrix",
          "properties": {
             "object_type": {
                "const": "Affine",
@@ -162,7 +162,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -199,7 +212,8 @@
                   }
                ],
                "default": null,
-               "title": "Device to acquisition transform"
+               "description": "Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
+               "title": "Local to global transform"
             },
             "pressure": {
                "anyOf": [
@@ -330,8 +344,16 @@
                "title": "Atlas name"
             },
             "origin": {
-               "$ref": "#/$defs/Origin",
-               "description": "Defines the position of (0,0,0) in the coordinate system"
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Origin"
+                  },
+                  {
+                     "$ref": "#/$defs/MouseAnatomyModel"
+                  }
+               ],
+               "description": "Defines the position of (0,0,0) in the coordinate system",
+               "title": "Origin"
             },
             "axes": {
                "description": "Axis names and directions",
@@ -344,6 +366,19 @@
             "axis_unit": {
                "$ref": "#/$defs/SizeUnit",
                "title": "Size unit"
+            },
+            "handedness": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Handedness"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Whether the coordinate system is right-handed or left-handed",
+               "title": "Handedness"
             },
             "version": {
                "title": "Atlas version",
@@ -403,6 +438,12 @@
                "title": "Translation parameters",
                "type": "array"
             },
+            "reference_coordinate_system": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to translate on the global or local coordinate system axes",
+               "title": "Reference coordinate system"
+            },
             "coordinate_system": {
                "$ref": "#/$defs/Atlas"
             }
@@ -435,7 +476,8 @@
             },
             "name": {
                "$ref": "#/$defs/AxisName",
-               "title": "Axis"
+               "description": "Note: axis names do not influence order or orientation",
+               "title": "Axis name"
             },
             "direction": {
                "$ref": "#/$defs/Direction",
@@ -1416,7 +1458,7 @@
       },
       "CoordinateSystem": {
          "additionalProperties": false,
-         "description": "Definition of a coordinate system relative to a brain",
+         "description": "Definition of a coordinate system",
          "properties": {
             "object_type": {
                "const": "Coordinate system",
@@ -1425,12 +1467,21 @@
                "type": "string"
             },
             "name": {
+               "description": "Convention is to use <Origin>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc",
                "title": "Name",
                "type": "string"
             },
             "origin": {
-               "$ref": "#/$defs/Origin",
-               "description": "Defines the position of (0,0,0) in the coordinate system"
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Origin"
+                  },
+                  {
+                     "$ref": "#/$defs/MouseAnatomyModel"
+                  }
+               ],
+               "description": "Defines the position of (0,0,0) in the coordinate system",
+               "title": "Origin"
             },
             "axes": {
                "description": "Axis names and directions",
@@ -1443,6 +1494,19 @@
             "axis_unit": {
                "$ref": "#/$defs/SizeUnit",
                "title": "Size unit"
+            },
+            "handedness": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Handedness"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Whether the coordinate system is right-handed or left-handed",
+               "title": "Handedness"
             }
          },
          "required": [
@@ -1601,6 +1665,7 @@
                         "fib": "#/$defs/_Fib",
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
+                        "one-photon": "#/$defs/_One_Photon",
                         "pophys": "#/$defs/_Pophys",
                         "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap2": "#/$defs/_Slap2"
@@ -1652,6 +1717,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/_One_Photon"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
@@ -2067,6 +2135,7 @@
                         "fib": "#/$defs/_Fib",
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
+                        "one-photon": "#/$defs/_One_Photon",
                         "pophys": "#/$defs/_Pophys",
                         "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap2": "#/$defs/_Slap2"
@@ -2118,6 +2187,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/_One_Photon"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
@@ -2223,6 +2295,15 @@
          "title": "FrequencyUnit",
          "type": "string"
       },
+      "Handedness": {
+         "description": "Coordinate system handedness",
+         "enum": [
+            "right",
+            "left"
+         ],
+         "title": "Handedness",
+         "type": "string"
+      },
       "ImageSPIM": {
          "additionalProperties": false,
          "description": "Description of an N-D image acquired with SPIM",
@@ -2275,7 +2356,21 @@
             "dimensions": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Scale"
+                     "discriminator": {
+                        "mapping": {
+                           "Rectangle": "#/$defs/Rectangle",
+                           "Scale": "#/$defs/Scale"
+                        },
+                        "propertyName": "object_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/Scale"
+                        },
+                        {
+                           "$ref": "#/$defs/Rectangle"
+                        }
+                     ]
                   },
                   {
                      "type": "null"
@@ -2378,8 +2473,22 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.coordinate_system",
                "title": "Coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.global_coordinate_system",
+               "title": "Local coordinate system"
             },
             "images": {
                "items": {
@@ -2673,6 +2782,34 @@
          "title": "InjectionProfile",
          "type": "string"
       },
+      "JoystickConfig": {
+         "additionalProperties": false,
+         "description": "Configuration of joystick",
+         "properties": {
+            "object_type": {
+               "const": "Joystick config",
+               "default": "Joystick config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "is_isometric": {
+               "description": "Whether the joystick is use isometrically or non-isometrically",
+               "title": "Is isometric",
+               "type": "boolean"
+            }
+         },
+         "required": [
+            "device_name",
+            "is_isometric"
+         ],
+         "title": "JoystickConfig",
+         "type": "object"
+      },
       "LaserConfig": {
          "additionalProperties": false,
          "description": "Configuration of laser settings in an acquisition",
@@ -2789,7 +2926,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -2826,8 +2976,8 @@
                   }
                ],
                "default": null,
-               "description": "Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
-               "title": "Device to acquisition transform"
+               "description": "Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
+               "title": "Local to global transform"
             },
             "notes": {
                "anyOf": [
@@ -2951,7 +3101,20 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device local coordinate system"
             },
             "transform": {
                "anyOf": [
@@ -2988,8 +3151,8 @@
                   }
                ],
                "default": null,
-               "description": "Position and orientation of the device in the instrument coordinate system",
-               "title": "Device to instrument transform"
+               "description": "Position and orientation of the device in the instrument global coordinate system",
+               "title": "Local to global transform"
             },
             "device_name": {
                "description": "Must match a device defined in the instrument.json",
@@ -3494,8 +3657,21 @@
                "type": "string"
             },
             "coordinate_system": {
-               "$ref": "#/$defs/CoordinateSystem",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
                "title": "Device coordinate system"
+            },
+            "local_coordinate_system": {
+               "$ref": "#/$defs/CoordinateSystem",
+               "title": "Device local coordinate system"
             },
             "local_axis_positions": {
                "$ref": "#/$defs/Translation",
@@ -3504,7 +3680,7 @@
          },
          "required": [
             "device_name",
-            "coordinate_system",
+            "local_coordinate_system",
             "local_axis_positions"
          ],
          "title": "ManipulatorConfig",
@@ -3734,6 +3910,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -4068,6 +4245,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -4524,7 +4704,21 @@
             "dimensions": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Scale"
+                     "discriminator": {
+                        "mapping": {
+                           "Rectangle": "#/$defs/Rectangle",
+                           "Scale": "#/$defs/Scale"
+                        },
+                        "propertyName": "object_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/Scale"
+                        },
+                        {
+                           "$ref": "#/$defs/Rectangle"
+                        }
+                     ]
                   },
                   {
                      "type": "null"
@@ -4619,7 +4813,21 @@
             "dimensions": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Scale"
+                     "discriminator": {
+                        "mapping": {
+                           "Rectangle": "#/$defs/Rectangle",
+                           "Scale": "#/$defs/Scale"
+                        },
+                        "propertyName": "object_type"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/Scale"
+                        },
+                        {
+                           "$ref": "#/$defs/Rectangle"
+                        }
+                     ]
                   },
                   {
                      "type": "null"
@@ -4938,12 +5146,26 @@
                "title": "Target coordinate in Acquisition.atlas"
             },
             "coordinate_system": {
-               "$ref": "#/$defs/CoordinateSystem",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
                "description": "Device coordinate system, defines un-rotated probe's orientation relative to the Acquisition.coordinate_system",
                "title": "Device coordinate system"
             },
+            "local_coordinate_system": {
+               "$ref": "#/$defs/CoordinateSystem",
+               "description": "Device coordinate system, defines un-rotated probe's orientation relative to the Acquisition.global_coordinate_system",
+               "title": "Device local coordinate system"
+            },
             "transform": {
-               "description": "Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
+               "description": "Entry coordinate, depth, and rotation in the Acquisition.global_coordinate_system",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -4969,7 +5191,7 @@
                      }
                   ]
                },
-               "title": "Device to acquisition transform",
+               "title": "Local to global transform",
                "type": "array"
             },
             "dye": {
@@ -5000,7 +5222,7 @@
          "required": [
             "device_name",
             "primary_targeted_structure",
-            "coordinate_system",
+            "local_coordinate_system",
             "transform"
          ],
          "title": "ProbeConfig",
@@ -5138,6 +5360,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -5474,6 +5697,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -5578,12 +5804,56 @@
          "title": "Reagent",
          "type": "object"
       },
+      "Rectangle": {
+         "additionalProperties": false,
+         "description": "Rectangle geometry",
+         "properties": {
+            "object_type": {
+               "const": "Rectangle",
+               "default": "Rectangle",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "width": {
+               "title": "Width",
+               "type": "number"
+            },
+            "height": {
+               "title": "Height",
+               "type": "number"
+            },
+            "size_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "title": "Size unit"
+            }
+         },
+         "required": [
+            "width",
+            "height",
+            "size_unit"
+         ],
+         "title": "Rectangle",
+         "type": "object"
+      },
+      "ReferenceCoordinateSystem": {
+         "description": "Reference coordinate system for applying transforms",
+         "enum": [
+            "global",
+            "local"
+         ],
+         "title": "ReferenceCoordinateSystem",
+         "type": "string"
+      },
       "Registry": {
          "description": "Registries",
          "enum": [
             "Addgene (ADDGENE)",
+            "C. elegans Development Ontology (WBLS)",
             "Digital Object Identifier (DOI)",
+            "Drosophila Development (FBDV)",
             "Edinburgh Mouse Atlas Project (EMAPA)",
+            "Human Developmental Stages (HSAPDV)",
+            "Mouse Developmental Stages (MMUSDV)",
             "Mouse Genome Informatics (MGI)",
             "NCBI GenBank (GENBANK)",
             "National Center for Biotechnology Information (NCBI)",
@@ -5597,7 +5867,7 @@
       },
       "Rotation": {
          "additionalProperties": false,
-         "description": "Rotation\n\nRotations are applied as Euler angles in order X/Y/Z\n\nAngles follow right-hand rule, with positive angles rotating counter-clockwise.",
+         "description": "Rotation\n\nRotations should be applied as Euler angles in the specified axis order.",
          "properties": {
             "object_type": {
                "const": "Rotation",
@@ -5610,13 +5880,37 @@
                "items": {
                   "type": "number"
                },
-               "title": "Angles and axes in 3D space",
+               "title": "Angles",
                "type": "array"
             },
             "angles_unit": {
                "$ref": "#/$defs/AngleUnit",
                "default": "degrees",
                "title": "Angle unit"
+            },
+            "axis_order": {
+               "default": "xyz",
+               "description": "Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.",
+               "title": "Axis order",
+               "type": "string"
+            },
+            "reference_coordinate_system": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to rotate around the global or local coordinate system axes",
+               "title": "Reference coordinate system"
+            },
+            "rotation_direction": {
+               "$ref": "#/$defs/RotationDirection",
+               "default": "right_hand",
+               "description": "Right-hand rule: positive angles rotate CCW when looking toward the origin from the positive axis",
+               "title": "Rotation direction"
+            },
+            "pivot": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to rotate around the global or local coordinate system origin",
+               "title": "Rotation pivot"
             }
          },
          "required": [
@@ -5624,6 +5918,15 @@
          ],
          "title": "Rotation",
          "type": "object"
+      },
+      "RotationDirection": {
+         "description": "Rotation direction convention",
+         "enum": [
+            "right_hand",
+            "left_hand"
+         ],
+         "title": "RotationDirection",
+         "type": "string"
       },
       "SampleChamberConfig": {
          "additionalProperties": false,
@@ -5706,6 +6009,12 @@
                },
                "title": "Scale parameters",
                "type": "array"
+            },
+            "pivot": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to scale around the global or local coordinate system origin",
+               "title": "Scale pivot"
             }
          },
          "required": [
@@ -6031,6 +6340,7 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "Joystick config": "#/$defs/JoystickConfig",
                         "Laser config": "#/$defs/LaserConfig",
                         "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
                         "Mouse platform config": "#/$defs/MousePlatformConfig",
@@ -6054,6 +6364,9 @@
                      },
                      {
                         "$ref": "#/$defs/OlfactometerConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/JoystickConfig"
                      }
                   ]
                },
@@ -6253,6 +6566,12 @@
                },
                "title": "Translation parameters",
                "type": "array"
+            },
+            "reference_coordinate_system": {
+               "$ref": "#/$defs/ReferenceCoordinateSystem",
+               "default": "global",
+               "description": "Whether to translate on the global or local coordinate system axes",
+               "title": "Reference coordinate system"
             }
          },
          "required": [
@@ -10437,6 +10756,26 @@
          "title": "_Olympus",
          "type": "object"
       },
+      "_One_Photon": {
+         "additionalProperties": false,
+         "description": "Model one-photon",
+         "properties": {
+            "name": {
+               "const": "One-photon imaging",
+               "default": "One-photon imaging",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "one-photon",
+               "default": "one-photon",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_One_Photon",
+         "type": "object"
+      },
       "_Open_Ephys_Production_Site": {
          "description": "Model Open Ephys Production Site",
          "properties": {
@@ -11315,6 +11654,48 @@
          "title": "_Spinnaker",
          "type": "object"
       },
+      "_Stanford_University": {
+         "description": "Model Stanford University",
+         "properties": {
+            "name": {
+               "const": "Stanford University",
+               "default": "Stanford University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "00f54p054",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Stanford_University",
+         "type": "object"
+      },
       "_Stpt": {
          "additionalProperties": false,
          "description": "Model STPT",
@@ -12108,8 +12489,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.5.1",
-         "default": "2.5.1",
+         "const": "2.5.3",
+         "default": "2.5.3",
          "title": "Schema Version",
          "type": "string"
       },
@@ -12845,8 +13226,22 @@
             }
          ],
          "default": null,
+         "deprecated": true,
          "description": "Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition",
          "title": "Coordinate system"
+      },
+      "global_coordinate_system": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/CoordinateSystem"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition",
+         "title": "Global coordinate system"
       },
       "calibrations": {
          "default": [],
