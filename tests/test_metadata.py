@@ -4,6 +4,8 @@ import json
 import unittest
 import warnings
 from datetime import datetime, timezone
+from pathlib import Path
+from unittest.mock import patch
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -31,6 +33,9 @@ from aind_data_schema.core.acquisition import StimulusEpoch
 
 from examples.barseq_acquisition import acquisition as barseq_acquisition
 from examples.data_description import d as data_description
+from examples.model import m as model_example
+from examples.processing import p as processing_example
+from examples.quality_control import q as quality_control_example
 from examples.subject import s as subject
 
 ephys_assembly = EphysAssembly(
@@ -962,6 +967,62 @@ class TestMetadata(unittest.TestCase):
                 acquisition=acquisition_missing_both,
             )
         self.assertIn("Acquisition.subject_details are required for in vivo experiments", str(context.exception))
+
+
+class TestWriteStandardFiles(unittest.TestCase):
+    """Tests for Metadata.write_standard_files"""
+
+    @patch.object(Path, "open", autospec=True)
+    @patch("aind_data_schema.utils.validators.recursive_check_paths")
+    def test_writes_each_present_core_file(self, mock_rcp, mock_open_fn):
+        """write_standard_files calls write_standard_file for each non-None core field"""
+        m = Metadata.model_construct(
+            name="test",
+            location="s3://bucket/test",
+            subject=subject,
+            data_description=data_description,
+            processing=processing_example,
+            quality_control=quality_control_example,
+        )
+        m.write_standard_files()
+
+        opened_files = [call_args[0][0].name for call_args in mock_open_fn.call_args_list]
+        self.assertIn("subject.json", opened_files)
+        self.assertIn("data_description.json", opened_files)
+        self.assertIn("processing.json", opened_files)
+        self.assertIn("quality_control.json", opened_files)
+        self.assertEqual(4, mock_open_fn.call_count)
+
+    @patch.object(Path, "open", autospec=True)
+    @patch("aind_data_schema.utils.validators.recursive_check_paths")
+    def test_skips_none_fields(self, mock_rcp, mock_open_fn):
+        """Fields that are None produce no file writes"""
+        m = Metadata.model_construct(
+            name="test",
+            location="s3://bucket/test",
+            processing=processing_example,
+        )
+        m.write_standard_files()
+
+        self.assertEqual(1, mock_open_fn.call_count)
+        opened_files = [call_args[0][0].name for call_args in mock_open_fn.call_args_list]
+        self.assertIn("processing.json", opened_files)
+
+    @patch.object(Path, "open", autospec=True)
+    @patch("aind_data_schema.utils.validators.recursive_check_paths")
+    def test_output_directory_forwarded(self, mock_rcp, mock_open_fn):
+        """output_directory is forwarded to each write_standard_file call"""
+        m = Metadata.model_construct(
+            name="test",
+            location="s3://bucket/test",
+            subject=subject,
+            model=model_example,
+        )
+        m.write_standard_files(output_directory=Path("output_dir"))
+
+        opened_files = [call_args[0][0] for call_args in mock_open_fn.call_args_list]
+        self.assertIn(Path("output_dir/subject.json"), opened_files)
+        self.assertIn(Path("output_dir/model.json"), opened_files)
 
 
 if __name__ == "__main__":

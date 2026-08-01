@@ -11,10 +11,22 @@ from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureTy
 from aind_data_schema_models.units import SizeUnit
 from pydantic import Field, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataModel,
+    DiscriminatedList,
+    migrate_deprecated_coordinate_system,
+)
 from aind_data_schema.components.coordinates import Atlas, CoordinateSystem, Translation
 from aind_data_schema.components.identifiers import ProtocolListMixin
-from aind_data_schema.components.reagent import FluorescentStain, GeneProbeSet, ProbeReagent, Reagent, Solution
+from aind_data_schema.components.reagent import (
+    FluorescentReagent,
+    FluorescentStain,
+    GeneProbeSet,
+    ProbeReagent,
+    Reagent,
+    Solution,
+)
 from aind_data_schema.utils.exceptions import OneOfError
 
 
@@ -129,7 +141,19 @@ class PlanarSectioning(Sectioning):
         default=None,
         title="Sectioning coordinate system",
         description="Only required if different from the Procedures.coordinate_system",
+        deprecated="Deprecated: use global_coordinate_system instead",
     )
+    global_coordinate_system: Optional[CoordinateSystem | Atlas] = Field(
+        default=None,
+        title="Sectioning global coordinate system",
+        description="Only required if different from the Procedures.global_coordinate_system",
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def migrate_coordinate_system(cls, data):
+        """Copy deprecated coordinate_system into global_coordinate_system when only old field is provided"""
+        return migrate_deprecated_coordinate_system(data, "global_coordinate_system")
 
     sections: List[Union[Section, PlanarSection]] = Field(
         ..., title="Planar sections", description="Use PlanarSection for new implementations"
@@ -178,7 +202,15 @@ class SpecimenProcedure(ProtocolListMixin, DataModel):
     )
 
     procedure_details: DiscriminatedList[
-        HCRSeries | FluorescentStain | Sectioning | PlanarSectioning | ProbeReagent | Reagent | GeneProbeSet | Solution
+        HCRSeries
+        | FluorescentReagent
+        | FluorescentStain
+        | Sectioning
+        | PlanarSectioning
+        | ProbeReagent
+        | Reagent
+        | GeneProbeSet
+        | Solution
     ] = Field(
         default=[],
         title="Procedure details",
@@ -193,6 +225,7 @@ class SpecimenProcedure(ProtocolListMixin, DataModel):
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_fluorescent_stain = any(isinstance(detail, FluorescentStain) for detail in self.procedure_details)
+        has_fluorescent_reagent = any(isinstance(detail, FluorescentReagent) for detail in self.procedure_details)
         has_protein_probe = any(isinstance(detail, ProbeReagent) for detail in self.procedure_details)
         has_sectioning = any(
             (isinstance(detail, PlanarSectioning) or isinstance(detail, Sectioning))
@@ -210,7 +243,7 @@ class SpecimenProcedure(ProtocolListMixin, DataModel):
         elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not has_hcr_series:
             raise AssertionError("HCRSeries required if procedure_type is HCR.")
         elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not (
-            has_fluorescent_stain or has_protein_probe
+            has_fluorescent_stain or has_protein_probe or has_fluorescent_reagent
         ):
             raise AssertionError("FluorescentStain or ProbeReagent required if procedure_type is Immunolabeling.")
         elif self.procedure_type == SpecimenProcedureType.SECTIONING and not has_sectioning:

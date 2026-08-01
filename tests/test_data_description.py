@@ -265,6 +265,11 @@ class DataDescriptionTest(unittest.TestCase):
         assert toks["process_name"] == "spikesorted-ks25"
         assert toks["creation_time"] == datetime.datetime(2022, 10, 12, 23, 23, 11)
 
+        toks = DataDescription.parse_name("Test-project_my-analysis_2022-10-12_23-23-11", DataLevel.DERIVED)
+        assert toks["project_abbreviation"] == "Test-project"
+        assert toks["analysis_name"] == "my-analysis"
+        assert toks["creation_time"] == datetime.datetime(2022, 10, 12, 23, 23, 11)
+
         with self.assertRaises(ValueError):
             DataDescription.parse_name(self.BAD_NAME, DataLevel.DERIVED)
 

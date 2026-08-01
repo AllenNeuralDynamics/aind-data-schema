@@ -1,21 +1,49 @@
 """Classes to define device positions, orientations, and coordinates"""
 
 import math
-from typing import List, Union
+from enum import Enum
+from typing import List, Optional, Union
+import warnings
 
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
-from pydantic import Field
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from pydantic import Field, field_validator, model_validator
 
 from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.wrappers import AssetPath
 
 
+class ReferenceCoordinateSystem(str, Enum):
+    """Reference coordinate system for applying transforms"""
+
+    GLOBAL = "global"
+    LOCAL = "local"
+
+
+class RotationDirection(str, Enum):
+    """Rotation direction convention"""
+
+    RIGHT_HAND = "right_hand"
+    LEFT_HAND = "left_hand"
+
+
+class Handedness(str, Enum):
+    """Coordinate system handedness"""
+
+    RIGHT = "right"
+    LEFT = "left"
+
+
 class Axis(DataModel):
     """Linked direction and axis"""
 
-    name: AxisName = Field(..., title="Axis")
+    name: AxisName = Field(
+        ...,
+        title="Axis name",
+        description="Note: axis names do not influence order or orientation"
+    )
     direction: Direction = Field(
         ...,
         title="Direction",
@@ -27,6 +55,11 @@ class Scale(DataModel):
     """Scale"""
 
     scale: List[float] = Field(..., title="Scale parameters")
+    pivot: ReferenceCoordinateSystem = Field(
+        default=ReferenceCoordinateSystem.GLOBAL,
+        title="Scale pivot",
+        description="Whether to scale around the global or local coordinate system origin",
+    )
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine scale matrix for arbitrary sized lists
@@ -36,6 +69,12 @@ class Scale(DataModel):
         List[List[float]]
             Affine scale matrix
         """
+        warnings.warn(
+            "to_matrix() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
         size = len(self.scale)
         scale_matrix = [[1.0 if i == j else 0.0 for j in range(size + 1)] for i in range(size + 1)]
@@ -50,6 +89,11 @@ class Translation(DataModel):
     """Translation"""
 
     translation: List[float] = Field(..., title="Translation parameters")
+    reference_coordinate_system: ReferenceCoordinateSystem = Field(
+        default=ReferenceCoordinateSystem.GLOBAL,
+        title="Reference coordinate system",
+        description="Whether to translate on the global or local coordinate system axes",
+    )
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine translation matrix for arbitrary sized lists.
@@ -59,6 +103,12 @@ class Translation(DataModel):
         List[List[float]]
             Affine transform matrix.
         """
+        warnings.warn(
+            "to_matrix() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
         size = len(self.translation)
 
@@ -75,15 +125,42 @@ class Translation(DataModel):
 class Rotation(DataModel):
     """Rotation
 
-    Rotations are applied as Euler angles in order X/Y/Z
-
-    Angles follow right-hand rule, with positive angles rotating counter-clockwise.
+    Rotations should be applied as Euler angles in the specified axis order.
     """
 
     angles: List[float] = Field(
-        ..., title="Angles and axes in 3D space", description="Right-hand rule, positive angles rotate CCW"
+        ..., title="Angles", description="Right-hand rule, positive angles rotate CCW"
     )
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
+    axis_order: str = Field(
+        default="xyz",
+        title="Axis order",
+        description="Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.",
+    )
+    reference_coordinate_system: ReferenceCoordinateSystem = Field(
+        default=ReferenceCoordinateSystem.GLOBAL,
+        title="Reference coordinate system",
+        description="Whether to rotate around the global or local coordinate system axes",
+    )
+    rotation_direction: RotationDirection = Field(
+        default=RotationDirection.RIGHT_HAND,
+        title="Rotation direction",
+        description="Right-hand rule: positive angles rotate CCW when looking toward the origin from the positive axis",
+    )
+    pivot: ReferenceCoordinateSystem = Field(
+        default=ReferenceCoordinateSystem.GLOBAL,
+        title="Rotation pivot",
+        description="Whether to rotate around the global or local coordinate system origin",
+    )
+
+    @field_validator("axis_order")
+    @classmethod
+    def validate_axis_order(cls, v: str) -> str:
+        """Validate that axis_order only contains valid axis characters and is lowercase"""
+        valid_chars = set("xyzXYZ")
+        if not v or not all(c in valid_chars for c in v):
+            raise ValueError(f"axis_order must only contain axis characters (x, y, z), got '{v}'")
+        return v.lower()
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine rotation matrix for arbitrary sized lists.
@@ -93,6 +170,12 @@ class Rotation(DataModel):
         List[List[float]]
             Affine rotation matrix.
         """
+        warnings.warn(
+            "to_matrix() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         try:
             from scipy.spatial.transform import Rotation as R
         except ImportError:  # pragma: no cover
@@ -105,7 +188,17 @@ class Rotation(DataModel):
         angles = [angle if self.angles_unit == AngleUnit.RAD else math.radians(angle) for angle in self.angles]
 
         # Create the rotation matrix
-        order = "xyz"[: len(self.angles)]
+        # Apply left-hand rule by negating angles
+        if self.rotation_direction == RotationDirection.LEFT_HAND:
+            angles = [-a for a in angles]
+
+        # Use specified axis order, truncated to the number of angles
+        order = self.axis_order[: len(self.angles)]
+
+        # Intrinsic rotations use uppercase axis letters in scipy
+        if self.reference_coordinate_system == ReferenceCoordinateSystem.LOCAL:
+            order = order.upper()
+
         rotation = R.from_euler(order, angles)
         rotation_matrix = rotation.as_matrix().tolist()
 
@@ -116,7 +209,7 @@ class Rotation(DataModel):
 
 
 class Affine(DataModel):
-    """Definition of an affine transform 3x4 matrix"""
+    """Definition of an NxN+1 affine transform matrix"""
 
     affine_transform: List[List[float]] = Field(
         ...,
@@ -131,6 +224,12 @@ class Affine(DataModel):
         List[List[float]]
             Affine transform matrix
         """
+        warnings.warn(
+            "to_matrix() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return self.affine_transform
 
     @classmethod
@@ -147,6 +246,12 @@ class Affine(DataModel):
         Affine
             Composed transform
         """
+        warnings.warn(
+            "compose() is not valid when frame or pivot are set to local values "
+            "and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         try:
             import numpy as np
         except ImportError:  # pragma: no cover
@@ -194,13 +299,37 @@ TRANSFORM_TYPES_NONLINEAR = DiscriminatedList[Translation | Rotation | Scale | A
 
 
 class CoordinateSystem(DataModel):
-    """Definition of a coordinate system relative to a brain"""
+    """Definition of a coordinate system"""
 
-    name: str = Field(..., title="Name")
+    name: str = Field(
+        ...,
+        title="Name",
+        description="Convention is to use <Origin>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc"
+    )
 
-    origin: Origin = Field(..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system")
+    origin: Origin | MouseAnatomyModel = Field(
+        ..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system"
+    )
     axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
     axis_unit: SizeUnit = Field(..., title="Size unit")
+    handedness: Optional[Handedness] = Field(
+        default=None,
+        title="Handedness",
+        description="Whether the coordinate system is right-handed or left-handed",
+    )
+
+    @model_validator(mode="after")
+    def warn_depth_axis(self) -> "CoordinateSystem":
+        """Warn if using a DEPTH axis, which is deprecated in favor of
+        standard 3-axis coordinate systems with a Z axis for depth"""
+        if any(axis.name == AxisName.DEPTH for axis in self.axes):
+            warnings.warn(
+                f"CoordinateSystem '{self.name}' uses a DEPTH axis, which is deprecated. "
+                "Use a standard 3-axis coordinate system instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        return self
 
 
 class Atlas(CoordinateSystem):

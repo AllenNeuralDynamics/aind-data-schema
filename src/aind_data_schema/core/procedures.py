@@ -5,7 +5,7 @@ from typing import List, Literal, Optional
 
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import DataCoreModel, DiscriminatedList
+from aind_data_schema.base import DataCoreModel, DiscriminatedList, migrate_deprecated_coordinate_system
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.injection_procedures import Injection
 from aind_data_schema.components.specimen_procedures import SpecimenProcedure
@@ -26,7 +26,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.2.1"]] = Field(default="2.2.1")
+    schema_version: SkipValidation[Literal["2.2.2"]] = Field(default="2.2.2")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject of data acquisition",
@@ -47,7 +47,22 @@ class Procedures(DataCoreModel):
             "Origin and axis definitions for determining the configured position of devices implanted during"
             " procedures. Required when coordinates are provided within the Procedures"
         ),
-    )  # note: exact field name is used by a validator
+        deprecated="Deprecated: use global_coordinate_system instead",
+    )
+    global_coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Global Coordinate System",
+        description=(
+            "Origin and axis definitions for determining the configured position of devices implanted during"
+            " procedures. Required when coordinates are provided within the Procedures"
+        ),
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def migrate_coordinate_system(cls, data):
+        """Copy deprecated coordinate_system into global_coordinate_system when only old field is provided"""
+        return migrate_deprecated_coordinate_system(data, "global_coordinate_system")
 
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -119,12 +134,12 @@ class Procedures(DataCoreModel):
         if not self.subject_id == other.subject_id:
             raise ValueError("Subject IDs must match to combine Procedures objects.")
 
-        coordinate_system = merge_coordinate_systems(self.coordinate_system, other.coordinate_system)
+        coordinate_system = merge_coordinate_systems(self.global_coordinate_system, other.global_coordinate_system)
 
         return Procedures(
             subject_id=self.subject_id,
             subject_procedures=self.subject_procedures + other.subject_procedures,
             specimen_procedures=self.specimen_procedures + other.specimen_procedures,
-            coordinate_system=coordinate_system,
+            global_coordinate_system=coordinate_system,
             notes=merge_notes(self.notes, other.notes),
         )

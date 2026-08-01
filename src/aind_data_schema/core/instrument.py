@@ -7,7 +7,7 @@ from typing import List, Literal, Optional
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, field_validator, model_validator
 
-from aind_data_schema.base import DataCoreModel, DiscriminatedList
+from aind_data_schema.base import DataCoreModel, DiscriminatedList, migrate_deprecated_coordinate_system
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import (
@@ -77,7 +77,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.6"]] = Field(default="2.2.6")
+    schema_version: SkipValidation[Literal["2.2.7"]] = Field(default="2.2.7")
 
     # instrument definition
     location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")
@@ -103,11 +103,23 @@ class Instrument(DataCoreModel):
     )
 
     # coordinate system
-    coordinate_system: CoordinateSystem = Field(
-        ...,
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
         title="Coordinate system",
         description="Origin and axis definitions for determining the position of the instrument's components",
-    )  # note: exact field name is used by a validator
+        deprecated="Deprecated: use global_coordinate_system instead",
+    )
+    global_coordinate_system: CoordinateSystem = Field(
+        ...,
+        title="Global coordinate system",
+        description="Origin and axis definitions for determining the position of the instrument's components",
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def migrate_coordinate_system(cls, data):
+        """Copy deprecated coordinate_system into global_coordinate_system when only old field is provided"""
+        return migrate_deprecated_coordinate_system(data, "global_coordinate_system")
 
     # instrument details
     temperature_control: Optional[bool] = Field(
@@ -340,14 +352,14 @@ class Instrument(DataCoreModel):
 
         # Check for incompatible key fields
         location_check = self.location != other.location
-        coord_sys_check = self.coordinate_system != other.coordinate_system
+        coord_sys_check = self.global_coordinate_system != other.global_coordinate_system
         temp_control_check = self.temperature_control != other.temperature_control
 
         if any([location_check, coord_sys_check, temp_control_check]):
             raise ValueError(
                 "Cannot combine Instrument objects that differ in key fields:\n"
                 f"location: {self.location}/{other.location}\n"
-                f"coordinate_system: {self.coordinate_system}/{other.coordinate_system}\n"
+                f"global_coordinate_system: {self.global_coordinate_system}/{other.global_coordinate_system}\n"
                 f"temperature_control: {self.temperature_control}/{other.temperature_control}"
             )
 
@@ -379,7 +391,7 @@ class Instrument(DataCoreModel):
             modification_date=latest_modification_date,
             modalities=combined_modalities,
             calibrations=combined_calibrations,
-            coordinate_system=self.coordinate_system,
+            global_coordinate_system=self.global_coordinate_system,
             temperature_control=self.temperature_control,
             notes=combined_notes,
             connections=combined_connections,
