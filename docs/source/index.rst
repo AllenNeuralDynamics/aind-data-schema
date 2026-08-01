@@ -53,6 +53,7 @@ I want to...
    :maxdepth: 1
    
    example_workflow/example_workflow
+   inheritance
    
 
 .. toctree::
