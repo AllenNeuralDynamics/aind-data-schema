@@ -227,6 +227,7 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "Stanford University": "#/$defs/_Stanford_University",
                            "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -563,6 +564,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Stanford_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Te_Connectivity"
                         },
                         {
@@ -885,6 +889,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -1219,6 +1224,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -1581,6 +1589,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -1915,6 +1924,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spinnaker"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stanford_University"
                   },
                   {
                      "$ref": "#/$defs/_Te_Connectivity"
@@ -2214,6 +2226,7 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "Stanford University": "#/$defs/_Stanford_University",
                      "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -2550,6 +2563,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Stanford_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Te_Connectivity"
                   },
                   {
@@ -2678,8 +2694,12 @@
          "description": "Registries",
          "enum": [
             "Addgene (ADDGENE)",
+            "C. elegans Development Ontology (WBLS)",
             "Digital Object Identifier (DOI)",
+            "Drosophila Development (FBDV)",
             "Edinburgh Mouse Atlas Project (EMAPA)",
+            "Human Developmental Stages (HSAPDV)",
+            "Mouse Developmental Stages (MMUSDV)",
             "Mouse Genome Informatics (MGI)",
             "NCBI GenBank (GENBANK)",
             "National Center for Biotechnology Information (NCBI)",
@@ -7575,6 +7595,48 @@
          "title": "_Spinnaker",
          "type": "object"
       },
+      "_Stanford_University": {
+         "description": "Model Stanford University",
+         "properties": {
+            "name": {
+               "const": "Stanford University",
+               "default": "Stanford University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "00f54p054",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Stanford_University",
+         "type": "object"
+      },
       "_Tamron": {
          "description": "Model Tamron",
          "properties": {
@@ -8419,8 +8481,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.3.1",
-         "default": "2.3.1",
+         "const": "2.3.2",
+         "default": "2.3.2",
          "title": "Schema Version",
          "type": "string"
       },
