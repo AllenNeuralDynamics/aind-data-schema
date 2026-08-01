@@ -17,6 +17,16 @@ Most users can rely on the `Metadata.from_metadata` function which implements al
 
 Note that relying on aggregated reference data (such as the CCF template) in your processing pipeline or analysis code does not make your asset multi-subject.
 
+## Naming
+
+For derived assets created from processing pipelines (i.e. one raw asset that was processed) or from analysis on a single derived asset we retain the *original* raw asset name and the process label:
+
+`<raw asset_name>_<process_label>_YYYY-MM-DD_hh-mm-ss`
+
+For assets created during analysis that aggregate across multiple acquisitions or subjects we switch to using the project name and process label:
+
+`<project_name>_<process_label>_YYYY-MM-DD_hh-mm-ss`
+
 ## Example
 
 ```python
