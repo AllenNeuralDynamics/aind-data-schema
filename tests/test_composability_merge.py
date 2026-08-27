@@ -321,6 +321,36 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(combined.data_processes[2].name, "Denoising_2")
         self.assertEqual(combined.data_processes[3].name, "Denoising_3")
 
+    def test_add_deduplicates_pipelines(self):
+        """Test that __add__ collapses identical pipelines, keeps distinct ones"""
+
+        t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+
+        def _processing(pipeline):
+            """Build a one-process Processing carrying the given pipeline"""
+            return Processing.create_with_sequential_process_graph(
+                data_processes=[
+                    DataProcess(
+                        experimenters=["Dr. Dan"],
+                        process_type=ProcessName.DENOISING,
+                        stage=ProcessStage.PROCESSING,
+                        output_path="path/to/outputs",
+                        start_date_time=t,
+                        end_date_time=t,
+                        code=Code(url="https://url/for/analysis", version="0.1.1"),
+                    ),
+                ],
+                pipelines=[pipeline],
+            )
+
+        pipeline = Code(name="Pipeline", url="https://example.com/pipeline", version="1.0")
+        combined = _processing(pipeline) + _processing(pipeline)
+        self.assertEqual(len(combined.pipelines), 1)
+
+        other = Code(name="Pipeline", url="https://example.com/pipeline", version="2.0")
+        combined = _processing(pipeline) + _processing(other)
+        self.assertEqual(len(combined.pipelines), 2)
+
     def test_merge_dependency_graph(self):
         """Test merging dependency graphs"""
 
