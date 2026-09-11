@@ -591,7 +591,9 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
-        exp_type_check = self.acquisition_type != other.acquisition_type
+        exp_type_check = bool(self.acquisition_type and other.acquisition_type) and (
+            self.acquisition_type != other.acquisition_type
+        )
         if any([subj_check, spec_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
@@ -632,6 +634,7 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
         # Handle start and end time
         start_time = min(self.acquisition_start_time, other.acquisition_start_time)
         end_time = max(self.acquisition_end_time, other.acquisition_end_time)
+        acquisition_type = self.acquisition_type or other.acquisition_type
 
         return Acquisition(
             subject_id=self.subject_id,
@@ -645,7 +648,7 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
             maintenance=maintenance,
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,
-            acquisition_type=self.acquisition_type,
+            acquisition_type=acquisition_type,
             notes=notes,
             data_streams=data_streams,
             stimulus_epochs=stimulus_epochs,
