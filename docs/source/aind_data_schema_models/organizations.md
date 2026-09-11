@@ -16,6 +16,7 @@ Organization
 | `AILIPU` | `Ailipu Technology Co` | `Ailipu` | `None` | `None` |
 | `AIND` | `Allen Institute for Neural Dynamics` | `AIND` | `Research Organization Registry (ROR)` | `04szwah67` |
 | `AMS_OSRAM` | `ams OSRAM` | `None` | `Research Organization Registry (ROR)` | `045d0h266` |
+| `ANTIBODIES_INC` | `Antibodies Inc` | `None` | `None` | `None` |
 | `ARDUINO` | `Arduino` | `None` | `None` | `None` |
 | `ARECONT_VISION_COSTAR` | `Arecont Vision Costar` | `None` | `None` | `None` |
 | `ASI` | `Applied Scientific Instrumentation` | `ASI` | `None` | `None` |
@@ -103,6 +104,7 @@ Organization
 | `PRIZMATIX` | `Prizmatix` | `None` | `None` | `None` |
 | `QUANTIFI` | `Quantifi` | `None` | `None` | `None` |
 | `RASPBERRY_PI` | `Raspberry Pi` | `None` | `None` | `None` |
+| `ROCKLAND` | `Rockland Immunochemicals` | `ROCKLAND` | `Research Organization Registry (ROR)` | `02z2r2t61` |
 | `SAME_SKY` | `Same Sky` | `None` | `None` | `None` |
 | `SCHNEIDER_KREUZNACH` | `Schneider-Kreuznach` | `None` | `None` | `None` |
 | `SCIENTIFICA` | `Scientifica` | `None` | `Research Organization Registry (ROR)` | `00z72df47` |
@@ -114,6 +116,7 @@ Organization
 | `SPECTRA_PHYSICS` | `Spectra-Physics` | `None` | `Research Organization Registry (ROR)` | `02ad9kp97` |
 | `SPINNAKER` | `Spinnaker` | `None` | `None` | `None` |
 | `STANFORD_UNIVERSITY` | `Stanford University` | `None` | `Research Organization Registry (ROR)` | `00f54p054` |
+| `SYNAPTIC_SYSTEMS` | `Synaptic Systems` | `None` | `None` | `None` |
 | `TAMRON` | `Tamron` | `None` | `None` | `None` |
 | `TELEDYNE_VISION_SOLUTIONS` | `Teledyne Vision Solutions` | `None` | `None` | `None` |
 | `TE_CONNECTIVITY` | `TE Connectivity` | `None` | `Research Organization Registry (ROR)` | `034frgp20` |
