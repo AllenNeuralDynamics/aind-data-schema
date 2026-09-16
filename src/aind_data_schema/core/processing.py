@@ -12,7 +12,7 @@ from pydantic import Field, SkipValidation, model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
 from aind_data_schema.components.identifiers import Code, DataAsset  # noqa: F401
 from aind_data_schema.components.wrappers import AssetPath
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_process_graph
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_process_graph, remove_duplicates
 from aind_data_schema.utils.validators import TimeValidation
 
 
@@ -260,8 +260,12 @@ class Processing(DataCoreModel):
         if merged_graph and len(self.data_processes) > 0 and len(other.data_processes) > 0:
             merged_graph[other.data_processes[0].name] = [self.data_processes[-1].name]
 
+        merged_pipelines = merge_optional_list(self.pipelines, other.pipelines)
+        if merged_pipelines:
+            merged_pipelines = remove_duplicates(merged_pipelines)
+
         return Processing(
-            pipelines=merge_optional_list(self.pipelines, other.pipelines),
+            pipelines=merged_pipelines,
             data_processes=self.data_processes + other.data_processes,
             dependency_graph=merged_graph,
             notes=merge_notes(self.notes, other.notes),
