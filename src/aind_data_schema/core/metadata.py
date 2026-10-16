@@ -466,6 +466,8 @@ class Metadata(DataCoreModel):
             _accumulate_quality_control,
             _inherit_instrument_and_acquisition,
             _inherit_subject_and_procedures,
+            _is_single_acquisition,
+            _is_single_subject,
             derive_data_description,
             derive_data_description_analyzed,
         )
@@ -490,7 +492,10 @@ class Metadata(DataCoreModel):
             m.data_description.name for m in metadata_list if m.data_description and m.data_description.name
         ]
 
-        if len(metadata_list) > 1:
+        if not _is_single_subject(metadata_list):
+            data_description_kwargs["subject_id"] = None
+
+        if len(metadata_list) > 1 and not _is_single_acquisition(metadata_list):
             derived_dd = derive_data_description_analyzed(
                 first_dd,
                 analysis_name=process_name,
