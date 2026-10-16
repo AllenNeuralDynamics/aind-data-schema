@@ -20,8 +20,8 @@ def _get_or_default(data_description: DataDescription, field_name: str, kwargs: 
     return None and allow pydantic to raise a Validation Error if field
     is not Optional.
     """
-    if kwargs.get(field_name) is not None:
-        return kwargs.get(field_name)
+    if field_name in kwargs:
+        return kwargs[field_name]
     elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
         return getattr(data_description, field_name)
     else:

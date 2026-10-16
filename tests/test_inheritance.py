@@ -171,6 +171,39 @@ class TestFromMetadataSingleSource(unittest.TestCase):
         )
         self.assertIsNotNone(result.data_description)
 
+    def test_same_raw_acquisition_retains_raw_name(self):
+        """Multiple derived sources from one acquisition retain the original raw name"""
+        sources = [
+            Metadata.from_metadata(
+                self.source,
+                process_name=process_name,
+                location="s3://bucket/derived",
+            )
+            for process_name in ["probe1", "probe2"]
+        ]
+        creation_time = datetime(2023, 5, 1, 10, 0, 0, tzinfo=timezone.utc)
+        for inputs in [sources, [self.source, *sources]]:
+            with self.subTest(source_names=[source.name for source in inputs]):
+                result = Metadata.from_metadata(
+                    inputs,
+                    process_name="merged",
+                    location="s3://bucket/merged",
+                    creation_time=creation_time,
+                )
+                self.assertEqual(result.name, f"{self.source.name}_merged_2023-05-01_10-00-00")
+                self.assertEqual(result.data_description.name, result.name)
+                self.assertEqual(result.data_description.source_data, [source.name for source in inputs])
+                self.assertEqual(result.data_description.subject_id, "123456")
+
+    def test_explicit_none_subject_id_override(self):
+        """An explicit None overrides the inherited data description subject ID"""
+        result = Metadata.from_metadata(
+            self.source,
+            location="s3://bucket/derived",
+            subject_id=None,
+        )
+        self.assertIsNone(result.data_description.subject_id)
+
 
 class TestFromMetadataMultipleSameSubject(unittest.TestCase):
     """Tests for multiple sources with same subject but different acquisitions"""
@@ -189,6 +222,8 @@ class TestFromMetadataMultipleSameSubject(unittest.TestCase):
         )
         self.assertIsNotNone(result.subject)
         self.assertEqual(result.subject.subject_id, "123456")
+        self.assertEqual(result.data_description.subject_id, "123456")
+        self.assertTrue(result.name.startswith("Test project_merge_"))
 
     def test_different_acquisitions_drops_instrument_and_acquisition(self):
         """Instrument and acquisition should be dropped when sources have different acquisitions"""
@@ -288,6 +323,8 @@ class TestFromMetadataDifferentSubjects(unittest.TestCase):
             new_processing=new_proc,
         )
         self.assertIsNone(result.subject)
+        self.assertIsNone(result.data_description.subject_id)
+        self.assertTrue(result.name.startswith("Test project_merge_"))
 
     def test_different_subjects_drops_procedures(self):
         """Procedures should be dropped when sources have different subjects"""
