@@ -1,5 +1,7 @@
 # Contributor Guidelines
 
+**aind-data-schema is not accepting outside contributions. Please see its successor [biodata-schema](https://github.com/AllenInstitute/biodata-schema).**
+
 Contributions to `aind-data-schema` must follow certain rules to ensure stability and organization. This document will go through best practices for contributing to this project
 
 ## Issues and Feature Requests
