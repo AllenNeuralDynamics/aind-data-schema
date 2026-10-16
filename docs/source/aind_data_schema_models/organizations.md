@@ -19,6 +19,7 @@ Organization
 | `ANTIBODIES_INC` | `Antibodies Inc` | `None` | `None` | `None` |
 | `ARDUINO` | `Arduino` | `None` | `None` | `None` |
 | `ARECONT_VISION_COSTAR` | `Arecont Vision Costar` | `None` | `None` | `None` |
+| `ASAP` | `Aligning Science Across Parkinson's` | `ASAP` | `Research Organization Registry (ROR)` | `03zj4c476` |
 | `ASI` | `Applied Scientific Instrumentation` | `ASI` | `None` | `None` |
 | `ASUS` | `ASUS` | `None` | `Research Organization Registry (ROR)` | `00bxkz165` |
 | `BASLER` | `Basler` | `None` | `None` | `None` |
@@ -40,17 +41,22 @@ Organization
 | `CUSTOM` | `Custom` | `None` | `None` | `None` |
 | `CZI` | `Chan Zuckerberg Initiative` | `CZI` | `Research Organization Registry (ROR)` | `02qenvm24` |
 | `DIGIKEY` | `DigiKey` | `None` | `None` | `None` |
+| `DOD` | `United States Department of Defense` | `DOD` | `Research Organization Registry (ROR)` | `0447fe631` |
 | `DODOTRONIC` | `Dodotronic` | `None` | `None` | `None` |
+| `DOE` | `United States Department of Energy` | `DOE` | `Research Organization Registry (ROR)` | `01bj3aw27` |
 | `DORIC` | `Doric` | `None` | `Research Organization Registry (ROR)` | `059n53q30` |
 | `EALING` | `Ealing` | `None` | `None` | `None` |
 | `EDMUND_OPTICS` | `Edmund Optics` | `None` | `Research Organization Registry (ROR)` | `01j1gwp17` |
 | `EMORY` | `Emory University` | `Emory` | `Research Organization Registry (ROR)` | `03czfpz43` |
+| `ESTHER_A____JOSEPH_KLINGENSTEIN_FUND` | `Esther A. & Joseph Klingenstein Fund` | `None` | `Research Organization Registry (ROR)` | `01q222b25` |
 | `EURESYS` | `Euresys` | `None` | `None` | `None` |
 | `EXCELITAS_TECHNOLOGIES` | `Excelitas Technologies` | `None` | `Research Organization Registry (ROR)` | `01tpbbf75` |
 | `FLIR` | `Teledyne FLIR` | `FLIR` | `Research Organization Registry (ROR)` | `01j1gwp17` |
 | `FUJINON` | `Fujinon` | `None` | `None` | `None` |
+| `G__HAROLD___LEILA_Y__MATHERS_FOUNDATION` | `G. Harold & Leila Y. Mathers Foundation` | `None` | `Research Organization Registry (ROR)` | `02a7hjv13` |
 | `HAMAMATSU` | `Hamamatsu` | `None` | `Research Organization Registry (ROR)` | `03natb733` |
 | `HAMILTON` | `Hamilton` | `None` | `None` | `None` |
+| `HELEN_HAY_WHITNEY_FOUNDATION` | `Helen Hay Whitney Foundation` | `None` | `Research Organization Registry (ROR)` | `037ebw447` |
 | `HUST` | `Huazhong University of Science and Technology` | `HUST` | `Research Organization Registry (ROR)` | `00p991c53` |
 | `IDT` | `Integrated DNA Technologies` | `IDT` | `Research Organization Registry (ROR)` | `009jvpf03` |
 | `IMEC` | `Interuniversity Microelectronics Center` | `IMEC` | `Research Organization Registry (ROR)` | `02kcbn207` |
@@ -66,13 +72,17 @@ Organization
 | `JULABO` | `Julabo` | `None` | `None` | `None` |
 | `KENT_SCIENTIFIC_CORPORATION` | `Kent Scientific Corporation` | `None` | `Research Organization Registry (ROR)` | `03xkj6a08` |
 | `KOWA` | `Kowa` | `None` | `Research Organization Registry (ROR)` | `03zbwg482` |
+| `KTGF` | `Klingenstein Third Generation Foundation` | `KTGF` | `Research Organization Registry (ROR)` | `00cxc2y95` |
 | `LASOS` | `LASOS Lasertechnik` | `LASOS` | `None` | `None` |
 | `LEICA` | `Leica` | `None` | `None` | `None` |
 | `LG` | `LG` | `None` | `Research Organization Registry (ROR)` | `02b948n83` |
 | `LIFECANVAS` | `LifeCanvas` | `None` | `None` | `None` |
+| `LSRF` | `Life Sciences Research Foundation` | `LSRF` | `Research Organization Registry (ROR)` | `0195dxj21` |
 | `LUMENCOR` | `Lumencor` | `None` | `None` | `None` |
 | `LUMEN_DYNAMICS` | `Lumen Dynamics` | `None` | `None` | `None` |
 | `MBF` | `MBF Bioscience` | `MBF` | `Research Organization Registry (ROR)` | `02zynam48` |
+| `MCKNIGHT_BRAIN_RESEARCH_FOUNDATION` | `McKnight Brain Research Foundation` | `None` | `Research Organization Registry (ROR)` | `00vsf1v04` |
+| `MCKNIGHT_FOUNDATION` | `McKnight Foundation` | `None` | `Research Organization Registry (ROR)` | `003ghvj67` |
 | `MEADOWLARK_OPTICS` | `Meadowlark Optics` | `None` | `Research Organization Registry (ROR)` | `00n8qbq54` |
 | `MIBR` | `McGovern Institute for Brain Research` | `MIBR` | `Research Organization Registry (ROR)` | `05ymca674` |
 | `MIDOPT` | `Midwest Optical Systems, Inc.` | `MidOpt` | `None` | `None` |
@@ -89,10 +99,12 @@ Organization
 | `NEURALYNX` | `NeuraLynx` | `None` | `None` | `None` |
 | `NEUROPHOTOMETRICS` | `Neurophotometrics` | `None` | `None` | `None` |
 | `NEW_SCALE_TECHNOLOGIES` | `New Scale Technologies` | `None` | `None` | `None` |
+| `NIA` | `National Institute on Aging` | `NIA` | `Research Organization Registry (ROR)` | `049v75w11` |
 | `NIKON` | `Nikon` | `None` | `Research Organization Registry (ROR)` | `0280y9h11` |
 | `NIMH` | `National Institute of Mental Health` | `NIMH` | `Research Organization Registry (ROR)` | `04xeg9z08` |
 | `NINDS` | `National Institute of Neurological Disorders and Stroke` | `NINDS` | `Research Organization Registry (ROR)` | `01s5ya894` |
 | `NRESEARCH_INC` | `NResearch Inc` | `None` | `None` | `None` |
+| `NSF` | `U.S. National Science Foundation` | `NSF` | `Research Organization Registry (ROR)` | `021nxhr62` |
 | `NYU` | `New York University` | `NYU` | `Research Organization Registry (ROR)` | `0190ak572` |
 | `OEPS` | `Open Ephys Production Site` | `OEPS` | `Research Organization Registry (ROR)` | `007rkz355` |
 | `OLYMPUS` | `Olympus` | `None` | `Research Organization Registry (ROR)` | `02vcdte90` |
@@ -100,6 +112,7 @@ Organization
 | `OTHER` | `Other` | `None` | `None` | `None` |
 | `OXFORD_INSTRUMENTS` | `Oxford Instruments` | `None` | `Research Organization Registry (ROR)` | `01age2z78` |
 | `OXXIUS` | `Oxxius` | `None` | `None` | `None` |
+| `PEW_CHARITABLE_TRUSTS` | `Pew Charitable Trusts` | `None` | `Research Organization Registry (ROR)` | `02xhk2825` |
 | `PLACID_INDUSTRIES` | `Placid Industries` | `None` | `None` | `None` |
 | `PRIZMATIX` | `Prizmatix` | `None` | `None` | `None` |
 | `QUANTIFI` | `Quantifi` | `None` | `None` | `None` |
@@ -133,6 +146,8 @@ Organization
 | `UPENN` | `University of Pennsylvania` | `UPENN` | `Research Organization Registry (ROR)` | `00b30xv10` |
 | `VIEWORKS` | `Vieworks` | `None` | `None` | `None` |
 | `VORTRAN` | `Vortran` | `None` | `None` | `None` |
+| `WARREN_ALPERT_FOUNDATION` | `Warren Alpert Foundation` | `None` | `Research Organization Registry (ROR)` | `041ztcd61` |
 | `WPI` | `World Precision Intstruments` | `WPI` | `Research Organization Registry (ROR)` | `03st5df34` |
+| `W__M__KECK_FOUNDATION` | `W. M. Keck Foundation` | `None` | `Research Organization Registry (ROR)` | `000dswa46` |
 
 
