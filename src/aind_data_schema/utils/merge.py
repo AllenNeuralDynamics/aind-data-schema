@@ -71,9 +71,15 @@ def merge_str_tuple_lists(
 
 def remove_duplicates(lst: List[Any]) -> List[Any]:
     """Remove duplicates from a list while preserving order"""
-    seen = set()
-
-    output_list = [x for x in lst if not (x in seen or seen.add(x))]
+    try:
+        seen = set()
+        output_list = [x for x in lst if not (x in seen or seen.add(x))]
+    except TypeError:
+        # Unhashable elements (e.g. pydantic models): fall back to equality
+        output_list = []
+        for x in lst:
+            if x not in output_list:
+                output_list.append(x)
 
     if len(output_list) != len(lst):
         logger.info(f"Removed {len(lst) - len(output_list)} duplicates from list")
