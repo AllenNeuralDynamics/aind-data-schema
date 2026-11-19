@@ -50,11 +50,12 @@ class ValidatorInputMutationTests(unittest.TestCase):
         self.assert_input_unchanged(AuditoryStimulation, data)
 
     def test_add_units_if_needed(self):
-        """Test that default monitor units are not added to the input"""
-        data = monitor_dict()
-        del data["contrast_unit"]
-        del data["brightness_unit"]
-        self.assert_input_unchanged(Monitor, data)
+        """Test that each default monitor unit is not added to the input"""
+        for missing_unit in ["contrast_unit", "brightness_unit"]:
+            with self.subTest(missing_unit=missing_unit):
+                data = monitor_dict()
+                del data[missing_unit]
+                self.assert_input_unchanged(Monitor, data)
 
     def test_quality_control_backwards_compatibility(self):
         """Test that v2.2.X tags and default_grouping are not converted in the input"""
