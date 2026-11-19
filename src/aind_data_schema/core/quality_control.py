@@ -99,7 +99,7 @@ class QCMetric(DataModel):
         tags = self["tags"]
         if isinstance(tags, list):
             warnings.warn("QCMetric 'tags' field is now a dict. Converting from list to dict", DeprecationWarning)
-            self["tags"] = {f"tag_{i+1}": tag for i, tag in enumerate(tags)}
+            self = {**self, "tags": {f"tag_{i+1}": tag for i, tag in enumerate(tags)}}
         return self
 
 
@@ -308,7 +308,7 @@ class QualityControl(DataCoreModel):
             first_metric = value["metrics"][0]
             if isinstance(first_metric, dict) and "tags" in first_metric:
                 if isinstance(first_metric["tags"], list):
-                    value["default_grouping"] = [["modality"], ["tag_1"]]
+                    value = {**value, "default_grouping": [["modality"], ["tag_1"]]}
 
         return value
 
