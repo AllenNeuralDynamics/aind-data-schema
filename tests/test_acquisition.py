@@ -22,10 +22,12 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema.core.acquisition import (
     Acquisition,
     AcquisitionSubjectDetails,
     DataStream,
+    Manipulation,
     StimulusEpoch,
 )
 from aind_data_schema.components.connections import Connection
@@ -457,6 +459,43 @@ class AcquisitionTest(unittest.TestCase):
         combined_stream = stream1 + stream2
 
         self.assertEqual(len(combined_stream.connections), 2)
+
+    def test_datastream_add_preserves_code(self):
+        """Test that code from both DataStreams is kept when they are combined"""
+        acq = ephys_acquisition.model_copy()
+        stream1 = acq.data_streams[0].model_copy()
+        stream2 = acq.data_streams[0].model_copy()
+        code1 = Code(url="https://github.com/example/behavior", version="1.0.0")
+        code2 = Code(url="https://github.com/example/fip", version="2.0.0")
+
+        stream1.code = [code1]
+        stream2.code = [code2]
+        self.assertEqual((stream1 + stream2).code, [code1, code2])
+
+        stream2.code = None
+        self.assertEqual((stream1 + stream2).code, [code1])
+
+    def test_acquisition_add_preserves_manipulations(self):
+        """Test that manipulations from both Acquisitions are kept when they are combined"""
+        acq1 = exaspim_acquisition.model_copy()
+        acq2 = exaspim_acquisition.model_copy()
+        manipulation = Manipulation(start_time=acq1.acquisition_start_time, end_time=acq1.acquisition_end_time)
+
+        acq1.manipulations = [manipulation]
+        self.assertEqual((acq1 + acq2).manipulations, [manipulation])
+
+        acq2.manipulations = [manipulation]
+        self.assertEqual((acq1 + acq2).manipulations, [manipulation, manipulation])
+
+    def test_add_forwards_every_field(self):
+        """Test that __add__ passes every model field to the object it returns, so merging cannot drop data"""
+        # Fields __add__ may leave out: constants, and values that a validator fills in or migrates
+        exempt = {"object_type", "describedBy", "schema_version", "acquisition_start_tz", "coordinate_system"}
+        for model in (DataStream, Acquisition):
+            returned = inspect.getsource(model.__add__).split(f"return {model.__name__}(")[-1]
+            # leading space so e.g. "notes=" does not match inside "footnotes="
+            missing = [f for f in model.model_fields if f not in exempt and f" {f}=" not in returned]
+            self.assertEqual(missing, [], f"{model.__name__}.__add__ does not forward {missing}")
 
     def test_merge_data_stream_lists_single_streams(self):
         """Test merging lists with single streams"""

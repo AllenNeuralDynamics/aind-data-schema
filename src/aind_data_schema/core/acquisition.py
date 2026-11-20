@@ -254,6 +254,9 @@ class DataStream(DataModel):
         # Combine notes
         notes = merge_notes(self.notes, other.notes)
 
+        # Combine code
+        code = merge_optional_list(self.code, other.code)
+
         return DataStream(
             stream_start_time=min_start_time,
             stream_end_time=max_end_time,
@@ -261,6 +264,7 @@ class DataStream(DataModel):
             active_devices=active_devices,
             configurations=configurations,
             connections=connections,
+            code=code,
             notes=notes,
         )
 
@@ -622,6 +626,7 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
         regular_streams = [s for s in all_streams if isinstance(s, DataStream)]
         data_streams = Acquisition._merge_data_streams(regular_streams) + external_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
+        manipulations = self.manipulations + other.manipulations
 
         # Remove duplicates
         experimenters = remove_duplicates(experimenters)
@@ -652,5 +657,6 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
             notes=notes,
             data_streams=data_streams,
             stimulus_epochs=stimulus_epochs,
+            manipulations=manipulations,
             subject_details=self.subject_details if self.subject_details else other.subject_details,
         )
