@@ -159,7 +159,7 @@ class DataModel(BaseModel):
         """
         cls_object_type = cls._object_type_from_name()
         if values and "object_type" in values and values["object_type"] != cls_object_type:
-            values["object_type"] = cls_object_type
+            values = {**values, "object_type": cls_object_type}
         return values
 
     @classmethod

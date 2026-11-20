@@ -651,11 +651,11 @@ class Monitor(Device, DevicePosition):
 
         if "contrast" in data and data["contrast"] is not None and "contrast_unit" not in data:
             logger.warning("Adding default unit 'percent' for Monitor.contrast_unit")
-            data["contrast_unit"] = UnitlessUnit.PERCENT
+            data = {**data, "contrast_unit": UnitlessUnit.PERCENT}
 
         if "brightness" in data and data["brightness"] is not None and "brightness_unit" not in data:
             logger.warning("Adding default unit 'percent' for Monitor.brightness_unit")
-            data["brightness_unit"] = UnitlessUnit.PERCENT
+            data = {**data, "brightness_unit": UnitlessUnit.PERCENT}
 
         return data
 

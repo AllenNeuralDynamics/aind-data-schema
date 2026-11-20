@@ -141,5 +141,6 @@ class AuditoryStimulation(GenericModel):
     def correct_typo(cls, values):
         """Correct 'sitmulus_name' typo."""
         if "sitmulus_name" in values:
+            values = dict(values)
             values["stimulus_name"] = values.pop("sitmulus_name")
         return values
