@@ -228,10 +228,12 @@ def recursive_coord_system_check(data, coordinate_system_name: Optional[str], ax
     if not data:
         return
 
+    # The deprecated coordinate_system field is read from __dict__ rather than with getattr,
+    # because pydantic emits a DeprecationWarning on attribute access to deprecated fields.
     _cs = (
         getattr(data, "global_coordinate_system", None)
         or getattr(data, "local_coordinate_system", None)
-        or getattr(data, "coordinate_system", None)
+        or getattr(data, "__dict__", {}).get("coordinate_system")
     )
     if _cs:
         # If we find a coordinate system, allow it to over-write our settings

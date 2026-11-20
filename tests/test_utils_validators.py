@@ -1,17 +1,24 @@
 """Tests for compatibility check utilities"""
 
 import unittest
+import warnings
 from datetime import date, datetime, timezone, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Optional
 from unittest.mock import MagicMock, patch
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pydantic_extra_types.timezone_name import TimeZoneName
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
-from aind_data_schema.components.coordinates import Rotation, Scale, Translation
+from aind_data_schema.components.coordinates import (
+    CoordinateSystem,
+    CoordinateSystemLibrary,
+    Rotation,
+    Scale,
+    Translation,
+)
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.validators import (
     TimeValidation,
@@ -283,6 +290,37 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
         # Should pass validation - only the object with transforms is checked
         recursive_coord_system_check(container, self.coordinate_system_name, axis_count=2)
+
+    def test_no_deprecation_warning_without_coordinate_system(self):
+        """Test that a model without a coordinate system does not warn about the deprecated field"""
+
+        class ModelWithDeprecatedField(DataModel):
+            """Model with new and deprecated coordinate system fields, all unset"""
+
+            coordinate_system: Optional[CoordinateSystem] = Field(default=None, deprecated="Deprecated")
+            local_coordinate_system: Optional[CoordinateSystem] = Field(default=None)
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", DeprecationWarning)
+            recursive_coord_system_check(ModelWithDeprecatedField(), None, axis_count=0)
+
+    def test_deprecated_coordinate_system_still_used(self):
+        """Test that a coordinate system set only on the deprecated field is still picked up"""
+
+        class ModelWithDeprecatedField(DataModel):
+            """Model with only the deprecated coordinate system field set"""
+
+            coordinate_system: Optional[CoordinateSystem] = Field(default=None, deprecated="Deprecated")
+            coordinate_system_name: str
+            translation: Translation
+
+        data = ModelWithDeprecatedField(
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            coordinate_system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
+            translation=Translation(translation=[0.5, 1, 1]),
+        )
+        # The deprecated field's 3-axis system must override the mismatched name and axis count passed in
+        recursive_coord_system_check(data, "Other system", axis_count=2)
 
 
 class MockEnum(Enum):
