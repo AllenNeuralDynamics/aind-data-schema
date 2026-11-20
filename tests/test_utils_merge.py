@@ -164,6 +164,14 @@ class RemoveDuplicatesTests(unittest.TestCase):
 
         self.assertEqual(remove_duplicates([1, 1, 1, 1]), [1])
 
+    def test_unhashable_elements(self):
+        """Test dedup of unhashable elements via the equality fallback"""
+        from aind_data_schema.utils.merge import remove_duplicates
+
+        with self.assertLogs(level="INFO") as log:
+            self.assertEqual(remove_duplicates([[1], [1], [2]]), [[1], [2]])
+        self.assertIn("Removed 1 duplicates from list", log.output[0])
+
 
 class MergeOptionalListTests(unittest.TestCase):
     """Tests for merge_optional_list"""
